@@ -22,7 +22,7 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mariadb://localhost:3306/opengive
-        username: root
+        username: proxyuser
         password:
         hikari:
             data-source-properties:
@@ -40,7 +40,7 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.NoDefaultJCacheRegionFactory
-            
+
 #    data:
 #        elasticsearch:
 #            cluster-name:
@@ -55,7 +55,7 @@ spring:
                 path:
                   logs: target/elasticsearch/log
                   data: target/elasticsearch/data
-                  
+
     mail:
         host: localhost
         port: 25
