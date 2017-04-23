@@ -21,8 +21,8 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://127.0.0.1:3306/opengive?useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: proxyuser
+        url: jdbc:mysql://localhost:3306/ogd17-staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: ogd17-staging
         password:
         hikari:
             data-source-properties:
