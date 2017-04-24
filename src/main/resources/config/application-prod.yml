@@ -21,9 +21,9 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/ogd17-staging?useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: ogd17-staging
-        password:
+        url: $SPRING_DATASOURCE_URL || jdbc:mariadb://localhost:3306/opengive
+        username: $DB_USER || root
+        password: $DB_PASS
         hikari:
             data-source-properties:
                 cachePrepStmts: true
