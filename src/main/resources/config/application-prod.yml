@@ -23,7 +23,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: $SPRING_DATASOURCE_URL || jdbc:mariadb://localhost:3306/opengive
         username: $SPRING_DATASOURCE_USERNAME || root
-        password: $DB_PASS
+        password: $SPRING_DATASOURCE_PASSWORD ||
         hikari:
             data-source-properties:
                 cachePrepStmts: true
