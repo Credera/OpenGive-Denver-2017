@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: opengive-mariadb
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: opengive-mariadb
+    spec:
+      volumes:
+      - name: data
+        emptyDir: {}
+      containers:
+      - name: mariadb
+        image: mariadb:10.1.17
+        env:
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: 'yes'
+        - name: MYSQL_DATABASE
+          value: opengive
+#        command:
+#        - mysqld
+#        - --lower_case_table_names=1
+#        - --skip-ssl
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opengive-mariadb
+spec:
+  selector:
+    app: opengive-mariadb
+  ports:
+  - port: 3306

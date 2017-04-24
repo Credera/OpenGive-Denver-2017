@@ -1,0 +1,95 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: 2017-04-23T00:47:25Z
+  generation: 1
+  labels:
+    app: ogd17-staging
+    version: continuous-deployment
+  name: ogd17-staging
+  namespace: default
+  resourceVersion: "24482"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/ogd17-staging
+  uid: 6b1b92ac-27be-11e7-8c38-42010a800180
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ogd17-staging
+      version: continuous-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ogd17-staging
+        version: continuous-deployment
+      name: ogd17-staging
+    spec:
+      containers:
+      - image: kmcdonald/opengive-denver-2017:continuous-deployment
+        imagePullPolicy: Always
+        name: ogd17-staging
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://localhost:3306/ogd17-staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+        - name: SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES
+          value: opengive-elasticsearch.default.svc.cluster.local:9300
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: username
+        ports:
+        - containerPort: 8080
+        resources: {}
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+      - image: gcr.io/cloudsql-docker/gce-proxy:1.09
+        name: cloudsql-proxy
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=opengive-denver-2017:us-central1:ogd17=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql
+            mountPath: /cloudsql
+
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: cloudsql
+          emptyDir:
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  conditions:
+  - lastTransitionTime: 2017-04-23T00:47:25Z
+    lastUpdateTime: 2017-04-23T00:47:25Z
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 1
+  replicas: 1
+  unavailableReplicas: 1
+  updatedReplicas: 1
