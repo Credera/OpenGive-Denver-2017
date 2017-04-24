@@ -19,6 +19,7 @@ spec:
     matchLabels:
       app: ogd17-staging
       version: continuous-deployment
+  minReadySeconds: 5 # The bootup time of your application, Kubernetes waits specific time til the next pod creation. Kubernetes assume that your application is available once the pod created by default.
   strategy:
     rollingUpdate:
       maxSurge: 1 # Amount of pods more than the desired number of Pods
