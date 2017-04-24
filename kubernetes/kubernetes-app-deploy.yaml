@@ -44,7 +44,7 @@ spec:
           value: jdbc:mysql://localhost:3306/ogd17-staging?useUnicode=true&characterEncoding=utf8&useSSL=false
         - name: SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES
           value: opengive-elasticsearch.default.svc.cluster.local:9300
-        - name: DB_USER
+        - name: SPRING_DATASOURCE_USERNAME
           valueFrom:
             secretKeyRef:
               name: cloudsql-db-credentials
