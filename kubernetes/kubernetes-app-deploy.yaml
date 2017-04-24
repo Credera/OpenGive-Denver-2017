@@ -14,7 +14,7 @@ metadata:
   # selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/ogd17-staging
   # uid: 6b1b92ac-27be-11e7-8c38-42010a800180
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ogd17-staging
