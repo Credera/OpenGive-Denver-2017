@@ -2,7 +2,6 @@
 
 set -e
 
-bash -l /home/travis/google-cloud-sdk/bin/gcloud container clusters get-credentials staging-cluster --zone us-central1-a --project opengive-denver-2017 #TODO use env variables instead of hard-coding   # get credentials for kubectl from gcloud
 # # potential usage to convert to env variables - set values in global vars
 # gcloud --quiet config set project $PROJECT_NAME_PRD
 # gcloud --quiet config set container/cluster $CLUSTER_NAME_PRD
