@@ -34,7 +34,7 @@ spec:
       name: ogd17-staging
     spec:
       containers:
-      - image: kmcdonald/opengive-denver-2017:continuous-deployment
+      - image: kmcdonald/opengive-denver-2017:develop
         imagePullPolicy: Always
         name: ogd17-staging
         env:
