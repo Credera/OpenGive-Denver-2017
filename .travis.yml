@@ -24,6 +24,7 @@ env:
     - secure: "hwsx/WeudPvgdyo6wtB8ZyFoV5ATW806ejy5jnjwoTmCTZ266sFr0TduPaOsXIQe+7v4/aozOebw13aCQcrducBmHhRv0aYh2U9rUHiCQU21AYOq5KRD8FlYPt5ridw3qPGrXmbZnttkaqE+ig6eCdg9+cXLab61FWo+LOey+J+HJbHp2lSABA/l3cY35fs1DkzVQeOxqr/4s0VeHIPwRxQKSMl4aq/UeQkcUE6TXxA7nqU4GgMcHaTvvFqMqTaDuQVnI2mNmCBLBclzNBRnl6j7IFdEZgEtuxBEKiwbeZElgjYWQRUFfHpPE/01WJCCuKbG/FpQarLTzjKIqbWpyI580DKYZ9cqwddJOKOZXUIcFLqkzDkk5uRebl39co7IFc5ecOFSHF/2G8N5hBR7ZsdtKkh410Qt/ApWiUjYfIFLYfB8r31hfHB+1mey/mQL02p83bHKhZWTYH51ZWfPzT4z9hbX9e0kooed9jKOXJm40RAZ44LXNHbSR79yBkRFbXQa7rwVw3OvFIFJQ7VvmLPnfmL+FxH8SaBJWi+izDCaPAqByxCCCzrvdoQL5pNHsQh5At3w7WJtW8DjDABthF4+QdPwCO4vqZNFuiyfS4c419FPZHWpyNmPxZG4HcKl+YfeEyV9qI3zSKLcftBbLWvF6WkBxK2pcLY4QgCqVps=" # DOCKER_USER
     - secure: "YmC3UGh+yL/wdWEDSnjE9ZUyCxA4hawMRgEm6ihoQ0P7rE5IJkpdIbHuH7/517/EAfwHhSFBFPcIlb23gwUfq6r3f0Wj9f/OtC7DRQL+acT1stWeqzq3ihVyMsHQrIfbPW+BKWuvxz3dJfzqNAcuqlpA0jiypS4ynDgH1kSWVoguYNTzUxLagRAljYQpXdcEwmPK/GVDHwz4Pjqfea9iHrKmNaPmrFoYg1NDfG3VXa6pVb36pVvs8g0p1HB2tMYsT6dxKPCVN3fQJ4OnUzfGvtOk0jb0GKGaKFiSggcwr5BdDJSeu/YdtnPT9YWJyj+4ZYgnGMP9PvSQYFbsJgwg8qSWuiqUD5pTydiYyj58npDInd4J/oBMMHO42NW7hLaPz6DCxbTVCzG0xnNx5yHlR2WEMFxvG/JjiIHAWVfpjRXB1bazcsrtip89zglsUkUIVZ2RRvzp35oD+3xrFbHuR/ruUU6ZbWU+gI2wg//O44QwY9ef7uNWPTXPG0aDU/A1uxpbciHZ++3we64+36kjvnI3XYLxgu0zgjp/OUAXFHydgi28/h4MbOGyygQdYSLwTFfEsIrutjDZD6aeavzTXgkX5nM8jW40cdf10xP9sOGNNKuQ9LNLNejDG3JX6DY58TFsKR5CyuJqLYU4IO0mCPU0Zz9memrnvwrO15wesP0=" # DOCKER_PASS
     - COMMIT=${TRAVIS_COMMIT::8}
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1 # For gcloud commands
 before_install:
   - jdk_switcher use oraclejdk8
   - java -version
@@ -50,6 +51,8 @@ after_success:
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $REPO
+  - if [ true == true ]; then ./kubernetes/deploy-staging.sh; else pass ; fi
+  # - if [ "$TRAVIS_BRANCH" == "develop" ]; then ./kubernetes/deploy-staging.sh; else pass ; fi
 notifications:
   webhooks:
     on_success: change  # options: [always|never|change] default: always
