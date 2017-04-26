@@ -52,19 +52,9 @@ after_success:
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $REPO
-before_deploy:
-  - curl https://sdk.cloud.google.com | bash # fetch latest gcloud cli and install
-  - bash -l /home/travis/google-cloud-sdk/bin/gcloud version
-  - bash -l /home/travis/google-cloud-sdk/bin/gcloud components update kubectl # install kubectl cli
-  - bash -l /home/travis/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file /home/travis/build/Credera/OpenGive-Denver-2017/OpenGive-Denver-2017-a21ea468d39f.json # login to gcloud
-  - bash -l /home/travis/google-cloud-sdk/bin/gcloud container clusters get-credentials staging-cluster --zone us-central1-a --project opengive-denver-2017 #TODO use env variables instead of hard-coding   # get credentials for kubectl from gcloud
-deploy:
-  - provider: script
-    script: ./kubernetes/deploy-staging.sh
-    skip_cleanup: true
-    on:
-      branch: continuous-deployment
-      # branch: develop
+  - if [ "$TRAVIS_BRANCH" == "continuous-deployment" ]; then ./kubernetes/deploy-staging.sh; fi
+  # - if [ "$TRAVIS_BRANCH" == "develop" ]; then ./kubernetes/deploy-staging.sh; fi
+  # - if [ "$TRAVIS_BRANCH" == "master" ]; then ./kubernetes/deploy-prod.sh; fi
 notifications:
   webhooks:
     on_success: change  # options: [always|never|change] default: always
