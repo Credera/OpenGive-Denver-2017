@@ -12,11 +12,15 @@
     <include file="classpath:config/liquibase/changelog/20170412144656_added_entity_Milestone.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170412144657_added_entity_Achievement.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170412144658_added_entity_ItemLink.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/20170412144652_added_entity_constraints_Organization.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170412144654_added_entity_constraints_Portfolio.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170412144655_added_entity_constraints_Program.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170412144656_added_entity_constraints_Milestone.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170412144657_added_entity_constraints_Achievement.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170412144658_added_entity_constraints_ItemLink.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    
+    <include file="classpath:config/liquibase/changelog/99999999999999_test_data_load.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
+
+
+

@@ -90,7 +90,7 @@
                                  referencedTableName="user"/>
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
-                  separator=";"
+                  separator=","
                   tableName="user">
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
@@ -99,13 +99,14 @@
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/authorities.csv"
-                  separator=";"
+                  separator=","
                   tableName="authority"/>
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/users_authorities.csv"
-                  separator=";"
+                  separator=","
                   tableName="user_authority"/>
+                  
         <createTable tableName="persistent_audit_event">
             <column name="event_id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -252,7 +253,7 @@
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/oauth_client_details.csv"
-                  separator=";"
+                  separator=","
                   tableName="oauth_client_details"/>
     </changeSet>
 </databaseChangeLog>

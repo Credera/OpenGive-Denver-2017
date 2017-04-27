@@ -15,7 +15,7 @@
 
 entity Organization {
 	name String required minlength(3) maxlength(100),
-    description String minlength(10) maxlength(300)
+    description String minlength(10) maxlength(800)
 //    programs List<Program>
 //    users List<User>
 }
