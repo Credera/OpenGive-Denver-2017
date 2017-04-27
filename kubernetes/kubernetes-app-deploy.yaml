@@ -1,24 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  # annotations:
-  #   deployment.kubernetes.io/revision: "1"
-  # creationTimestamp: 2017-04-23T00:47:25Z
-  # generation: 1
   labels:
     app: ogd17-staging
-    version: continuous-deployment
+    version: develop
   name: ogd17-staging
   namespace: default
-  # resourceVersion: "24482"
-  # selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/ogd17-staging
-  # uid: 6b1b92ac-27be-11e7-8c38-42010a800180
 spec:
-  replicas: 2
+  replicas: 2 # Number of pods to deploy
   selector:
     matchLabels:
       app: ogd17-staging
-      version: continuous-deployment
+      version: develop
   minReadySeconds: 5 # The bootup time of your application, Kubernetes waits specific time til the next pod creation. Kubernetes assume that your application is available once the pod created by default.
   strategy:
     rollingUpdate:
@@ -27,10 +20,10 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
+      # creationTimestamp: null
       labels:
         app: ogd17-staging
-        version: continuous-deployment
+        version: develop
       name: ogd17-staging
     spec:
       containers:
@@ -42,6 +35,7 @@ spec:
           value: prod
         - name: SPRING_DATASOURCE_URL
           value: jdbc:mysql://localhost:3306/ogd17-staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+        # commented out to avoid overriding embedded ElasticSearch cluster - if heavy ElasticSearch required it is recommended to split out the cluster separtely
         # - name: SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES
         #   value: opengive-elasticsearch.default.svc.cluster.local:9300
         - name: SPRING_DATASOURCE_USERNAME
@@ -68,7 +62,6 @@ spec:
             mountPath: /etc/ssl/certs
           - name: cloudsql
             mountPath: /cloudsql
-
       volumes:
         - name: cloudsql-instance-credentials
           secret:
@@ -82,15 +75,3 @@ spec:
       restartPolicy: Always
       securityContext: {}
       terminationGracePeriodSeconds: 30
-# status:
-#   conditions:
-#   - lastTransitionTime: 2017-04-23T00:47:25Z
-#     lastUpdateTime: 2017-04-23T00:47:25Z
-#     message: Deployment has minimum availability.
-#     reason: MinimumReplicasAvailable
-#     status: "True"
-#     type: Available
-#   observedGeneration: 1
-#   replicas: 1
-#   unavailableReplicas: 1
-#   updatedReplicas: 1

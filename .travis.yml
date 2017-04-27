@@ -38,10 +38,10 @@ install:
   - yarn install
 script:
   - chmod +x gradlew
-  # - ./gradlew clean test
-  # - yarn test
+  - ./gradlew clean test
+  - yarn test
   - ./gradlew bootRepackage -Pprod -x test
-  # - ./gradlew deployHeroku
+  - ./gradlew deployHeroku
 after_success:
   - mkdir -p ./build/docker && cp ./src/main/docker/* ./build/docker && cp ./build/libs/* ./build/docker
   - cd ./build/docker/
@@ -52,8 +52,7 @@ after_success:
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $REPO
-  - if [ "$TRAVIS_BRANCH" == "continuous-deployment" ]; then /home/travis/build/Credera/OpenGive-Denver-2017/kubernetes/deploy-staging.sh; fi
-  # - if [ "$TRAVIS_BRANCH" == "develop" ]; then /home/travis/build/Credera/OpenGive-Denver-2017/kubernetes/deploy-staging.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then /home/travis/build/Credera/OpenGive-Denver-2017/kubernetes/deploy-staging.sh; fi
   # - if [ "$TRAVIS_BRANCH" == "master" ]; then /home/travis/build/Credera/OpenGive-Denver-2017/kubernetes/deploy-prod.sh; fi
 notifications:
   webhooks:

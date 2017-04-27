@@ -47,6 +47,7 @@ spring:
 #            cluster-nodes: localhost:9300
 
 #   Run elasticsearch embedded for now
+#   Eventually if ElasticSearch usage is heavy, then define an external cluster here and in the kubernetes-app-deploy.yaml
     data:
         elasticsearch:
             cluster-name:
