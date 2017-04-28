@@ -12,4 +12,4 @@ bash -l /home/travis/google-cloud-sdk/bin/gcloud container clusters get-credenti
 # gcloud --quiet config set container/cluster $CLUSTER_NAME_PRD
 # gcloud --quiet config set compute/zone ${CLOUDSDK_COMPUTE_ZONE}
 # gcloud --quiet container clusters get-credentials $CLUSTER_NAME_PRD
-/home/travis/google-cloud-sdk/bin/kubectl apply -f /home/travis/build/Credera/OpenGive-Denver-2017/kubernetes/kubernetes-app-deploy.yaml # trigger redeployment of Kubernetes Deployment
+/home/travis/google-cloud-sdk/bin/kubectl apply -f /home/travis/build/Credera/OpenGive-Denver-2017/src/main/resources/config/kubernetes/kubernetes-app-deploy.yaml # trigger redeployment of Kubernetes Deployment
