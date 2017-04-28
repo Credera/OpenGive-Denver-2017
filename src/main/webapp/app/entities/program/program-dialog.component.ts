@@ -10,6 +10,7 @@ import { ProgramPopupService } from './program-popup.service';
 import { ProgramService } from './program.service';
 import { Organization, OrganizationService } from '../organization';
 import { User, UserService } from '../../shared';
+import { Role } from '../../app.constants';
 
 @Component({
     selector: 'jhi-program-dialog',
@@ -38,7 +39,7 @@ export class ProgramDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [Role.User, Role.Admin];
         this.organizationService.query().subscribe(
             (res: Response) => { this.organizations = res.json(); }, (res: Response) => this.onError(res.json()));
         this.userService.query().subscribe(

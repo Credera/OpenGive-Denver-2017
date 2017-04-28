@@ -9,6 +9,7 @@ import { Portfolio } from './portfolio.model';
 import { PortfolioPopupService } from './portfolio-popup.service';
 import { PortfolioService } from './portfolio.service';
 import { User, UserService } from '../../shared';
+import { Role } from '../../app.constants';
 
 @Component({
     selector: 'jhi-portfolio-dialog',
@@ -34,7 +35,7 @@ export class PortfolioDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [Role.User, Role.Admin];
         this.userService.query().subscribe(
             (res: Response) => { this.users = res.json(); }, (res: Response) => this.onError(res.json()));
     }

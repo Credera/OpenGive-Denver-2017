@@ -8,6 +8,7 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Organization } from './organization.model';
 import { OrganizationPopupService } from './organization-popup.service';
 import { OrganizationService } from './organization.service';
+import { Role } from '../../app.constants';
 
 @Component({
     selector: 'jhi-organization-dialog',
@@ -30,7 +31,7 @@ export class OrganizationDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [Role.User, Role.Admin];
     }
     clear() {
         this.activeModal.dismiss('cancel');

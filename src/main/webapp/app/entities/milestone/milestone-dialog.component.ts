@@ -9,6 +9,7 @@ import { Milestone } from './milestone.model';
 import { MilestonePopupService } from './milestone-popup.service';
 import { MilestoneService } from './milestone.service';
 import { Program, ProgramService } from '../program';
+import { Role } from '../../app.constants';
 
 @Component({
     selector: 'jhi-milestone-dialog',
@@ -34,7 +35,7 @@ export class MilestoneDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [Role.User, Role.Admin];
         this.programService.query().subscribe(
             (res: Response) => { this.programs = res.json(); }, (res: Response) => this.onError(res.json()));
     }

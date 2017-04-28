@@ -10,6 +10,7 @@ import { ItemLinkPopupService } from './item-link-popup.service';
 import { ItemLinkService } from './item-link.service';
 import { Portfolio, PortfolioService } from '../portfolio';
 import { Program, ProgramService } from '../program';
+import { Role } from '../../app.constants';
 
 @Component({
     selector: 'jhi-item-link-dialog',
@@ -38,7 +39,7 @@ export class ItemLinkDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [Role.User, Role.Admin];
         this.portfolioService.query().subscribe(
             (res: Response) => { this.portfolios = res.json(); }, (res: Response) => this.onError(res.json()));
         this.programService.query().subscribe(

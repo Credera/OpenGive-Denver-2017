@@ -8,6 +8,7 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Address } from './address.model';
 import { AddressPopupService } from './address-popup.service';
 import { AddressService } from './address.service';
+import { Role } from '../../app.constants';
 
 @Component({
     selector: 'jhi-address-dialog',
@@ -30,7 +31,7 @@ export class AddressDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [Role.User, Role.Admin];
     }
     clear() {
         this.activeModal.dismiss('cancel');

@@ -5,3 +5,9 @@ let _DEBUG_INFO_ENABLED = true; // This value will be overwritten by webpack
 /* @toreplace DEBUG_INFO_ENABLED */
 export const VERSION = _VERSION;
 export const DEBUG_INFO_ENABLED = _DEBUG_INFO_ENABLED;
+
+export const Role = {
+    Admin: 'ROLE_ADMIN',
+    User: 'ROLE_USER',
+    Student: 'ROLE_STUDENT'
+}
