@@ -1,0 +1,77 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: ogd17-staging
+    version: develop
+  name: ogd17-staging
+  namespace: default
+spec:
+  replicas: 3 # Number of pods to deploy
+  selector:
+    matchLabels:
+      app: ogd17-staging
+      version: develop
+  minReadySeconds: 5 # The bootup time of your application, Kubernetes waits specific time til the next pod creation. Kubernetes assume that your application is available once the pod created by default.
+  strategy:
+    rollingUpdate:
+      maxSurge: 1 # Amount of pods more than the desired number of Pods
+      maxUnavailable: 1 # Amount of pods that can be unavailable during the update process
+    type: RollingUpdate
+  template:
+    metadata:
+      # creationTimestamp: null
+      labels:
+        app: ogd17-staging
+        version: develop
+      name: ogd17-staging
+    spec:
+      containers:
+      - image: kmcdonald/opengive-denver-2017:develop
+        imagePullPolicy: Always
+        name: ogd17-staging
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://localhost:3306/ogd17-staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+        # commented out to avoid overriding embedded ElasticSearch cluster - if heavy ElasticSearch required it is recommended to split out the cluster separtely
+        # - name: SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES
+        #   value: opengive-elasticsearch.default.svc.cluster.local:9300
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: username
+        ports:
+        - containerPort: 8080
+        resources: {}
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+      - image: gcr.io/cloudsql-docker/gce-proxy:1.09
+        name: cloudsql-proxy
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=opengive-denver-2017:us-central1:ogd17=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql
+            mountPath: /cloudsql
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: cloudsql
+          emptyDir:
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

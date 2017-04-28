@@ -26,7 +26,7 @@
                         </span>
                         <b class="caret"></b>
                     </span>
-                </a>
+                </a> 
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="organization" (click)="collapseNavbar()">
@@ -157,8 +157,8 @@
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                   <span *ngIf="!getImageUrl()">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <span jhiTranslate="global.menu.account.main">
-                      Account
+                    <span>
+                      {{userName}}
                     </span>
                     <b class="caret"></b>
                   </span>

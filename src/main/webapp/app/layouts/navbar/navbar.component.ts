@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
+    userName: string; 
 
     constructor(
         private loginService: LoginService,
@@ -42,6 +43,11 @@ export class NavbarComponent implements OnInit {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
+        
+        this.userName = 'Account';
+        this.principal.getAuthenticationState().subscribe(i => {
+            this.userName = i && i.firstName || 'Account';
+        })
 
         this.profileService.getProfileInfo().subscribe((profileInfo) => {
             this.inProduction = profileInfo.inProduction;

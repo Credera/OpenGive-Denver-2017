@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: opengive
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: opengive
+    spec:
+      containers:
+      - name: opengive-app
+        image: kmcdonald/opengive
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mariadb://opengive-mariadb.default.svc.cluster.local:3306/opengive
+        - name: SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES
+          value: opengive-elasticsearch.default.svc.cluster.local:9300
+        ports:
+        - containerPort: 8080
