@@ -37,23 +37,25 @@ before_install:
 install:
   - yarn install
 script:
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
   - chmod +x gradlew
   - ./gradlew clean test
   - yarn test
   - ./gradlew bootRepackage -Pprod -x test
-  - ./gradlew deployHeroku
+  - if [ "$BRANCH" == "develop" ]; then ./gradlew deployHeroku; fi
 after_success:
   - mkdir -p ./build/docker && cp ./src/main/docker/* ./build/docker && cp ./build/libs/* ./build/docker
   - cd ./build/docker/
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=kmcdonald/opengive-denver-2017
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - export TAG=`if [ "$BRANCH" == "master" ]; then echo "latest"; else echo $BRANCH ; fi`
   - docker build -f ./Dockerfile -t $REPO:$COMMIT ./
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $REPO
-  - if [ "$TRAVIS_BRANCH" == "develop" ]; then /home/travis/build/Credera/OpenGive-Denver-2017/kubernetes/deploy-staging.sh; fi
-  # - if [ "$TRAVIS_BRANCH" == "master" ]; then /home/travis/build/Credera/OpenGive-Denver-2017/kubernetes/deploy-prod.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then /home/travis/build/Credera/OpenGive-Denver-2017/src/main/resources/config/kubernetes/deploy-staging.sh; fi
+  # - if [ "$TRAVIS_BRANCH" == "master" ]; then /home/travis/build/Credera/OpenGive-Denver-2017/src/main/resources/config/kubernetes/deploy-prod.sh; fi
 notifications:
   webhooks:
     on_success: change  # options: [always|never|change] default: always

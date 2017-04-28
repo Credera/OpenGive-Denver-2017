@@ -21,9 +21,9 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: $SPRING_DATASOURCE_URL || jdbc:mariadb://localhost:3306/opengive
-        username: $SPRING_DATASOURCE_USERNAME || root
-        password: # $SPRING_DATASOURCE_PASSWORD ||  ## TODO: Figure out why this sets an empty password rather than not sending a password at all. Add in ability to set password via env variable OR completely empty password for "No password" DB login
+        url: jdbc:mariadb://localhost:3306/opengive
+        username: root
+        password: 
         hikari:
             data-source-properties:
                 cachePrepStmts: true
