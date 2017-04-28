@@ -25,6 +25,37 @@
 <!--             <column name="X" type="boolean"/> -->
 <!--             <column name="Y" type="timestamp"/> -->
         </loadData>
-        
+    </changeSet>
+    <changeSet id="99999999999999-2" author="kwheeler">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/program.csv"
+                  separator=","
+                  tableName="program">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/milestone.csv"
+                  separator=","
+                  tableName="milestone">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/achievement.csv"
+                  separator=","
+                  tableName="achievement">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/address.csv"
+                  separator=","
+                  tableName="address">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/portfolio.csv"
+                  separator=","
+                  tableName="portfolio">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/item_link.csv"
+                  separator=","
+                  tableName="item_link">
+        </loadData>
     </changeSet>
 </databaseChangeLog>
