@@ -6,7 +6,8 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { ProfileService } from '../profiles/profile.service'; // FIXME barrel doesn't work here
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
 
-import { VERSION, DEBUG_INFO_ENABLED } from '../../app.constants';
+import { VERSION, DEBUG_INFO_ENABLED, Role } from '../../app.constants';
+
 
 @Component({
     selector: 'jhi-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
     modalRef: NgbModalRef;
     version: string;
     userName: string; 
+    role = Role;
 
     constructor(
         private loginService: LoginService,

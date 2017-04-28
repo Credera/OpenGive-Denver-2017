@@ -10,13 +10,14 @@ import { AddressPopupComponent } from './address-dialog.component';
 import { AddressDeletePopupComponent } from './address-delete-dialog.component';
 
 import { Principal } from '../../shared';
+import { Role } from '../../app.constants';
 
 export const addressRoute: Routes = [
   {
     path: 'address',
     component: AddressComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.address.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -24,7 +25,7 @@ export const addressRoute: Routes = [
     path: 'address/:id',
     component: AddressDetailComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.address.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -36,7 +37,7 @@ export const addressPopupRoute: Routes = [
     path: 'address-new',
     component: AddressPopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.address.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -46,7 +47,7 @@ export const addressPopupRoute: Routes = [
     path: 'address/:id/edit',
     component: AddressPopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.address.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -56,7 +57,7 @@ export const addressPopupRoute: Routes = [
     path: 'address/:id/delete',
     component: AddressDeletePopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.address.home.title'
     },
     canActivate: [UserRouteAccessService],

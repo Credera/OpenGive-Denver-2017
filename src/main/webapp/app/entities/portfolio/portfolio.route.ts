@@ -10,13 +10,14 @@ import { PortfolioPopupComponent } from './portfolio-dialog.component';
 import { PortfolioDeletePopupComponent } from './portfolio-delete-dialog.component';
 
 import { Principal } from '../../shared';
+import { Role } from '../../app.constants';
 
 export const portfolioRoute: Routes = [
   {
     path: 'portfolio',
     component: PortfolioComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -24,7 +25,7 @@ export const portfolioRoute: Routes = [
     path: 'portfolio/:id',
     component: PortfolioDetailComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -36,7 +37,7 @@ export const portfolioPopupRoute: Routes = [
     path: 'portfolio-new',
     component: PortfolioPopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -46,7 +47,7 @@ export const portfolioPopupRoute: Routes = [
     path: 'portfolio/:id/edit',
     component: PortfolioPopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -56,7 +57,7 @@ export const portfolioPopupRoute: Routes = [
     path: 'portfolio/:id/delete',
     component: PortfolioDeletePopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService],

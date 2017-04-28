@@ -12,6 +12,7 @@ import {
 } from './';
 
 import { UserRouteAccessService } from '../shared';
+import { Role } from "../app.constants";
 
 const ADMIN_ROUTES = [
     auditsRoute,
@@ -26,7 +27,7 @@ const ADMIN_ROUTES = [
 export const adminState: Routes = [{
     path: '',
     data: {
-        authorities: ['ROLE_ADMIN']
+        authorities: [Role.Admin]
     },
     canActivate: [UserRouteAccessService],
     children: ADMIN_ROUTES

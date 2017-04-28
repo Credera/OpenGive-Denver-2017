@@ -6,6 +6,7 @@ import { EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { UserModalService } from './user-modal.service';
 import { JhiLanguageHelper, User, UserService } from '../../shared';
+import { Role } from '../../app.constants'
 
 @Component({
     selector: 'jhi-user-mgmt-dialog',
@@ -28,7 +29,7 @@ export class UserMgmtDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [Role.User, Role.Admin];
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });

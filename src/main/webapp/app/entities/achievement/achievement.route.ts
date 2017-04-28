@@ -8,6 +8,7 @@ import { AchievementComponent } from './achievement.component';
 import { AchievementDetailComponent } from './achievement-detail.component';
 import { AchievementPopupComponent } from './achievement-dialog.component';
 import { AchievementDeletePopupComponent } from './achievement-delete-dialog.component';
+import { Role } from '../../app.constants';
 
 import { Principal } from '../../shared';
 
@@ -16,7 +17,7 @@ export const achievementRoute: Routes = [
     path: 'achievement',
     component: AchievementComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -24,7 +25,7 @@ export const achievementRoute: Routes = [
     path: 'achievement/:id',
     component: AchievementDetailComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -36,7 +37,7 @@ export const achievementPopupRoute: Routes = [
     path: 'achievement-new',
     component: AchievementPopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -46,7 +47,7 @@ export const achievementPopupRoute: Routes = [
     path: 'achievement/:id/edit',
     component: AchievementPopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -56,7 +57,7 @@ export const achievementPopupRoute: Routes = [
     path: 'achievement/:id/delete',
     component: AchievementDeletePopupComponent,
     data: {
-        authorities: ['ROLE_USER'],
+        authorities: [Role.User],
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService],
