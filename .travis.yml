@@ -41,7 +41,7 @@ script:
   - ./gradlew clean test
   - yarn test
   - ./gradlew bootRepackage -Pprod -x test
-  - ./gradlew deployHeroku
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then ./gradlew deployHeroku; fi
 after_success:
   - mkdir -p ./build/docker && cp ./src/main/docker/* ./build/docker && cp ./build/libs/* ./build/docker
   - cd ./build/docker/
