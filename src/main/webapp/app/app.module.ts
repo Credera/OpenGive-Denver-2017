@@ -23,7 +23,6 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-import { AchievmentsComponent } from './achievments/achievments.component';
 
 @NgModule({
     imports: [
@@ -42,8 +41,7 @@ import { AchievmentsComponent } from './achievments/achievments.component';
         ErrorComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent,
-        AchievmentsComponent
+        FooterComponent
     ],
     providers: [
         ProfileService,
