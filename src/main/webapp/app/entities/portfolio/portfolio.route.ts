@@ -21,46 +21,38 @@ export const portfolioRoute: Routes = [
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService]
-  }, {
-    path: 'portfolio/:id',
-    component: PortfolioDetailComponent,
-    data: {
-        authorities: [Role.User],
-        pageTitle: 'opengiveApp.portfolio.home.title'
-    },
-    canActivate: [UserRouteAccessService]
   }
 ];
 
-export const portfolioPopupRoute: Routes = [
-  {
-    path: 'portfolio-new',
-    component: PortfolioPopupComponent,
-    data: {
-        authorities: [Role.User],
-        pageTitle: 'opengiveApp.portfolio.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'portfolio/:id/edit',
-    component: PortfolioPopupComponent,
-    data: {
-        authorities: [Role.User],
-        pageTitle: 'opengiveApp.portfolio.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'portfolio/:id/delete',
-    component: PortfolioDeletePopupComponent,
-    data: {
-        authorities: [Role.User],
-        pageTitle: 'opengiveApp.portfolio.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
-];
+// export const portfolioPopupRoute: Routes = [
+//   {
+//     path: 'portfolio-new',
+//     component: PortfolioPopupComponent,
+//     data: {
+//         authorities: [Role.User],
+//         pageTitle: 'opengiveApp.portfolio.home.title'
+//     },
+//     canActivate: [UserRouteAccessService],
+//     outlet: 'popup'
+//   },
+//   {
+//     path: 'portfolio/:id/edit',
+//     component: PortfolioPopupComponent,
+//     data: {
+//         authorities: [Role.User],
+//         pageTitle: 'opengiveApp.portfolio.home.title'
+//     },
+//     canActivate: [UserRouteAccessService],
+//     outlet: 'popup'
+//   },
+//   {
+//     path: 'portfolio/:id/delete',
+//     component: PortfolioDeletePopupComponent,
+//     data: {
+//         authorities: [Role.User],
+//         pageTitle: 'opengiveApp.portfolio.home.title'
+//     },
+//     canActivate: [UserRouteAccessService],
+//     outlet: 'popup'
+//   }
+// ];
