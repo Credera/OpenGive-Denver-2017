@@ -7,7 +7,7 @@ export class PasswordResetInit {
 
     constructor(private http: Http) {}
 
-    save(mail: string): Observable<any> {
-        return this.http.post('api/account/reset_password/init', mail);
+    save(login: string): Observable<any> {
+        return this.http.post('api/account/reset_password/init', login);
     }
 }
