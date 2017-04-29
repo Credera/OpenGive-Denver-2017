@@ -36,17 +36,5 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
-        <createTable tableName="session_program">
-            <column name="program_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="sessions_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="sessions_id, program_id" tableName="session_program"/>
-        
     </changeSet>
 </databaseChangeLog>

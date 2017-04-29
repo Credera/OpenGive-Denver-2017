@@ -14,11 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="school"/>
                                  
-        <addForeignKeyConstraint baseColumnNames="program_id"
-                                 baseTableName="session_program"
-                                 constraintName="fk_session_program_program_id"
+        <addForeignKeyConstraint baseColumnNames="session_id"
+                                 baseTableName="program"
+                                 constraintName="fk_session_program_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="program"/>
+                                 referencedTableName="session"/>
 
     </changeSet>
 </databaseChangeLog>

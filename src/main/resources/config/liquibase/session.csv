@@ -1,0 +1,5 @@
+id,name,active,organization_id
+1,Winter 2016,TRUE,1
+2,Summer 2015,FALSE,2
+3,Ongoing,TRUE,1
+4,Summer 2017,FALSE,3

@@ -22,15 +22,30 @@
                   file="config/liquibase/organizations.csv"
                   separator=","
                   tableName="organization">
-<!--             <column name="X" type="boolean"/> -->
 <!--             <column name="Y" type="timestamp"/> -->
         </loadData>
-    </changeSet>
-    <changeSet id="99999999999999-2" author="kwheeler">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/schools.csv"
+                  separator=","
+                  tableName="school">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/session.csv"
+                  separator=","
+                  tableName="session">
+                  <column name="active" type="boolean"/>
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/program.csv"
+                  separator=","
+                  tableName="program">
+                  <column name="active" type="boolean"/>
+        </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/course.csv"
                   separator=","
                   tableName="course">
+	    		<column name="active" type="boolean"/>
         </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/milestone.csv"
