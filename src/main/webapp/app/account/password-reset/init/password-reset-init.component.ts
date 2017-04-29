@@ -10,6 +10,7 @@ import { PasswordResetInit } from './password-reset-init.service';
 export class PasswordResetInitComponent implements OnInit, AfterViewInit {
     error: string;
     errorEmailNotExists: string;
+    notRegistered: string;
     resetAccount: any;
     success: string;
 
@@ -33,15 +34,21 @@ export class PasswordResetInitComponent implements OnInit, AfterViewInit {
     requestReset() {
         this.error = null;
         this.errorEmailNotExists = null;
+        this.notRegistered = null;
 
-        this.passwordResetInit.save(this.resetAccount.email).subscribe(() => {
+        this.passwordResetInit.save(this.resetAccount.email).subscribe((response) => {
+            if (response._body === 'No email; contact an administrator') {
+                this.errorEmailNotExists = 'ERROR';
+                this.error = 'ERROR';
+
+            } else {
             this.success = 'OK';
+            }
         }, (response) => {
             this.success = null;
-            if (response.status === 400 && response._body === 'username address not registered') {
-                this.errorEmailNotExists = 'ERROR';
-            } else {
-                this.error = 'ERROR';
+            this.error = 'ERROR';
+            if (response.status === 400 && response._body === 'login not registered') {
+                this.notRegistered = 'ERROR';
             }
         });
     }
