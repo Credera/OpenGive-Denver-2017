@@ -45,10 +45,10 @@
                     <td>
                         <span class="badge badge-danger hand"
                               (click)="setActive(user, true)"
-                              *ngIf="!user.activated">Deactivated</span>
+                              *ngIf="!user.activated">Inactivate</span>
                         <span class="badge badge-success hand"
                               (click)="setActive(user, false)"
-                              *ngIf="user.activated">Activated</span>
+                              *ngIf="user.activated">Active</span>
                     </td>
                     <td>
                         <div *ngFor="let authority of user.authorities">
