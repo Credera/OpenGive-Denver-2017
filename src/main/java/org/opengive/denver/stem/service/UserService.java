@@ -26,6 +26,8 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Strings;
+
 /**
  * Service class for managing users.
  */
@@ -85,12 +87,14 @@ public class UserService {
            });
     }
 
-    public Optional<User> requestPasswordReset(String mail) {
-        return userRepository.findOneByEmail(mail)
+    public Optional<User> requestPasswordReset(String login) {
+        return userRepository.findOneByLogin(login)
             .filter(User::getActivated)
             .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(ZonedDateTime.now());
+                if (!Strings.isNullOrEmpty(user.getEmail())) {
+                    user.setResetKey(RandomUtil.generateResetKey());
+                    user.setResetDate(ZonedDateTime.now());
+                }
                 return user;
             });
     }
