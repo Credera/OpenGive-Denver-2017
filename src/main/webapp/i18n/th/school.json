@@ -1,0 +1,25 @@
+{
+    "opengiveApp": {
+        "school" : {
+            "home": {
+                "title": "Schools",
+                "createLabel": "สร้าง School",
+                "createOrEditLabel": "สร้างหรือแก้ไข School",
+                "search": "ค้นหา School"
+            },
+            "created": "School ถูกสร้างด้วย {{ param }}",
+            "updated": "School ถูกแก้ไขด้วย {{ param }}",
+            "deleted": "School ถูกลบด้วย {{ param }}",
+            "delete": {
+                "question": "คุณต้องการที่จะลบ School {{ id }}?"
+            },
+            "detail": {
+                "title": "School"
+            },
+            "name": "Name",
+            "district": "District",
+            "address": "Address",
+            "program": "Program"
+        }
+    }
+}

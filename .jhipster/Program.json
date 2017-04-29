@@ -2,36 +2,15 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "organization",
-            "otherEntityName": "organization",
+            "relationshipName": "school",
+            "otherEntityName": "school",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         },
         {
-            "relationshipType": "one-to-one",
-            "relationshipValidateRules": "required",
-            "relationshipName": "instructor",
-            "otherEntityName": "user",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "program"
-        },
-        {
+            "relationshipName": "course",
+            "otherEntityName": "course",
             "relationshipType": "one-to-many",
-            "relationshipName": "resources",
-            "otherEntityName": "itemLink",
-            "otherEntityRelationshipName": "program"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "students",
-            "otherEntityName": "user",
-            "otherEntityRelationshipName": "user"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "milestones",
-            "otherEntityName": "milestone",
             "otherEntityRelationshipName": "program"
         }
     ],
@@ -44,31 +23,22 @@
                 "minlength",
                 "maxlength"
             ],
-            "fieldValidateRulesMinlength": 3,
-            "fieldValidateRulesMaxlength": 100
+            "fieldValidateRulesMinlength": "5",
+            "fieldValidateRulesMaxlength": "50"
         },
         {
             "fieldName": "description",
             "fieldType": "String",
-            "fieldValidateRules": [
-                "minlength",
-                "maxlength"
-            ],
-            "fieldValidateRulesMinlength": 5,
-            "fieldValidateRulesMaxlength": 200
+            "fieldValidateRules": []
         },
         {
-            "fieldName": "startDate",
-            "fieldType": "ZonedDateTime"
-        },
-        {
-            "fieldName": "endDate",
-            "fieldType": "ZonedDateTime"
+            "fieldName": "active",
+            "fieldType": "Boolean"
         }
     ],
-    "changelogDate": "20170412144655",
-    "entityTableName": "program",
+    "changelogDate": "20170429213338",
     "dto": "no",
-    "pagination": "infinite-scroll",
-    "service": "serviceClass"
+    "service": "serviceClass",
+    "entityTableName": "program",
+    "pagination": "no"
 }

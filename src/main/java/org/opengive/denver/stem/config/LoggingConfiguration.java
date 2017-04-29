@@ -77,7 +77,7 @@ public class LoggingConfiguration {
     /**
      * Logback configuration is achieved by configuration file and API.
      * When configuration file change is detected, the configuration is reset.
-     * This listener ensures that the programmatic configuration is also re-applied after reset.
+     * This listener ensures that the coursematic configuration is also re-applied after reset.
      */
     class LogbackLoggerContextListener extends ContextAwareBase implements LoggerContextListener {
 

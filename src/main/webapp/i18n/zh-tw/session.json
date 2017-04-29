@@ -1,0 +1,25 @@
+{
+    "opengiveApp": {
+        "session" : {
+            "home": {
+                "title": "Sessions",
+                "createLabel": "建立一筆新的 Session",
+                "createOrEditLabel": "建立或編輯 Session",
+                "search": "搜尋 Session"
+            },
+            "created": "新的 Session 建立成功，識別碼為 {{ param }}",
+            "updated": "識別碼為 {{ param }} 的 Session 更新成功",
+            "deleted": "識別碼為 {{ param }} 的 Session 刪除成功",
+            "delete": {
+                "question": "您確定要刪除 Session {{ id }} 嗎?"
+            },
+            "detail": {
+                "title": "Session"
+            },
+            "name": "Name",
+            "active": "Active",
+            "manytomany": "Manytomany",
+            "organization": "Organization"
+        }
+    }
+}

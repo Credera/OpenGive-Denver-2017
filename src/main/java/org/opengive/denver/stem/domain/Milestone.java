@@ -33,7 +33,7 @@ public class Milestone implements Serializable {
     private String name;
 
     @ManyToOne
-    private Program program;
+    private Course course;
 
     @OneToMany(mappedBy = "milestone")
     @JsonIgnore
@@ -61,17 +61,17 @@ public class Milestone implements Serializable {
         this.name = name;
     }
 
-    public Program getProgram() {
-        return program;
+    public Course getCourse() {
+        return course;
     }
 
-    public Milestone program(Program program) {
-        this.program = program;
+    public Milestone course(Course course) {
+        this.course = course;
         return this;
     }
 
-    public void setProgram(Program program) {
-        this.program = program;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Set<Achievement> getAchievements() {

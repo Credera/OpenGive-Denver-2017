@@ -14,11 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="portfolio"/>
 
-        <addForeignKeyConstraint baseColumnNames="program_id"
+        <addForeignKeyConstraint baseColumnNames="course_id"
                                  baseTableName="item_link"
-                                 constraintName="fk_item_link_program_id"
+                                 constraintName="fk_item_link_course_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="program"/>
+                                 referencedTableName="course"/>
 
     </changeSet>
 </databaseChangeLog>

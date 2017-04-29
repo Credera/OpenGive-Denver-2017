@@ -8,8 +8,8 @@
             "otherEntityField": "id"
         },
         {
-            "relationshipName": "program",
-            "otherEntityName": "program",
+            "relationshipName": "course",
+            "otherEntityName": "course",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
         }

@@ -12,23 +12,15 @@
         <dd>
             <span>{{program.description}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.program.startDate">Start Date</span></dt>
+        <dt><span jhiTranslate="opengiveApp.program.active">Active</span></dt>
         <dd>
-            <span>{{program.startDate | date:'medium'}}</span>
+            <span>{{program.active}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.program.endDate">End Date</span></dt>
+        <dt><span jhiTranslate="opengiveApp.program.school">School</span></dt>
         <dd>
-            <span>{{program.endDate | date:'medium'}}</span>
-        </dd>
-        <dt><span jhiTranslate="opengiveApp.program.organization">Organization</span></dt>
-        <dd>
-            <div *ngIf="program.organization">
-                <a [routerLink]="['/organization', program.organization?.id]">{{program.organization?.id}}</a>
+            <div *ngIf="program.school">
+                <a [routerLink]="['/school', program.school?.id]">{{program.school?.name}}</a>
             </div>
-        </dd>
-        <dt><span jhiTranslate="opengiveApp.program.instructor">Instructor</span></dt>
-        <dd>
-            {{program.instructor?.id}}
         </dd>
     </dl>
 

@@ -1,0 +1,25 @@
+{
+    "opengiveApp": {
+        "school" : {
+            "home": {
+                "title": "Schools",
+                "createLabel": "Genera un nuovo School",
+                "createOrEditLabel": "Genera o modifica un School",
+                "search": "Cerca School"
+            },
+            "created": "&Egrave; stato generato un nuovo School con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato School identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato School con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare School {{ id }}?"
+            },
+            "detail": {
+                "title": "School"
+            },
+            "name": "Name",
+            "district": "District",
+            "address": "Address",
+            "program": "Program"
+        }
+    }
+}

@@ -35,7 +35,7 @@
             <th jhiSortBy="thumbnailImageUrl"><span jhiTranslate="opengiveApp.itemLink.thumbnailImageUrl">Thumbnail Image Url</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="itemUrl"><span jhiTranslate="opengiveApp.itemLink.itemUrl">Item Url</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="portfolio.id"><span jhiTranslate="opengiveApp.itemLink.portfolio">Portfolio</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="program.id"><span jhiTranslate="opengiveApp.itemLink.program">Program</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="course.id"><span jhiTranslate="opengiveApp.itemLink.course">Course</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -52,8 +52,8 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="itemLink.program">
-                        <a [routerLink]="['../program', itemLink.program?.id ]" >{{itemLink.program?.id}}</a>
+                    <div *ngIf="itemLink.course">
+                        <a [routerLink]="['../course', itemLink.course?.id ]" >{{itemLink.course?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

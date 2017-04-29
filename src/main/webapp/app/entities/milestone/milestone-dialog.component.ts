@@ -8,7 +8,7 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Milestone } from './milestone.model';
 import { MilestonePopupService } from './milestone-popup.service';
 import { MilestoneService } from './milestone.service';
-import { Program, ProgramService } from '../program';
+import { Course, CourseService } from '../course';
 import { Role } from '../../app.constants';
 
 @Component({
@@ -21,13 +21,13 @@ export class MilestoneDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
-    programs: Program[];
+    courses: Course[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private milestoneService: MilestoneService,
-        private programService: ProgramService,
+        private courseService: CourseService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['milestone']);
@@ -36,8 +36,8 @@ export class MilestoneDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = [Role.User, Role.Admin];
-        this.programService.query().subscribe(
-            (res: Response) => { this.programs = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.courseService.query().subscribe(
+            (res: Response) => { this.courses = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -76,7 +76,7 @@ export class MilestoneDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackProgramById(index: number, item: Program) {
+    trackCourseById(index: number, item: Course) {
         return item.id;
     }
 }

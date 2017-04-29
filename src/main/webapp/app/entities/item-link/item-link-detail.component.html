@@ -26,10 +26,10 @@
                 <a [routerLink]="['/portfolio', itemLink.portfolio?.id]">{{itemLink.portfolio?.id}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.itemLink.program">Program</span></dt>
+        <dt><span jhiTranslate="opengiveApp.itemLink.course">Course</span></dt>
         <dd>
-            <div *ngIf="itemLink.program">
-                <a [routerLink]="['/program', itemLink.program?.id]">{{itemLink.program?.id}}</a>
+            <div *ngIf="itemLink.course">
+                <a [routerLink]="['/course', itemLink.course?.id]">{{itemLink.course?.id}}</a>
             </div>
         </dd>
     </dl>

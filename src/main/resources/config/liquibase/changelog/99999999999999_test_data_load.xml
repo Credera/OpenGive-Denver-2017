@@ -28,9 +28,9 @@
     </changeSet>
     <changeSet id="99999999999999-2" author="kwheeler">
         <loadData encoding="UTF-8"
-                  file="config/liquibase/program.csv"
+                  file="config/liquibase/course.csv"
                   separator=","
-                  tableName="program">
+                  tableName="course">
         </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/milestone.csv"

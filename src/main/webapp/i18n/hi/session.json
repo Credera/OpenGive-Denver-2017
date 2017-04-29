@@ -1,0 +1,25 @@
+{
+    "opengiveApp": {
+        "session" : {
+            "home": {
+                "title": "Sessions",
+                "createLabel": "नया Session बनाएँ",
+                "createOrEditLabel": "Session बनाएँ या संपादित करें",
+                "search": "Session खोजें"
+            },
+            "created": "एक नया Session [identifier: {{ param }}] तैयार है",
+            "updated": "एक Session [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Session [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Session [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Session"
+            },
+            "name": "Name",
+            "active": "Active",
+            "manytomany": "Manytomany",
+            "organization": "Organization"
+        }
+    }
+}

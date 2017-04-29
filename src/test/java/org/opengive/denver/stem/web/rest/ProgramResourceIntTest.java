@@ -1,9 +1,8 @@
 package org.opengive.denver.stem.web.rest;
 
-import org.opengive.denver.stem.OpenGiveApplication;
+import org.opengive.denver.stem.OpengiveApp;
 
 import org.opengive.denver.stem.domain.Program;
-import org.opengive.denver.stem.domain.User;
 import org.opengive.denver.stem.repository.ProgramRepository;
 import org.opengive.denver.stem.service.ProgramService;
 import org.opengive.denver.stem.repository.search.ProgramSearchRepository;
@@ -24,13 +23,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
 import java.util.List;
 
-import static org.opengive.denver.stem.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -42,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ProgramResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = OpenGiveApplication.class)
+@SpringBootTest(classes = OpengiveApp.class)
 public class ProgramResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
@@ -51,11 +45,8 @@ public class ProgramResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_START_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_START_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-
-    private static final ZonedDateTime DEFAULT_END_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_END_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Boolean DEFAULT_ACTIVE = false;
+    private static final Boolean UPDATED_ACTIVE = true;
 
     @Autowired
     private ProgramRepository programRepository;
@@ -102,13 +93,7 @@ public class ProgramResourceIntTest {
         Program program = new Program()
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
-            .startDate(DEFAULT_START_DATE)
-            .endDate(DEFAULT_END_DATE);
-        // Add required entity
-        User instructor = UserResourceIntTest.createEntity(em);
-        em.persist(instructor);
-        em.flush();
-        program.setInstructor(instructor);
+            .active(DEFAULT_ACTIVE);
         return program;
     }
 
@@ -135,8 +120,7 @@ public class ProgramResourceIntTest {
         Program testProgram = programList.get(programList.size() - 1);
         assertThat(testProgram.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProgram.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testProgram.getStartDate()).isEqualTo(DEFAULT_START_DATE);
-        assertThat(testProgram.getEndDate()).isEqualTo(DEFAULT_END_DATE);
+        assertThat(testProgram.isActive()).isEqualTo(DEFAULT_ACTIVE);
 
         // Validate the Program in Elasticsearch
         Program programEs = programSearchRepository.findOne(testProgram.getId());
@@ -193,8 +177,7 @@ public class ProgramResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(program.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].startDate").value(hasItem(sameInstant(DEFAULT_START_DATE))))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(sameInstant(DEFAULT_END_DATE))));
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
     }
 
     @Test
@@ -210,8 +193,7 @@ public class ProgramResourceIntTest {
             .andExpect(jsonPath("$.id").value(program.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.startDate").value(sameInstant(DEFAULT_START_DATE)))
-            .andExpect(jsonPath("$.endDate").value(sameInstant(DEFAULT_END_DATE)));
+            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -235,8 +217,7 @@ public class ProgramResourceIntTest {
         updatedProgram
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .startDate(UPDATED_START_DATE)
-            .endDate(UPDATED_END_DATE);
+            .active(UPDATED_ACTIVE);
 
         restProgramMockMvc.perform(put("/api/programs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -249,8 +230,7 @@ public class ProgramResourceIntTest {
         Program testProgram = programList.get(programList.size() - 1);
         assertThat(testProgram.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProgram.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testProgram.getStartDate()).isEqualTo(UPDATED_START_DATE);
-        assertThat(testProgram.getEndDate()).isEqualTo(UPDATED_END_DATE);
+        assertThat(testProgram.isActive()).isEqualTo(UPDATED_ACTIVE);
 
         // Validate the Program in Elasticsearch
         Program programEs = programSearchRepository.findOne(testProgram.getId());
@@ -310,8 +290,7 @@ public class ProgramResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(program.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].startDate").value(hasItem(sameInstant(DEFAULT_START_DATE))))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(sameInstant(DEFAULT_END_DATE))));
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
     }
 
     @Test

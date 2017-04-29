@@ -1,0 +1,25 @@
+{
+    "opengiveApp": {
+        "session" : {
+            "home": {
+                "title": "Sessions",
+                "createLabel": "สร้าง Session",
+                "createOrEditLabel": "สร้างหรือแก้ไข Session",
+                "search": "ค้นหา Session"
+            },
+            "created": "Session ถูกสร้างด้วย {{ param }}",
+            "updated": "Session ถูกแก้ไขด้วย {{ param }}",
+            "deleted": "Session ถูกลบด้วย {{ param }}",
+            "delete": {
+                "question": "คุณต้องการที่จะลบ Session {{ id }}?"
+            },
+            "detail": {
+                "title": "Session"
+            },
+            "name": "Name",
+            "active": "Active",
+            "manytomany": "Manytomany",
+            "organization": "Organization"
+        }
+    }
+}

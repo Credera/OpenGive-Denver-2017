@@ -10,10 +10,13 @@
                 "organization": "Organization",
                 "address": "Address",
                 "portfolio": "Portfolio",
-                "program": "Program",
+                "course": "Course",
                 "milestone": "Milestone",
                 "achievement": "Achievement",
                 "itemLink": "Item Link",
+                "session": "Session",
+                "program": "Program",
+                "school": "School",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -26,7 +26,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="program_id" type="bigint">
+            <column name="course_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

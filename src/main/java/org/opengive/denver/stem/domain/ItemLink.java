@@ -47,7 +47,7 @@ public class ItemLink implements Serializable {
     private Portfolio portfolio;
 
     @ManyToOne
-    private Program program;
+    private Course course;
 
     public Long getId() {
         return id;
@@ -122,17 +122,17 @@ public class ItemLink implements Serializable {
         this.portfolio = portfolio;
     }
 
-    public Program getProgram() {
-        return program;
+    public Course getCourse() {
+        return course;
     }
 
-    public ItemLink program(Program program) {
-        this.program = program;
+    public ItemLink course(Course course) {
+        this.course = course;
         return this;
     }
 
-    public void setProgram(Program program) {
-        this.program = program;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     @Override

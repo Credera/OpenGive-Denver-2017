@@ -34,10 +34,10 @@
         </div>
 
         <div class="form-group">
-            <label jhiTranslate="opengiveApp.milestone.program" for="field_program">Program</label>
-            <select class="form-control" id="field_program" name="program" [(ngModel)]="milestone.program" >
+            <label jhiTranslate="opengiveApp.milestone.course" for="field_course">Course</label>
+            <select class="form-control" id="field_course" name="course" [(ngModel)]="milestone.course" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="programOption.id === milestone.program?.id ? milestone.program : programOption" *ngFor="let programOption of programs; trackBy: trackProgramById">{{programOption.id}}</option>
+                <option [ngValue]="courseOption.id === milestone.course?.id ? milestone.course : courseOption" *ngFor="let courseOption of courses; trackBy: trackCourseById">{{courseOption.id}}</option>
             </select>
         </div>
     </div>
