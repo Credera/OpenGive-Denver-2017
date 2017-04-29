@@ -18,7 +18,6 @@ import { Role } from '../../app.constants';
 export class MilestoneDialogComponent implements OnInit {
 
     milestone: Milestone;
-    authorities: any[];
     isSaving: boolean;
 
     programs: Program[];
@@ -35,7 +34,6 @@ export class MilestoneDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
         this.programService.query().subscribe(
             (res: Response) => { this.programs = res.json(); }, (res: Response) => this.onError(res.json()));
     }

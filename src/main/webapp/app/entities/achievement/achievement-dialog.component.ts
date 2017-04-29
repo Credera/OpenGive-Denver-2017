@@ -18,7 +18,6 @@ import { Role } from '../../app.constants';
 export class AchievementDialogComponent implements OnInit {
 
     achievement: Achievement;
-    authorities: any[];
     isSaving: boolean;
 
     milestones: Milestone[];
@@ -35,7 +34,6 @@ export class AchievementDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
         this.milestoneService.query().subscribe(
             (res: Response) => { this.milestones = res.json(); }, (res: Response) => this.onError(res.json()));
     }

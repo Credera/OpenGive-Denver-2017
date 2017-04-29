@@ -17,7 +17,7 @@ export const milestoneRoute: Routes = [
     path: 'milestone',
     component: MilestoneComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.milestone.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +25,7 @@ export const milestoneRoute: Routes = [
     path: 'milestone/:id',
     component: MilestoneDetailComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.milestone.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +37,7 @@ export const milestonePopupRoute: Routes = [
     path: 'milestone-new',
     component: MilestonePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.milestone.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +47,7 @@ export const milestonePopupRoute: Routes = [
     path: 'milestone/:id/edit',
     component: MilestonePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.milestone.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +57,7 @@ export const milestonePopupRoute: Routes = [
     path: 'milestone/:id/delete',
     component: MilestoneDeletePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.milestone.home.title'
     },
     canActivate: [UserRouteAccessService],

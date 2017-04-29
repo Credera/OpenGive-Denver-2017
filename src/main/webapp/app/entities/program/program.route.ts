@@ -17,7 +17,7 @@ export const programRoute: Routes = [
     path: 'program',
     component: ProgramComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +25,7 @@ export const programRoute: Routes = [
     path: 'program/:id',
     component: ProgramDetailComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +37,7 @@ export const programPopupRoute: Routes = [
     path: 'program-new',
     component: ProgramPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +47,7 @@ export const programPopupRoute: Routes = [
     path: 'program/:id/edit',
     component: ProgramPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +57,7 @@ export const programPopupRoute: Routes = [
     path: 'program/:id/delete',
     component: ProgramDeletePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService],

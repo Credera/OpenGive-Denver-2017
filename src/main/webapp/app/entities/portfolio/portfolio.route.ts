@@ -17,7 +17,7 @@ export const portfolioRoute: Routes = [
     path: 'portfolio',
     component: PortfolioComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +25,7 @@ export const portfolioRoute: Routes = [
     path: 'portfolio/:id',
     component: PortfolioDetailComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +37,7 @@ export const portfolioPopupRoute: Routes = [
     path: 'portfolio-new',
     component: PortfolioPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +47,7 @@ export const portfolioPopupRoute: Routes = [
     path: 'portfolio/:id/edit',
     component: PortfolioPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +57,7 @@ export const portfolioPopupRoute: Routes = [
     path: 'portfolio/:id/delete',
     component: PortfolioDeletePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService],

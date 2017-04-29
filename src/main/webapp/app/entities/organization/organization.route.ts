@@ -17,7 +17,7 @@ export const organizationRoute: Routes = [
     path: 'organization',
     component: OrganizationComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.organization.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +25,7 @@ export const organizationRoute: Routes = [
     path: 'organization/:id',
     component: OrganizationDetailComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.organization.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +37,7 @@ export const organizationPopupRoute: Routes = [
     path: 'organization-new',
     component: OrganizationPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.organization.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +47,7 @@ export const organizationPopupRoute: Routes = [
     path: 'organization/:id/edit',
     component: OrganizationPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.organization.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +57,7 @@ export const organizationPopupRoute: Routes = [
     path: 'organization/:id/delete',
     component: OrganizationDeletePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.organization.home.title'
     },
     canActivate: [UserRouteAccessService],
