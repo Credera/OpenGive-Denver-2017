@@ -13,9 +13,9 @@ import org.opengive.denver.stem.service.dto.UserDTO;
  */
 public class ManagedUserVM extends UserDTO {
 
-	public static final int PASSWORD_MIN_LENGTH = 4;
+	public static final int PASSWORD_MIN_LENGTH = 6;
 
-	public static final int PASSWORD_MAX_LENGTH = 100;
+	public static final int PASSWORD_MAX_LENGTH = 50;
 
 	@Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
 	private String password;

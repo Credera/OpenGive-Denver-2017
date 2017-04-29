@@ -16,13 +16,20 @@ import org.opengive.denver.stem.domain.User;
 /**
  * A DTO representing a user, with his authorities.
  */
-public class UserDTO {
+public class UserDTO
+{
 
-	private Long id;
+    private Long id;
 
-	@Pattern(regexp = Constants.LOGIN_REGEX)
-	@Size(min = 1, max = 100)
-	private String login;
+    @Pattern(regexp = Constants.LOGIN_REGEX)
+    @Size(min = 1, max = 100)
+    private String login;
+
+    @Size(max = 50)
+    private String firstName;
+
+    @Size(max = 50)
+    private String lastName;
 
 	@Size(max = 50)
 	private String firstName;
