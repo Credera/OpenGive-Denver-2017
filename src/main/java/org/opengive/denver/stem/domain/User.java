@@ -102,6 +102,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@Column(name = "reset_date")
 	private ZonedDateTime resetDate = null;
 
+    @NotNull
+    @Column(name = "is_14_plus", nullable = false)
+	private boolean is14Plus;
+
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
@@ -233,7 +237,17 @@ public class User extends AbstractAuditingEntity implements Serializable {
 		this.authorities = authorities;
 	}
 
-	@Override
+    public boolean getIs14Plus()
+    {
+        return is14Plus;
+    }
+
+    public void setIs14Plus(boolean is14Plus)
+    {
+        this.is14Plus = is14Plus;
+    }
+
+    @Override
 	public boolean equals(final Object o) {
 		if (this == o)
 			return true;

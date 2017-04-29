@@ -48,6 +48,7 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
+            <column name="is_14_plus" type="boolean"/>
         </createTable>
         <createIndex indexName="idx_user_login"
             tableName="user"
@@ -106,7 +107,7 @@
                   file="config/liquibase/users_authorities.csv"
                   separator=","
                   tableName="user_authority"/>
-                  
+
         <createTable tableName="persistent_audit_event">
             <column name="event_id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
