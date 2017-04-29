@@ -13,6 +13,7 @@ import { UserModalService } from './user-modal.service';
 export class UserMgmtDeleteDialogComponent {
 
     user: User;
+    show14: boolean;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -39,7 +40,7 @@ export class UserMgmtDeleteDialogComponent {
 
 @Component({
     selector: 'jhi-user-delete-dialog',
-    template: ''
+    template: '<div></div>'
 })
 export class UserDeleteDialogComponent implements OnInit, OnDestroy {
 

@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { UserModalService } from './user-modal.service';
-import { JhiLanguageHelper, User, UserService, StudentUserRegisterModel } from '../../shared';
+import { JhiLanguageHelper, User, UserService } from '../../shared';
 import { Role } from '../../app.constants'
 
 @Component({
@@ -14,11 +14,12 @@ import { Role } from '../../app.constants'
 })
 export class UserMgmtDialogComponent implements OnInit {
 
-    user: StudentUserRegisterModel;
+    user: User;
     confirmPassword: string;
     isSaving: Boolean;
     doPasswordsMatch = true;
     formType: string;
+    hide14: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -34,6 +35,8 @@ export class UserMgmtDialogComponent implements OnInit {
         this.formType = this.user.id == null
             ? 'Create'
             : 'Edit';
+
+        this.hide14 = this.user.authorities.every(a => a !== Role.Student);
     }
 
     clear() {

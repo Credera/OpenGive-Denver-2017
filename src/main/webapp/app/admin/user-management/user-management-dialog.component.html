@@ -16,11 +16,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <!--<div class="form-group">
-            <label jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" name="id"
-                   [(ngModel)]="user.id" readonly>
-        </div>-->
+
         <div class="form-group">
             <label class="form-control-label"
                    jhiTranslate="userManagement.firstName">First Name</label>
@@ -37,6 +33,10 @@
                        jhiTranslate="entity.validation.maxlength"
                        translate-value-max="50">
                     This field cannot be longer than 50 characters.
+                </small>
+                <small class="form-text text-danger"
+                       *ngIf="firstNameInput.errors.required">
+                    This field is required.
                 </small>
             </div>
         </div>
@@ -56,6 +56,42 @@
                        translate-value-max="50">
                     This field cannot be longer than 50 characters.
                 </small>
+                <small class="form-text text-danger"
+                       *ngIf="lastNameInput.errors.required">
+                    This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group"
+             *ngIf="user.is14Plus">
+            <label class="form-control-label">Email</label>
+            <input type="email"
+                   class="form-control"
+                   name="email"
+                   #emailInput="ngModel"
+                   [(ngModel)]="user.email"
+                   required
+                   maxlength="100">
+
+            <div *ngIf="emailInput.dirty && emailInput.invalid">
+                <small class="form-text text-danger"
+                       *ngIf="emailInput.errors.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+
+                <small class="form-text text-danger"
+                       *ngIf="emailInput.errors.maxlength"
+                       jhiTranslate="entity.validation.maxlength"
+                       translate-value-max="100">
+                    This field cannot be longer than 100 characters.
+                </small>
+                <small class="form-text text-danger"
+                       *ngIf="emailInput.errors.email"
+                       jhiTranslate="global.messages.validate.email.invalid">
+                    Your email is invalid.
+                 </small>
             </div>
         </div>
 
@@ -156,7 +192,8 @@
             The password and its confirmation do not match!
         </div>
 
-        <div class="form-check">
+        <div class="form-check"
+             *ngIf="!hide14">
             <label class="form-check-label"
                    for="is14Plus">
                 <input class="form-check-input" type="checkbox" id="is14Plus" name="is14Plus" [(ngModel)]="user.is14Plus">
