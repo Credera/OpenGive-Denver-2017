@@ -159,7 +159,8 @@ public class UserResourceIntTest {
 				null,
 				null,
 				null,
-				authorities);
+				authorities,
+                true);
 
 		restUserMockMvc.perform(post("/api/users")
 				.contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -201,7 +202,8 @@ public class UserResourceIntTest {
 				null,
 				null,
 				null,
-				authorities);
+				authorities,
+                true);
 
 		// An entity with an existing ID cannot be created, so this API call must fail
 		restUserMockMvc.perform(post("/api/users")
@@ -240,7 +242,8 @@ public class UserResourceIntTest {
 				null,
 				null,
 				null,
-				authorities);
+				authorities,
+                true);
 
 		// Create the User
 		restUserMockMvc.perform(post("/api/users")
@@ -279,7 +282,8 @@ public class UserResourceIntTest {
 				null,
 				null,
 				null,
-				authorities);
+				authorities,
+                true);
 
 		// Create the User
 		restUserMockMvc.perform(post("/api/users")
@@ -367,7 +371,8 @@ public class UserResourceIntTest {
 				updatedUser.getCreatedDate(),
 				updatedUser.getLastModifiedBy(),
 				updatedUser.getLastModifiedDate(),
-				authorities);
+				authorities,
+                true);
 
 		restUserMockMvc.perform(put("/api/users")
 				.contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -414,7 +419,8 @@ public class UserResourceIntTest {
 				updatedUser.getCreatedDate(),
 				updatedUser.getLastModifiedBy(),
 				updatedUser.getLastModifiedDate(),
-				authorities);
+				authorities,
+                true);
 
 		restUserMockMvc.perform(put("/api/users")
 				.contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -473,7 +479,8 @@ public class UserResourceIntTest {
 				updatedUser.getCreatedDate(),
 				updatedUser.getLastModifiedBy(),
 				updatedUser.getLastModifiedDate(),
-				authorities);
+				authorities,
+                true);
 
 		restUserMockMvc.perform(put("/api/users")
 				.contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -521,7 +528,8 @@ public class UserResourceIntTest {
 				updatedUser.getCreatedDate(),
 				updatedUser.getLastModifiedBy(),
 				updatedUser.getLastModifiedDate(),
-				authorities);
+				authorities,
+                true);
 
 		restUserMockMvc.perform(put("/api/users")
 				.contentType(TestUtil.APPLICATION_JSON_UTF8)
