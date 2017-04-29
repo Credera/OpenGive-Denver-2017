@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-import { User } from './user.model';
+import { User, StudentUserRegisterModel } from './user.model';
 
 @Injectable()
 export class UserService {
@@ -10,11 +10,11 @@ export class UserService {
 
     constructor(private http: Http) { }
 
-    create(user: User): Observable<Response> {
+    create(user: StudentUserRegisterModel): Observable<Response> {
         return this.http.post(this.resourceUrl, user);
     }
 
-    update(user: User): Observable<Response> {
+    update(user: StudentUserRegisterModel): Observable<Response> {
         return this.http.put(this.resourceUrl, user);
     }
 
