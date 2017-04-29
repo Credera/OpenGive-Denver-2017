@@ -5,7 +5,8 @@ import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { UserModalService } from './user-modal.service';
-import { JhiLanguageHelper, User, UserService } from '../../shared';
+import { JhiLanguageHelper, User, UserService, StudentUserRegisterModel } from '../../shared';
+import { Role } from '../../app.constants'
 
 @Component({
     selector: 'jhi-user-mgmt-dialog',
@@ -13,9 +14,10 @@ import { JhiLanguageHelper, User, UserService } from '../../shared';
 })
 export class UserMgmtDialogComponent implements OnInit {
 
-    user: User;
-    languages: any[];
+    user: StudentUserRegisterModel;
+    confirmPassword: string;
     isSaving: Boolean;
+    doPasswordsMatch = true;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -27,9 +29,6 @@ export class UserMgmtDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.languageHelper.getAll().then((languages) => {
-            this.languages = languages;
-        });
         this.jhiLanguageService.setLocations(['user-management']);
     }
 
@@ -39,10 +38,22 @@ export class UserMgmtDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+
+        if (this.user.password !== this.confirmPassword)
+            return;
+
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
         } else {
             this.userService.create(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
+        }
+    }
+
+    changePassword() {
+        if (this.user.password !== this.confirmPassword) {
+            this.doPasswordsMatch = false;
+        } else {
+            this.doPasswordsMatch = true;
         }
     }
 

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
 
@@ -7,10 +8,12 @@ import { AuthServerProvider } from '../auth/auth-oauth2.service';
 @Injectable()
 export class LoginService {
 
+
     constructor(
         private languageService: JhiLanguageService,
         private principal: Principal,
-        private authServerProvider: AuthServerProvider
+        private authServerProvider: AuthServerProvider,
+        private router: Router
     ) {}
 
     login(credentials, callback?) {
@@ -25,12 +28,15 @@ export class LoginService {
                         this.languageService.changeLanguage(account.langKey);
                     }
                     resolve(data);
+                    this.router.navigate(['/portfolio']);
                 });
                 return cb();
             }, (err) => {
                 this.logout();
                 reject(err);
                 return cb(err);
+                
+                
             });
         });
     }
@@ -38,5 +44,12 @@ export class LoginService {
     logout() {
         this.authServerProvider.logout().subscribe();
         this.principal.authenticate(null);
+       /* this.failureCount ++;
+        if (this.failureCount > 2) {
+            this.isOverLimit = true;
+        }*/
+
+        
+        
     }
 }

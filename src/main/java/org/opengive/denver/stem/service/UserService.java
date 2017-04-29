@@ -1,16 +1,21 @@
 package org.opengive.denver.stem.service;
 
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.opengive.denver.stem.config.Constants;
 import org.opengive.denver.stem.domain.Authority;
 import org.opengive.denver.stem.domain.User;
 import org.opengive.denver.stem.repository.AuthorityRepository;
-import org.opengive.denver.stem.config.Constants;
 import org.opengive.denver.stem.repository.UserRepository;
 import org.opengive.denver.stem.repository.search.UserSearchRepository;
 import org.opengive.denver.stem.security.AuthoritiesConstants;
 import org.opengive.denver.stem.security.SecurityUtils;
-import org.opengive.denver.stem.service.util.RandomUtil;
 import org.opengive.denver.stem.service.dto.UserDTO;
-
+import org.opengive.denver.stem.service.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -21,8 +26,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZonedDateTime;
-import java.util.*;
+import com.google.common.base.Strings;
 
 /**
  * Service class for managing users.
@@ -83,12 +87,14 @@ public class UserService {
            });
     }
 
-    public Optional<User> requestPasswordReset(String mail) {
-        return userRepository.findOneByEmail(mail)
+    public Optional<User> requestPasswordReset(String login) {
+        return userRepository.findOneByLogin(login)
             .filter(User::getActivated)
             .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(ZonedDateTime.now());
+                if (!Strings.isNullOrEmpty(user.getEmail())) {
+                    user.setResetKey(RandomUtil.generateResetKey());
+                    user.setResetDate(ZonedDateTime.now());
+                }
                 return user;
             });
     }
@@ -133,12 +139,20 @@ public class UserService {
             user.setLangKey(userDTO.getLangKey());
         }
         if (userDTO.getAuthorities() != null) {
+
             Set<Authority> authorities = new HashSet<>();
             userDTO.getAuthorities().forEach(
                 authority -> authorities.add(authorityRepository.findOne(authority))
             );
             user.setAuthorities(authorities);
         }
+        else
+        {
+            Set<Authority> authorities = new HashSet<>();
+            authorities.add(authorityRepository.findOne(AuthoritiesConstants.STUDENT));
+            user.setAuthorities(authorities);
+        }
+
         String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
