@@ -28,6 +28,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     role: any;
+    translateRole: (string) => string;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -50,6 +51,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         });
         this.jhiLanguageService.setLocations(['user-management']);
         this.role = Role;
+        this.translateRole = userService.translateRole;
     }
 
     ngOnInit() {

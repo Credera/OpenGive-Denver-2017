@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { ItemLinkComponent } from './item-link.component';
 import { ItemLinkDetailComponent } from './item-link-detail.component';
 import { ItemLinkPopupComponent } from './item-link-dialog.component';
-import { ItemLinkDeletePopupComponent } from './item-link-delete-dialog.component';
+import { ItemLinkDeactivatePopupComponent } from './item-link-deactivate-dialog.component';
 import { Role } from '../../app.constants';
 
 import { Principal } from '../../shared';
@@ -54,8 +54,8 @@ export const itemLinkPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'item-link/:id/delete',
-    component: ItemLinkDeletePopupComponent,
+    path: 'item-link/:id/deactivate',
+    component: ItemLinkDeactivatePopupComponent,
     data: {
         authorities: [Role.User],
         pageTitle: 'opengiveApp.itemLink.home.title'

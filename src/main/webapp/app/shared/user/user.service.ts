@@ -11,7 +11,7 @@ export class UserService {
 
     constructor(private http: Http) { }
 
-    translateRole(roleKey) : string {
+    translateRole(roleKey: string) : string {
         switch (roleKey) {
             case Role.Admin:
                 return 'Administrator'
@@ -55,7 +55,7 @@ export class UserService {
         return this.http.get(this.resourceUrl, options);
     }
 
-    delete(login: string): Observable<Response> {
+    deactivate(login: string): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${login}`);
     }
 }

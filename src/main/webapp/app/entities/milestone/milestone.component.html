@@ -60,11 +60,11 @@
                             <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'milestone/'+ milestone.id + '/delete'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'milestone/'+ milestone.id + '/deactivate'} }]"
                                 replaceUrl="true"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.deactivate">Deactivate</span>
                         </button>
                     </div>
                 </td>
