@@ -1,5 +1,6 @@
 package org.opengive.denver.stem.service;
 
+import org.elasticsearch.common.Strings;
 import org.opengive.denver.stem.domain.Authority;
 import org.opengive.denver.stem.domain.User;
 import org.opengive.denver.stem.repository.AuthorityRepository;
@@ -83,12 +84,14 @@ public class UserService {
            });
     }
 
-    public Optional<User> requestPasswordReset(String mail) {
-        return userRepository.findOneByEmail(mail)
+    public Optional<User> requestPasswordReset(String login) {
+        return userRepository.findOneByLogin(login)
             .filter(User::getActivated)
             .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(ZonedDateTime.now());
+                if (!Strings.isNullOrEmpty(user.getEmail())) {
+                    user.setResetKey(RandomUtil.generateResetKey());
+                    user.setResetDate(ZonedDateTime.now());
+                }
                 return user;
             });
     }
