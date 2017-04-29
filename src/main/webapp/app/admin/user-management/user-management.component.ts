@@ -113,7 +113,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         }
     }
 
-    transition() {
+    transition() : void {
         this.router.navigate(['/user-management'], { queryParams:
                 {
                     page: this.page,

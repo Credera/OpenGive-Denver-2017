@@ -20,6 +20,7 @@ export class UserMgmtDialogComponent implements OnInit {
     doPasswordsMatch = true;
     formType: string;
     hide14: boolean;
+    showPassword: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -32,6 +33,7 @@ export class UserMgmtDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.jhiLanguageService.setLocations(['user-management']);
+        this.showPassword = this.user.id == null;
         this.formType = this.user.id == null
             ? 'Create '
             : 'Edit ';
