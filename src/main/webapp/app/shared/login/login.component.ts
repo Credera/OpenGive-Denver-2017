@@ -5,7 +5,7 @@ import { JhiLanguageService, EventManager } from 'ng-jhipster';
 
 import { LoginService } from './login.service';
 import { StateStorageService } from '../auth/state-storage.service';
-import { SocialService } from '../social/social.service';
+import { SocialService } from '../social/social.service'; 
 
 @Component({
     selector: 'jhi-login-modal',

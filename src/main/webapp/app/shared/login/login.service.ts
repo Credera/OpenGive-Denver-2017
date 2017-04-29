@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
 
@@ -10,7 +11,8 @@ export class LoginService {
     constructor(
         private languageService: JhiLanguageService,
         private principal: Principal,
-        private authServerProvider: AuthServerProvider
+        private authServerProvider: AuthServerProvider,
+        private router: Router
     ) {}
 
     login(credentials, callback?) {
@@ -25,12 +27,14 @@ export class LoginService {
                         this.languageService.changeLanguage(account.langKey);
                     }
                     resolve(data);
+                    this.router.navigate(['/portfolio']);
                 });
                 return cb();
             }, (err) => {
                 this.logout();
                 reject(err);
                 return cb(err);
+                
             });
         });
     }
