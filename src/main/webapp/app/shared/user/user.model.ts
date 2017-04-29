@@ -12,6 +12,8 @@ export class User {
     public lastModifiedBy?: string;
     public lastModifiedDate?: Date;
     public password?: string;
+    public is14Plus: Boolean;
+
     constructor(
         id?: any,
         login?: string,
@@ -41,4 +43,13 @@ export class User {
         this.lastModifiedDate = lastModifiedDate ? lastModifiedDate : null;
         this.password = password ? password : null;
     }
+}
+
+export class StudentUserRegisterModel {
+    public id?: number;
+    public username: string;
+    public firstName: string;
+    public lastName: string;
+    public password: string;
+    public is14Plus: Boolean;
 }
