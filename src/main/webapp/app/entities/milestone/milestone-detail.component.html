@@ -1,14 +1,14 @@
 
 <div *ngIf="milestone">
-    <h2><span jhiTranslate="opengiveApp.milestone.detail.title">Milestone</span> {{milestone.id}}</h2>
+    <h2><span>Milestone</span> {{milestone.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="opengiveApp.milestone.name">Name</span></dt>
+        <dt><span>Name</span></dt>
         <dd>
             <span>{{milestone.name}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.milestone.program">Program</span></dt>
+        <dt><span>Program</span></dt>
         <dd>
             <div *ngIf="milestone.program">
                 <a [routerLink]="['/program', milestone.program?.id]">{{milestone.program?.id}}</a>
@@ -19,13 +19,13 @@
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
     <button type="button"
             [routerLink]="['/', { outlets: { popup: 'milestone/'+ milestone.id + '/edit'} }]"
             replaceUrl="true"
             class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
     </button>
 </div>

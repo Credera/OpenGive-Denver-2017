@@ -44,9 +44,6 @@ public class UserDTO {
 
 	private boolean activated = false;
 
-	@Size(min = 2, max = 5)
-	private String langKey;
-
 	private String createdBy;
 
 	private ZonedDateTime createdDate;
@@ -64,13 +61,13 @@ public class UserDTO {
 	public UserDTO(final User user) {
 		this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
 				user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getActivated(), user.getImageUrl(),
-				user.getLangKey(), user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(),
+				user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(),
 				user.getLastModifiedDate(),	user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
 	}
 
 	public UserDTO(final Long id, final String login, final String firstName, final String lastName,
 			final String email, final String phoneNumber, final Address address, final boolean activated,
-			final String imageUrl, final String langKey, final String createdBy, final ZonedDateTime createdDate,
+			final String imageUrl, final String createdBy, final ZonedDateTime createdDate,
 			final String lastModifiedBy, final ZonedDateTime lastModifiedDate, final Set<String> authorities) {
 
 		this.id = id;
@@ -80,7 +77,6 @@ public class UserDTO {
 		this.email = email;
 		this.activated = activated;
 		this.imageUrl = imageUrl;
-		this.langKey = langKey;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
@@ -132,10 +128,6 @@ public class UserDTO {
 		return activated;
 	}
 
-	public String getLangKey() {
-		return langKey;
-	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -169,7 +161,6 @@ public class UserDTO {
 				", email='" + email + '\'' +
 				", imageUrl='" + imageUrl + '\'' +
 				", activated=" + activated +
-				", langKey='" + langKey + '\'' +
 				", createdBy=" + createdBy +
 				", createdDate=" + createdDate +
 				", lastModifiedBy='" + lastModifiedBy + '\'' +

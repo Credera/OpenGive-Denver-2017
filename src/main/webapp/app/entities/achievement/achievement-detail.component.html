@@ -1,22 +1,22 @@
 
 <div *ngIf="achievement">
-    <h2><span jhiTranslate="opengiveApp.achievement.detail.title">Achievement</span> {{achievement.id}}</h2>
+    <h2><span>Achievement</span> {{achievement.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="opengiveApp.achievement.name">Name</span></dt>
+        <dt><span>Name</span></dt>
         <dd>
             <span>{{achievement.name}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.achievement.description">Description</span></dt>
+        <dt><span>Description</span></dt>
         <dd>
             <span>{{achievement.description}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.achievement.badgeUrl">Badge Url</span></dt>
+        <dt><span>Badge Url</span></dt>
         <dd>
             <span>{{achievement.badgeUrl}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.achievement.milestone">Milestone</span></dt>
+        <dt><span>Milestone</span></dt>
         <dd>
             <div *ngIf="achievement.milestone">
                 <a [routerLink]="['/milestone', achievement.milestone?.id]">{{achievement.milestone?.id}}</a>
@@ -27,13 +27,13 @@
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
     <button type="button"
             [routerLink]="['/', { outlets: { popup: 'achievement/'+ achievement.id + '/edit'} }]"
             replaceUrl="true"
             class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
     </button>
 </div>
