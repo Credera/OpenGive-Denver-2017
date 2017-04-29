@@ -33,8 +33,9 @@ export class UserMgmtDialogComponent implements OnInit {
         this.isSaving = false;
         this.jhiLanguageService.setLocations(['user-management']);
         this.formType = this.user.id == null
-            ? 'Create'
-            : 'Edit';
+            ? 'Create '
+            : 'Edit ';
+        this.formType += this.user.authorities.map(a => this.userService.translateRole(a)).join(', ')
 
         this.hide14 = this.user.authorities.every(a => a !== Role.Student);
     }
