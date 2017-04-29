@@ -4,8 +4,6 @@ package org.opengive.denver.stem.security;
  * Constants for Spring Security authorities.
  */
 public final class AuthoritiesConstants {
-	public static final String USER = "ROLE_USER"; // TODO remove and update all string references
-
 	public static final String ADMIN = "ROLE_ADMIN";
 	public static final String STUDENT = "ROLE_STUDENT";
 	public static final String INSTRUCTOR = "ROLE_INSTRUCTOR";

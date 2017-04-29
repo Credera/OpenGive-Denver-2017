@@ -154,7 +154,7 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)));
 
         restMvc.perform(
             post("/api/register")
@@ -185,7 +185,7 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)));
 
         restUserMockMvc.perform(
             post("/api/register")
@@ -216,7 +216,7 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)));
 
         restUserMockMvc.perform(
             post("/api/register")
@@ -247,7 +247,7 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)));
 
         restUserMockMvc.perform(
             post("/api/register")
@@ -279,7 +279,7 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)));
 
         // Duplicate login, different email
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), validUser.getLogin(), validUser.getPassword(), validUser.getFirstName(), validUser.getLastName(),
@@ -323,7 +323,7 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)));
 
         // Duplicate email, different login
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), "johnjr", validUser.getPassword(), validUser.getLogin(), validUser.getLastName(),
@@ -377,7 +377,7 @@ public class AccountResourceIntTest {
         Optional<User> userDup = userRepository.findOneByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
         assertThat(userDup.get().getAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.findOne(AuthoritiesConstants.USER));
+            .containsExactly(authorityRepository.findOne(AuthoritiesConstants.STUDENT));
     }
 
     @Test
@@ -398,7 +398,7 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT))
         );
 
         restUserMockMvc.perform(

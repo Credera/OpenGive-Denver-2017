@@ -193,7 +193,7 @@ public class SocialServiceIntTest {
         User user = userRepository.findOneByEmail("mail@mail.com").get();
         assertThat(user.getActivated()).isEqualTo(true);
         assertThat(user.getPassword()).isNotEmpty();
-        Authority userAuthority = authorityRepository.findOne("ROLE_USER");
+        Authority userAuthority = authorityRepository.findOne("ROLE_STUDENT");
         assertThat(user.getAuthorities().toArray()).containsExactly(userAuthority);
 
         // Teardown
