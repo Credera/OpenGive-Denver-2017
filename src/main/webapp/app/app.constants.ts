@@ -8,6 +8,8 @@ export const DEBUG_INFO_ENABLED = _DEBUG_INFO_ENABLED;
 
 export const Role = {
     Admin: 'ROLE_ADMIN',
-    User: 'ROLE_USER',
-    Student: 'ROLE_STUDENT'
+    OrgAdmin: 'ROLE_ORG_ADMIN',
+    Instructor: 'ROLE_INSTRUCTOR',
+    Student: 'ROLE_STUDENT',
+    User: 'ROLE_USER'
 }

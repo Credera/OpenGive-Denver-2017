@@ -5,6 +5,7 @@ import { EventManager, PaginationUtil, ParseLinks, AlertService, JhiLanguageServ
 
 import { ITEMS_PER_PAGE, Principal, User, UserService } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { Role } from "../../app.constants";
 
 @Component({
     selector: 'jhi-user-mgmt',
@@ -25,6 +26,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    role: any;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -46,6 +48,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
             this.predicate = data['pagingParams'].predicate;
         });
         this.jhiLanguageService.setLocations(['user-management']);
+        this.role = Role;
     }
 
     ngOnInit() {

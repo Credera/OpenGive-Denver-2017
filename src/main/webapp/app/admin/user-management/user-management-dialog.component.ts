@@ -18,6 +18,7 @@ export class UserMgmtDialogComponent implements OnInit {
     confirmPassword: string;
     isSaving: Boolean;
     doPasswordsMatch = true;
+    formType: string;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -30,6 +31,9 @@ export class UserMgmtDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.jhiLanguageService.setLocations(['user-management']);
+        this.formType = this.user.id == null
+            ? 'Create'
+            : 'Edit';
     }
 
     clear() {
@@ -70,7 +74,7 @@ export class UserMgmtDialogComponent implements OnInit {
 
 @Component({
     selector: 'jhi-user-dialog',
-    template: ''
+    template: '<div></div>'
 })
 export class UserDialogComponent implements OnInit, OnDestroy {
 
@@ -86,6 +90,8 @@ export class UserDialogComponent implements OnInit, OnDestroy {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['login'] ) {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
+            }else if (params['type']) {
+                this.modalRef = this.userModalService.openNew(UserMgmtDialogComponent, params['type']);
             } else {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent);
             }
