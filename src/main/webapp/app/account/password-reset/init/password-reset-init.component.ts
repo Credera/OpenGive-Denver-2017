@@ -28,7 +28,7 @@ export class PasswordResetInitComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#email'), 'focus', []);
+        this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#login'), 'focus', []);
     }
 
     requestReset() {
@@ -36,14 +36,15 @@ export class PasswordResetInitComponent implements OnInit, AfterViewInit {
         this.errorEmailNotExists = null;
         this.notRegistered = null;
 
-        this.passwordResetInit.save(this.resetAccount.email).subscribe((response) => {
-            if (response._body === 'No email; contact an administrator') {
+        this.passwordResetInit.save(this.resetAccount.login).subscribe((response) => {
+            // TODO: For MVP, we will just tell the users to contact an administrator; later on a password reset email will be sent when possible
+            // if (response._body === 'No email; contact an administrator') {
                 this.errorEmailNotExists = 'ERROR';
                 this.error = 'ERROR';
-
-            } else {
-            this.success = 'OK';
-            }
+            //
+            // } else {
+            //      this.success = 'OK';
+            // }
         }, (response) => {
             this.success = null;
             this.error = 'ERROR';
