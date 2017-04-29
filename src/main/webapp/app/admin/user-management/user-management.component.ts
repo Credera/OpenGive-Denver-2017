@@ -9,7 +9,8 @@ import { Role } from "../../app.constants";
 
 @Component({
     selector: 'jhi-user-mgmt',
-    templateUrl: './user-management.component.html'
+    templateUrl: './user-management.component.html',
+    styleUrls: ['./user-management.component.scss']
 })
 export class UserMgmtComponent implements OnInit, OnDestroy {
 

@@ -42,11 +42,11 @@ export class Principal {
             case Role.Student:
                 isAuth = isAuth || authorities.some(a => a === Role.Student);
             case Role.Instructor:
-                isAuth = isAuth || authorities.some(a => a === Role.Student);
+                isAuth = isAuth || authorities.some(a => a === Role.Instructor);
             case Role.OrgAdmin:
-                isAuth = isAuth || authorities.some(a => a === Role.Student);
+                isAuth = isAuth || authorities.some(a => a === Role.OrgAdmin);
             case Role.Admin:
-                isAuth = isAuth || authorities.some(a => a === Role.Student);
+                isAuth = isAuth || authorities.some(a => a === Role.Admin);
         }
 
         return isAuth;
