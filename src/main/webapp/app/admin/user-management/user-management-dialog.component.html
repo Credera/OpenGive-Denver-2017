@@ -18,19 +18,18 @@
         <jhi-alert-error></jhi-alert-error>
 
         <div class="form-group">
-            <label class="form-control-label"
-                   jhiTranslate="userManagement.firstName">First Name</label>
+            <label class="form-control-label">First Name</label>
             <input type="text"
                    class="form-control"
                    name="firstName"
                    #firstNameInput="ngModel"
                    [(ngModel)]="user.firstName"
+                   required
                    maxlength="50">
 
             <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
                 <small class="form-text text-danger"
                        *ngIf="firstNameInput.errors.maxlength"
-                       jhiTranslate="entity.validation.maxlength"
                        translate-value-max="50">
                     This field cannot be longer than 50 characters.
                 </small>
@@ -41,18 +40,18 @@
             </div>
         </div>
         <div class="form-group">
-            <label jhiTranslate="userManagement.lastName">Last Name</label>
+            <label>Last Name</label>
             <input type="text"
                    class="form-control"
                    name="lastName"
                    #lastNameInput="ngModel"
                    [(ngModel)]="user.lastName"
+                   required
                    maxlength="50">
 
             <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
                 <small class="form-text text-danger"
                        *ngIf="lastNameInput.errors.maxlength"
-                       jhiTranslate="entity.validation.maxlength"
                        translate-value-max="50">
                     This field cannot be longer than 50 characters.
                 </small>
@@ -76,20 +75,17 @@
 
             <div *ngIf="emailInput.dirty && emailInput.invalid">
                 <small class="form-text text-danger"
-                       *ngIf="emailInput.errors.required"
-                       jhiTranslate="entity.validation.required">
+                       *ngIf="emailInput.errors.required">
                     This field is required.
                 </small>
 
                 <small class="form-text text-danger"
                        *ngIf="emailInput.errors.maxlength"
-                       jhiTranslate="entity.validation.maxlength"
                        translate-value-max="100">
                     This field cannot be longer than 100 characters.
                 </small>
                 <small class="form-text text-danger"
-                       *ngIf="emailInput.errors.email"
-                       jhiTranslate="global.messages.validate.email.invalid">
+                       *ngIf="emailInput.errors.email">
                     Your email is invalid.
                  </small>
             </div>
@@ -109,14 +105,12 @@
 
             <div *ngIf="loginInput.dirty && loginInput.invalid">
                 <small class="form-text text-danger"
-                       *ngIf="loginInput.errors.required"
-                       jhiTranslate="entity.validation.required">
+                       *ngIf="loginInput.errors.required">
                     This field is required.
                 </small>
 
                 <small class="form-text text-danger"
                        *ngIf="loginInput.errors.maxlength"
-                       jhiTranslate="entity.validation.maxlength"
                        translate-value-max="50">
                     This field cannot be longer than 20 characters.
                 </small>
@@ -140,8 +134,7 @@
                        required>
                 <div *ngIf="passwordInput.dirty && passwordInput.invalid">
                     <small class="form-text text-danger"
-                           *ngIf="passwordInput.errors.required"
-                           jhiTranslate="global.messages.validate.newpassword.required">
+                           *ngIf="passwordInput.errors.required">
                             Your password is required.
                         </small>
                     <small class="form-text text-danger"
@@ -149,8 +142,7 @@
                             Your password is required to be at least 6 characters.
                         </small>
                     <small class="form-text text-danger"
-                           *ngIf="passwordInput.errors.maxlength"
-                           jhiTranslate="global.messages.validate.newpassword.maxlength">
+                           *ngIf="passwordInput.errors.maxlength">
                             Your password cannot be longer than 50 characters.
                         </small>
                 </div>
@@ -172,8 +164,7 @@
                        required>
                 <div *ngIf="confirmPasswordInput.dirty && confirmPasswordInput.invalid">
                     <small class="form-text text-danger"
-                           *ngIf="confirmPasswordInput.errors.required"
-                           jhiTranslate="global.messages.validate.confirmpassword.required">
+                           *ngIf="confirmPasswordInput.errors.required">
                             Your confirmation password is required.
                         </small>
                     <small class="form-text text-danger"
@@ -181,8 +172,7 @@
                             Your confirmation password is required to be at least 6 characters.
                         </small>
                     <small class="form-text text-danger"
-                           *ngIf="confirmPasswordInput.errors.maxlength"
-                           jhiTranslate="global.messages.validate.confirmpassword.maxlength">
+                           *ngIf="confirmPasswordInput.errors.maxlength">
                             Your confirmation password cannot be longer than 50 characters.
                         </small>
                 </div>
@@ -219,13 +209,12 @@
                 class="btn btn-secondary"
                 data-dismiss="modal"
                 (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span
-            jhiTranslate="entity.action.cancel">Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
         </button>
         <button type="submit"
                 [disabled]="editForm.form.invalid || isSaving || (user.password != confirmPassword)"
                 class="btn btn-primary">
-            <span class="fa fa-floppy-o"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            <span class="fa fa-floppy-o"></span>&nbsp;<span >Save</span>
         </button>
     </div>
 </form>
