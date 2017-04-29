@@ -1,4 +1,3 @@
-import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
@@ -9,7 +8,7 @@ import { AuthServerProvider } from '../auth/auth-oauth2.service';
 @Injectable()
 export class LoginService {
 
-failureCount = 0;
+
     constructor(
         private languageService: JhiLanguageService,
         private principal: Principal,
@@ -45,7 +44,12 @@ failureCount = 0;
     logout() {
         this.authServerProvider.logout().subscribe();
         this.principal.authenticate(null);
-        this.failureCount ++;
+       /* this.failureCount ++;
+        if (this.failureCount > 2) {
+            this.isOverLimit = true;
+        }*/
+
+        
         
     }
 }

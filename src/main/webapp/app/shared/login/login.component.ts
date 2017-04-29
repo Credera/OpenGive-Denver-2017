@@ -17,6 +17,8 @@ export class JhiLoginModalComponent implements OnInit, AfterViewInit {
     rememberMe: boolean;
     username: string;
     credentials: any;
+    failureCount = 0;
+    isOverLimit = false;
 
     constructor(
         private eventManager: EventManager,
@@ -76,6 +78,12 @@ export class JhiLoginModalComponent implements OnInit, AfterViewInit {
             }
         }).catch(() => {
             this.authenticationError = true;
+
+            this.failureCount ++;
+        if (this.failureCount > 2) {
+            this.isOverLimit = true;
+        }
+
         });
     }
 

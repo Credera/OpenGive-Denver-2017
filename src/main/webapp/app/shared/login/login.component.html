@@ -12,6 +12,9 @@
             <div class="alert alert-danger" *ngIf="authenticationError">
                 <strong>Sorry!</strong> Thats not correct!
             </div>
+            <div *ngIf="isOverLimit" class="alert alert-warning">
+                <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
+            </div>
         </div>
         <div class="col-md-6">
             <form class="form" role="form" (ngSubmit)="login()">
@@ -34,9 +37,10 @@
                 <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button">Sign in</button>
             </form>
             <p></p>
-            <div class="alert alert-warning">
-                <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
+            <div class="col-md-4 offset-md-4">
+                <a (click)="requestResetPassword()">Reset password?</a>
             </div>
+            
             <!--div class="alert alert-warning">
             	<span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
                 <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>
