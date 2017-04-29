@@ -85,20 +85,7 @@
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": [
-      "en",
-      "zh-cn",
-      "zh-tw",
-      "fr",
-      "de",
-      "hi",
-      "it",
-      "ja",
-      "ko",
-      "pt-pt",
-      "ru",
-      "es",
-      "th",
-      "vi"
+      "en"
     ],
     "herokuAppName": "opengive-denver-2017"
   }

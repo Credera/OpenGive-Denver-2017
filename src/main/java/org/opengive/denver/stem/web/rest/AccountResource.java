@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.common.Strings;
 import org.opengive.denver.stem.domain.User;
 import org.opengive.denver.stem.repository.UserRepository;
 import org.opengive.denver.stem.security.SecurityUtils;
@@ -75,7 +76,7 @@ public class AccountResource {
 							final User user = userService
 									.createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
 											managedUserVM.getFirstName(), managedUserVM.getLastName(),
-											managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl(), managedUserVM.getLangKey());
+											managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl());
 
 							mailService.sendActivationEmail(user);
 							return new ResponseEntity<>(HttpStatus.CREATED);
@@ -139,7 +140,7 @@ public class AccountResource {
 				.findOneByLogin(SecurityUtils.getCurrentUserLogin())
 				.map(u -> {
 					userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-							userDTO.getLangKey(), userDTO.getImageUrl());
+							userDTO.getImageUrl());
 					return new ResponseEntity<>(HttpStatus.OK);
 				})
 				.orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -162,20 +163,26 @@ public class AccountResource {
 	}
 
 	/**
-	 * POST   /account/reset_password/init : Send an email to reset the password of the user
+	 * POST   /account/reset_password/init : Send an email to reset the password of the user (if an email address is
+     * present for the user)
 	 *
-	 * @param mail the mail of the user
+	 * @param login the username for which to reset the password
 	 * @return the ResponseEntity with status 200 (OK) if the email was sent, or status 400 (Bad Request) if the email address is not registered
 	 */
 	@PostMapping(path = "/account/reset_password/init",
 			produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
-	public ResponseEntity<?> requestPasswordReset(@RequestBody final String mail) {
-		return userService.requestPasswordReset(mail)
+	public ResponseEntity<?> requestPasswordReset(@RequestBody final String login) {
+
+		return userService.requestPasswordReset(login)
 				.map(user -> {
-					mailService.sendPasswordResetMail(user);
-					return new ResponseEntity<>("email was sent", HttpStatus.OK);
-				}).orElse(new ResponseEntity<>("email address not registered", HttpStatus.BAD_REQUEST));
+				    if (!Strings.isNullOrEmpty(user.getEmail())) {
+                        mailService.sendPasswordResetMail(user);
+                        return new ResponseEntity<>("email was sent", HttpStatus.OK);
+                    } else {
+				        return new ResponseEntity<String>("No email; contact an administrator", HttpStatus.OK);
+                    }
+				}).orElse(new ResponseEntity<>("login not registered", HttpStatus.BAD_REQUEST));
 	}
 
 	/**

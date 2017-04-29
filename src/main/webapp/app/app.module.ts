@@ -14,6 +14,8 @@ import { LayoutRoutingModule } from './layouts';
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 
+import { OpengiveStudentModule } from './student/student.module';
+
 import {
     JhiMainComponent,
     NavbarComponent,
@@ -32,6 +34,7 @@ import {
         OpengiveSharedModule,
         OpengiveHomeModule,
         OpengiveAdminModule,
+        OpengiveStudentModule,
         OpengiveAccountModule,
         OpengiveEntityModule
     ],

@@ -1,151 +1,151 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myAddressLabel" jhiTranslate="opengiveApp.address.home.createOrEditLabel">Create or edit a Address</h4>
+        <h4 class="modal-title" id="myAddressLabel">Create or edit a Address</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!address.id">
-            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <label for="id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                    [(ngModel)]="address.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="opengiveApp.address.streetAddress1" for="field_streetAddress1">Street Address 1</label>
+            <label class="form-control-label" for="field_streetAddress1">Street Address 1</label>
             <input type="text" class="form-control" name="streetAddress1" id="field_streetAddress1"
                 [(ngModel)]="address.streetAddress1"
             required minlength="5" maxlength="50" />
             <div [hidden]="!(editForm.controls.streetAddress1?.dirty && editForm.controls.streetAddress1?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.streetAddress1?.errors?.required" jhiTranslate="entity.validation.required">
+                   [hidden]="!editForm.controls.streetAddress1?.errors?.required">
                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.streetAddress1?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 5 }">
+                   [hidden]="!editForm.controls.streetAddress1?.errors?.minlength" translateValues="{ min: 5 }">
                    This field is required to be at least 5 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.streetAddress1?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   [hidden]="!editForm.controls.streetAddress1?.errors?.maxlength" translateValues="{ max: 50 }">
                    This field cannot be longer than 50 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="opengiveApp.address.streetAddress2" for="field_streetAddress2">Street Address 2</label>
+            <label class="form-control-label" for="field_streetAddress2">Street Address 2</label>
             <input type="text" class="form-control" name="streetAddress2" id="field_streetAddress2"
                 [(ngModel)]="address.streetAddress2"
             minlength="5" maxlength="50" />
             <div [hidden]="!(editForm.controls.streetAddress2?.dirty && editForm.controls.streetAddress2?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.streetAddress2?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 5 }">
+                   [hidden]="!editForm.controls.streetAddress2?.errors?.minlength" translateValues="{ min: 5 }">
                    This field is required to be at least 5 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.streetAddress2?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   [hidden]="!editForm.controls.streetAddress2?.errors?.maxlength" translateValues="{ max: 50 }">
                    This field cannot be longer than 50 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="opengiveApp.address.city" for="field_city">City</label>
+            <label class="form-control-label" for="field_city">City</label>
             <input type="text" class="form-control" name="city" id="field_city"
                 [(ngModel)]="address.city"
             required minlength="5" maxlength="50" />
             <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.city?.errors?.required" jhiTranslate="entity.validation.required">
+                   [hidden]="!editForm.controls.city?.errors?.required">
                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.city?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 5 }">
+                   [hidden]="!editForm.controls.city?.errors?.minlength" translateValues="{ min: 5 }">
                    This field is required to be at least 5 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.city?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   [hidden]="!editForm.controls.city?.errors?.maxlength" translateValues="{ max: 50 }">
                    This field cannot be longer than 50 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="opengiveApp.address.state" for="field_state">State</label>
+            <label class="form-control-label" for="field_state">State</label>
             <select class="form-control" name="state" [(ngModel)]="address.state" id="field_state"  required>
-                <option value="ALABAMA" jhiTranslate="opengiveApp.State.ALABAMA">ALABAMA</option>
-                <option value="ALASKA" jhiTranslate="opengiveApp.State.ALASKA">ALASKA</option>
-                <option value="ARIZONA" jhiTranslate="opengiveApp.State.ARIZONA">ARIZONA</option>
-                <option value="ARKANSAS" jhiTranslate="opengiveApp.State.ARKANSAS">ARKANSAS</option>
-                <option value="CALIFORNIA" jhiTranslate="opengiveApp.State.CALIFORNIA">CALIFORNIA</option>
-                <option value="COLORADO" jhiTranslate="opengiveApp.State.COLORADO">COLORADO</option>
-                <option value="CONNECTICUT" jhiTranslate="opengiveApp.State.CONNECTICUT">CONNECTICUT</option>
-                <option value="DELAWARE" jhiTranslate="opengiveApp.State.DELAWARE">DELAWARE</option>
-                <option value="FLORIDA" jhiTranslate="opengiveApp.State.FLORIDA">FLORIDA</option>
-                <option value="GEORGIA" jhiTranslate="opengiveApp.State.GEORGIA">GEORGIA</option>
-                <option value="HAWAII" jhiTranslate="opengiveApp.State.HAWAII">HAWAII</option>
-                <option value="IDAHO" jhiTranslate="opengiveApp.State.IDAHO">IDAHO</option>
-                <option value="ILLINOIS" jhiTranslate="opengiveApp.State.ILLINOIS">ILLINOIS</option>
-                <option value="INDIANA" jhiTranslate="opengiveApp.State.INDIANA">INDIANA</option>
-                <option value="IOWA" jhiTranslate="opengiveApp.State.IOWA">IOWA</option>
-                <option value="KANSAS" jhiTranslate="opengiveApp.State.KANSAS">KANSAS</option>
-                <option value="KENTUCKY" jhiTranslate="opengiveApp.State.KENTUCKY">KENTUCKY</option>
-                <option value="LOUISIANA" jhiTranslate="opengiveApp.State.LOUISIANA">LOUISIANA</option>
-                <option value="MAINE" jhiTranslate="opengiveApp.State.MAINE">MAINE</option>
-                <option value="MARYLAND" jhiTranslate="opengiveApp.State.MARYLAND">MARYLAND</option>
-                <option value="MASSACHUSETTS" jhiTranslate="opengiveApp.State.MASSACHUSETTS">MASSACHUSETTS</option>
-                <option value="MICHIGAN" jhiTranslate="opengiveApp.State.MICHIGAN">MICHIGAN</option>
-                <option value="MINNESOTA" jhiTranslate="opengiveApp.State.MINNESOTA">MINNESOTA</option>
-                <option value="MISSISSIPPI" jhiTranslate="opengiveApp.State.MISSISSIPPI">MISSISSIPPI</option>
-                <option value="MISSOURI" jhiTranslate="opengiveApp.State.MISSOURI">MISSOURI</option>
-                <option value="MONTANA" jhiTranslate="opengiveApp.State.MONTANA">MONTANA</option>
-                <option value="NEBRASKA" jhiTranslate="opengiveApp.State.NEBRASKA">NEBRASKA</option>
-                <option value="NEVADA" jhiTranslate="opengiveApp.State.NEVADA">NEVADA</option>
-                <option value="NEW_HAMPSHIRE" jhiTranslate="opengiveApp.State.NEW_HAMPSHIRE">NEW_HAMPSHIRE</option>
-                <option value="NEW_JERSEY" jhiTranslate="opengiveApp.State.NEW_JERSEY">NEW_JERSEY</option>
-                <option value="NEW_MEXICO" jhiTranslate="opengiveApp.State.NEW_MEXICO">NEW_MEXICO</option>
-                <option value="NEW_YORK" jhiTranslate="opengiveApp.State.NEW_YORK">NEW_YORK</option>
-                <option value="NORTH_CAROLINA" jhiTranslate="opengiveApp.State.NORTH_CAROLINA">NORTH_CAROLINA</option>
-                <option value="NORTH_DAKOTA" jhiTranslate="opengiveApp.State.NORTH_DAKOTA">NORTH_DAKOTA</option>
-                <option value="OHIO" jhiTranslate="opengiveApp.State.OHIO">OHIO</option>
-                <option value="OKLAHOMA" jhiTranslate="opengiveApp.State.OKLAHOMA">OKLAHOMA</option>
-                <option value="OREGON" jhiTranslate="opengiveApp.State.OREGON">OREGON</option>
-                <option value="PENNSYLVANIA" jhiTranslate="opengiveApp.State.PENNSYLVANIA">PENNSYLVANIA</option>
-                <option value="RHODE_ISLAND" jhiTranslate="opengiveApp.State.RHODE_ISLAND">RHODE_ISLAND</option>
-                <option value="SOUTH_CAROLINA" jhiTranslate="opengiveApp.State.SOUTH_CAROLINA">SOUTH_CAROLINA</option>
-                <option value="SOUTH_DAKOTA" jhiTranslate="opengiveApp.State.SOUTH_DAKOTA">SOUTH_DAKOTA</option>
-                <option value="TENNESSEE" jhiTranslate="opengiveApp.State.TENNESSEE">TENNESSEE</option>
-                <option value="TEXAS" jhiTranslate="opengiveApp.State.TEXAS">TEXAS</option>
-                <option value="UTAH" jhiTranslate="opengiveApp.State.UTAH">UTAH</option>
-                <option value="VERMONT" jhiTranslate="opengiveApp.State.VERMONT">VERMONT</option>
-                <option value="VIRGINIA" jhiTranslate="opengiveApp.State.VIRGINIA">VIRGINIA</option>
-                <option value="WASHINGTON" jhiTranslate="opengiveApp.State.WASHINGTON">WASHINGTON</option>
-                <option value="WEST_VIRGINIA" jhiTranslate="opengiveApp.State.WEST_VIRGINIA">WEST_VIRGINIA</option>
-                <option value="WISCONSIN" jhiTranslate="opengiveApp.State.WISCONSIN">WISCONSIN</option>
-                <option value="WYOMING" jhiTranslate="opengiveApp.State.WYOMING">WYOMING</option>
-                <option value="DISTRICT_OF_COLUMBIA" jhiTranslate="opengiveApp.State.DISTRICT_OF_COLUMBIA">DISTRICT_OF_COLUMBIA</option>
+                <option value="ALABAMA">ALABAMA</option>
+                <option value="ALASKA">ALASKA</option>
+                <option value="ARIZONA">ARIZONA</option>
+                <option value="ARKANSAS">ARKANSAS</option>
+                <option value="CALIFORNIA">CALIFORNIA</option>
+                <option value="COLORADO">COLORADO</option>
+                <option value="CONNECTICUT">CONNECTICUT</option>
+                <option value="DELAWARE">DELAWARE</option>
+                <option value="FLORIDA">FLORIDA</option>
+                <option value="GEORGIA">GEORGIA</option>
+                <option value="HAWAII">HAWAII</option>
+                <option value="IDAHO">IDAHO</option>
+                <option value="ILLINOIS">ILLINOIS</option>
+                <option value="INDIANA">INDIANA</option>
+                <option value="IOWA">IOWA</option>
+                <option value="KANSAS">KANSAS</option>
+                <option value="KENTUCKY">KENTUCKY</option>
+                <option value="LOUISIANA">LOUISIANA</option>
+                <option value="MAINE">MAINE</option>
+                <option value="MARYLAND">MARYLAND</option>
+                <option value="MASSACHUSETTS">MASSACHUSETTS</option>
+                <option value="MICHIGAN">MICHIGAN</option>
+                <option value="MINNESOTA">MINNESOTA</option>
+                <option value="MISSISSIPPI">MISSISSIPPI</option>
+                <option value="MISSOURI">MISSOURI</option>
+                <option value="MONTANA">MONTANA</option>
+                <option value="NEBRASKA">NEBRASKA</option>
+                <option value="NEVADA">NEVADA</option>
+                <option value="NEW_HAMPSHIRE">NEW_HAMPSHIRE</option>
+                <option value="NEW_JERSEY">NEW_JERSEY</option>
+                <option value="NEW_MEXICO">NEW_MEXICO</option>
+                <option value="NEW_YORK">NEW_YORK</option>
+                <option value="NORTH_CAROLINA">NORTH_CAROLINA</option>
+                <option value="NORTH_DAKOTA">NORTH_DAKOTA</option>
+                <option value="OHIO">OHIO</option>
+                <option value="OKLAHOMA">OKLAHOMA</option>
+                <option value="OREGON">OREGON</option>
+                <option value="PENNSYLVANIA">PENNSYLVANIA</option>
+                <option value="RHODE_ISLAND">RHODE_ISLAND</option>
+                <option value="SOUTH_CAROLINA">SOUTH_CAROLINA</option>
+                <option value="SOUTH_DAKOTA">SOUTH_DAKOTA</option>
+                <option value="TENNESSEE">TENNESSEE</option>
+                <option value="TEXAS">TEXAS</option>
+                <option value="UTAH">UTAH</option>
+                <option value="VERMONT">VERMONT</option>
+                <option value="VIRGINIA">VIRGINIA</option>
+                <option value="WASHINGTON">WASHINGTON</option>
+                <option value="WEST_VIRGINIA">WEST_VIRGINIA</option>
+                <option value="WISCONSIN">WISCONSIN</option>
+                <option value="WYOMING">WYOMING</option>
+                <option value="DISTRICT_OF_COLUMBIA">DISTRICT_OF_COLUMBIA</option>
             </select>
             <div [hidden]="!(editForm.controls.state?.dirty && editForm.controls.state?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.state?.errors?.required" jhiTranslate="entity.validation.required">
+                   [hidden]="!editForm.controls.state?.errors?.required">
                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="opengiveApp.address.postalCode" for="field_postalCode">Postal Code</label>
+            <label class="form-control-label" for="field_postalCode">Postal Code</label>
             <input type="text" class="form-control" name="postalCode" id="field_postalCode"
                 [(ngModel)]="address.postalCode"
             required minlength="5" maxlength="10" />
             <div [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.postalCode?.errors?.required" jhiTranslate="entity.validation.required">
+                   [hidden]="!editForm.controls.postalCode?.errors?.required">
                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.postalCode?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 5 }">
+                   [hidden]="!editForm.controls.postalCode?.errors?.minlength" translateValues="{ min: 5 }">
                    This field is required to be at least 5 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.postalCode?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 10 }">
+                   [hidden]="!editForm.controls.postalCode?.errors?.maxlength" translateValues="{ max: 10 }">
                    This field cannot be longer than 10 characters.
                 </small>
             </div>
@@ -154,10 +154,10 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
         </button>
     </div>
 </form>
