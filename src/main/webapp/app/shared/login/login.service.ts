@@ -1,3 +1,4 @@
+import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
@@ -8,6 +9,7 @@ import { AuthServerProvider } from '../auth/auth-oauth2.service';
 @Injectable()
 export class LoginService {
 
+failureCount = 0;
     constructor(
         private languageService: JhiLanguageService,
         private principal: Principal,
@@ -35,6 +37,7 @@ export class LoginService {
                 reject(err);
                 return cb(err);
                 
+                
             });
         });
     }
@@ -42,5 +45,7 @@ export class LoginService {
     logout() {
         this.authServerProvider.logout().subscribe();
         this.principal.authenticate(null);
+        this.failureCount ++;
+        
     }
 }
