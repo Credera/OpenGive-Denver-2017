@@ -38,7 +38,7 @@ public final class AuthoritiesConstants
 
     private static Comparator<AuthorityEnum> authoritiesComparator()
     {
-        return (o1, o2) -> o1.getCode() - o2.code;
+        return (o1, o2) -> o1.getCode() - o2.getCode();
     }
 
     public static boolean hasHigherPermissions(Collection<String> requesterAuthorities,
@@ -55,6 +55,6 @@ public final class AuthoritiesConstants
         return greatestCurrentRole.isPresent() && greatestRequestedRole.isPresent() &&
             (greatestCurrentRole.get().equals(AuthorityEnum.ROLE_ADMIN)
                 && greatestRequestedRole.get() == AuthorityEnum.ROLE_ADMIN)
-            || authoritiesComparator().compare(greatestCurrentRole.get(), greatestRequestedRole.get()) > 1;
+            || authoritiesComparator().compare(greatestCurrentRole.get(), greatestRequestedRole.get()) > 0;
     }
 }
