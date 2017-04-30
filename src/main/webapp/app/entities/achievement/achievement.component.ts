@@ -11,7 +11,10 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'jhi-achievement',
-    templateUrl: './achievement.component.html'
+    templateUrl: './achievement.component.html',
+    styleUrls: [
+        'achievement.scss'
+    ]
 })
 export class AchievementComponent implements OnInit, OnDestroy {
 
