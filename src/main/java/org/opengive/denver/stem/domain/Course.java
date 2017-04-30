@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * A Course.
  */
+//TODO: Set the correct @JsonIgnore Fields
 @Entity
 @Table(name = "course")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -59,15 +61,18 @@ public class Course implements Serializable {
 
 	@NotNull
 	@ManyToOne(optional = false)
+    @JsonIgnore
 	private Organization organization;
 
 	@NotNull
 	@ManyToOne(optional = false)
+    @JsonIgnore
 	private Program program;
 
 	@NotNull
 	@OneToOne(optional = false)
 	@JoinColumn(unique = true)
+    @JsonIgnore
 	private User instructor;
 
 	@ManyToMany
@@ -234,7 +239,7 @@ public class Course implements Serializable {
 		students = users;
 	}
 
-	public Set<Activity> getActivitys() {
+	public Set<Activity> getActivities() {
 		return activities;
 	}
 
@@ -243,19 +248,19 @@ public class Course implements Serializable {
 		return this;
 	}
 
-	public Course addActivitys(final Activity activity) {
+	public Course addActivities(final Activity activity) {
 		activities.add(activity);
 		activity.setCourse(this);
 		return this;
 	}
 
-	public Course removeActivitys(final Activity activity) {
+	public Course removeActivities(final Activity activity) {
 		activities.remove(activity);
 		activity.setCourse(null);
 		return this;
 	}
 
-	public void setActivitys(final Set<Activity> activities) {
+	public void setActivities(final Set<Activity> activities) {
 		this.activities = activities;
 	}
 
