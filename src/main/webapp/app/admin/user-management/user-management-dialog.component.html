@@ -70,15 +70,9 @@
                    name="email"
                    #emailInput="ngModel"
                    [(ngModel)]="user.email"
-                   required
                    maxlength="100">
 
             <div *ngIf="emailInput.dirty && emailInput.invalid">
-                <small class="form-text text-danger"
-                       *ngIf="emailInput.errors.required">
-                    This field is required.
-                </small>
-
                 <small class="form-text text-danger"
                        *ngIf="emailInput.errors.maxlength"
                        translate-value-max="100">
@@ -91,28 +85,25 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="form-control-label">Email</label>
-            <input type="email" class="form-control" name="email" #emailInput="ngModel"
-                   [(ngModel)]="user.email" required maxlength="100">
-            <div *ngIf="loginInput.dirty && loginInput.invalid">
-                <small class="form-text text-danger"
-                       *ngIf="loginInput.errors.required">
-                    This field is required.
-                </small>
+        <div class="form-group"
+             *ngIf="user.is14Plus">
+            <label class="form-control-label">Phone Number</label>
+            <input type="text"
+                   class="form-control"
+                   name="phone"
+                   #phoneInput="ngModel"
+                   [(ngModel)]="user.phone"
+                   maxlength="100">
 
+            <div *ngIf="phoneInput.dirty && phoneInput.invalid">
                 <small class="form-text text-danger"
-                       *ngIf="loginInput.errors.maxlength"
-                       translate-value-max="50">
-                    This field cannot be longer than 20 characters.
+                       *ngIf="phoneInput.errors.maxlength"
+                       translate-value-max="100">
+                    This field cannot be longer than 100 characters.
                 </small>
-		<small class="form-text text-danger"
-                   *ngIf="emailInput.errors.email">
-                    Your email is invalid.
-                 </small>
             </div>
         </div>
-        
+
         <div *ngIf="showPassword">
             <div class="form-group">
                 <label class="form-control-label"
@@ -173,11 +164,11 @@
                         </small>
                 </div>
             </div>
-
             <div class="alert alert-danger"
                  *ngIf="!doPasswordsMatch">
                 The password and its confirmation do not match!
             </div>
+        </div>
 
         <div class="form-check"
              *ngIf="this.user.id != null">
@@ -187,7 +178,6 @@
                 <span>Change Password?</span>
             </label>
         </div>
-
 
         <div class="form-check"
              *ngIf="!hide14">
