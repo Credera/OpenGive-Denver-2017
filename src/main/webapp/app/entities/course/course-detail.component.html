@@ -1,6 +1,6 @@
 
 <div *ngIf="course">
-    <h2><span jhiTranslate="opengiveApp.course.detail.title">Course</span> {{course.id}}</h2>
+    <h2><span>{{course.name}}</span></h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
@@ -22,13 +22,22 @@
         </dd>
         <dt><span jhiTranslate="opengiveApp.course.organization">Organization</span></dt>
         <dd>
+            <div>OWL</div> <!--temporarily adding in data for demo.  REMOVE-->
             <div *ngIf="course.organization">
                 <a [routerLink]="['/organization', course.organization?.id]">{{course.organization?.id}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="opengiveApp.course.instructor">Instructor</span></dt>
-        <dd>
+        <dd>Lucy Jayes <!--temporarily adding in data for demo.  REMOVE-->
             {{course.instructor?.id}}
+        </dd>
+        <dt><span>Activities</span></dt>
+        <dd>
+            <ul>
+                <li>Course KickOff</li>
+                <li>Laboratory Visit</li>
+                <li>Final Test</li>
+            </ul>
         </dd>
     </dl>
 
