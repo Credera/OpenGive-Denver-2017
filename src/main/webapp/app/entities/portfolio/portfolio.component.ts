@@ -26,7 +26,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
     currentSearch: string;
-    values: number[] = [1, 2, 3];
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -70,6 +69,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
+    //   this.portfolios =  this.portfolioService.fakeData();
     }
 
     reset() {
