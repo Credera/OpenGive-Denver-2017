@@ -13,54 +13,54 @@ import { Principal } from '../../shared';
 import { Role } from '../../app.constants';
 
 export const organizationRoute: Routes = [
-  {
-    path: 'organization',
-    component: OrganizationComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.organization.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'organization/:id',
-    component: OrganizationDetailComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.organization.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+    {
+        path: 'organization',
+        component: OrganizationComponent,
+        data: {
+            authenticate: true,
+            pageTitle: 'opengiveApp.organization.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }, {
+        path: 'organization/:id',
+        component: OrganizationDetailComponent,
+        data: {
+            authenticate: true,
+            pageTitle: 'opengiveApp.organization.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    }
 ];
 
 export const organizationPopupRoute: Routes = [
-  {
-    path: 'organization-new',
-    component: OrganizationPopupComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.organization.home.title'
+    {
+        path: 'organization-new',
+        component: OrganizationPopupComponent,
+        data: {
+            authorities: [Role.Admin, Role.OrgAdmin],
+            pageTitle: 'opengiveApp.organization.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'organization/:id/edit',
-    component: OrganizationPopupComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.organization.home.title'
+    {
+        path: 'organization/:id/edit',
+        component: OrganizationPopupComponent,
+        data: {
+            authorities: [Role.Admin, Role.OrgAdmin],
+            pageTitle: 'opengiveApp.organization.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'organization/:id/deactivate',
-    component: OrganizationDeactivatePopupComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.organization.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
+    {
+        path: 'organization/:id/deactivate',
+        component: OrganizationDeactivatePopupComponent,
+        data: {
+            authorities: [Role.Admin, Role.OrgAdmin],
+            pageTitle: 'opengiveApp.organization.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

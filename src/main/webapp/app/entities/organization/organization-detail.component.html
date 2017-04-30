@@ -22,6 +22,7 @@
 
     <button type="button"
             [routerLink]="['/', { outlets: { popup: 'organization/'+ organization.id + '/edit'} }]"
+            *jhiHasAtLeastAuthority="role.OrgAdmin"
             replaceUrl="true"
             class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>

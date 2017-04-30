@@ -4,19 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
-import { Organization } from './organization.model';
-import { OrganizationService } from './organization.service';
+import { PortfolioItem } from './portfolio-item.model';
+import { PortfolioItemService } from './portfolio-item.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
-import { Role } from "../../app.constants";
 
 @Component({
-    selector: 'jhi-organization',
-    templateUrl: './organization.component.html'
+    selector: 'jhi-portfolio-item',
+    templateUrl: './portfolio-item.component.html'
 })
-export class OrganizationComponent implements OnInit, OnDestroy {
+export class PortfolioItemComponent implements OnInit, OnDestroy {
 
-    organizations: Organization[];
+    portfolioItems: PortfolioItem[];
     currentAccount: any;
     eventSubscriber: Subscription;
     itemsPerPage: number;
@@ -27,18 +26,17 @@ export class OrganizationComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
     currentSearch: string;
-    role: any;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
-        private organizationService: OrganizationService,
+        private portfolioItemService: PortfolioItemService,
         private alertService: AlertService,
         private eventManager: EventManager,
         private parseLinks: ParseLinks,
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
-        this.organizations = [];
+        this.portfolioItems = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 0;
         this.links = {
@@ -47,14 +45,12 @@ export class OrganizationComponent implements OnInit, OnDestroy {
         this.predicate = 'id';
         this.reverse = true;
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['organization']);
-
-        this.role = Role;
+        this.jhiLanguageService.setLocations(['portfolioItem']);
     }
 
     loadAll() {
         if (this.currentSearch) {
-            this.organizationService.search({
+            this.portfolioItemService.search({
                 query: this.currentSearch,
                 page: this.page,
                 size: this.itemsPerPage,
@@ -65,7 +61,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
             );
             return;
         }
-        this.organizationService.query({
+        this.portfolioItemService.query({
             page: this.page,
             size: this.itemsPerPage,
             sort: this.sort()
@@ -77,7 +73,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
 
     reset() {
         this.page = 0;
-        this.organizations = [];
+        this.portfolioItems = [];
         this.loadAll();
     }
 
@@ -87,7 +83,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
     }
 
     clear() {
-        this.organizations = [];
+        this.portfolioItems = [];
         this.links = {
             last: 0
         };
@@ -102,7 +98,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
         if (!query) {
             return this.clear();
         }
-        this.organizations = [];
+        this.portfolioItems = [];
         this.links = {
             last: 0
         };
@@ -117,18 +113,18 @@ export class OrganizationComponent implements OnInit, OnDestroy {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInOrganizations();
+        this.registerChangeInPortfolioItems();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: Organization) {
+    trackId(index: number, item: PortfolioItem) {
         return item.id;
     }
-    registerChangeInOrganizations() {
-        this.eventSubscriber = this.eventManager.subscribe('organizationListModification', (response) => this.reset());
+    registerChangeInPortfolioItems() {
+        this.eventSubscriber = this.eventManager.subscribe('portfolioItemListModification', (response) => this.reset());
     }
 
     sort() {
@@ -143,7 +139,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
         for (let i = 0; i < data.length; i++) {
-            this.organizations.push(data[i]);
+            this.portfolioItems.push(data[i]);
         }
     }
 

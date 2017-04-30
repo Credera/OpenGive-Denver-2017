@@ -11,7 +11,7 @@ export class UserService {
 
     constructor(private http: Http) { }
 
-    translateRole(roleKey: string) : string {
+    static translateRole(roleKey: string) : string {
         switch (roleKey) {
             case Role.Admin:
                 return 'Administrator'

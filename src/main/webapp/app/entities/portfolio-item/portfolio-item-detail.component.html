@@ -1,0 +1,39 @@
+
+<div *ngIf="portfolioItem">
+    <h2><span jhiTranslate="opengiveApp.portfolioItem.detail.title">Portfolio Item</span> {{portfolioItem.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="opengiveApp.portfolioItem.portfolio">Portfolio</span></dt>
+        <dd>
+            <div *ngIf="portfolioItem.portfolio">
+                <a [routerLink]="['/portfolio', portfolioItem.portfolio?.id]">{{portfolioItem.portfolio?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="opengiveApp.portfolioItem.course">Course</span></dt>
+        <dd>
+            <div *ngIf="portfolioItem.course">
+                <a [routerLink]="['/course', portfolioItem.course?.id]">{{portfolioItem.course?.name}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="opengiveApp.portfolioItem.resource">Resource</span></dt>
+        <dd>
+            <span *ngFor="let resource of portfolioItem.resources; let last = last">
+                <a [routerLink]="['/item-link', resource?.id ]">{{resource.name}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'portfolio-item/'+ portfolioItem.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

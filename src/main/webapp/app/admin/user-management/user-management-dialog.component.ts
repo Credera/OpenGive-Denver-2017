@@ -7,13 +7,15 @@ import { EventManager, JhiLanguageService } from 'ng-jhipster';
 import { UserModalService } from './user-modal.service';
 import { JhiLanguageHelper, User, UserService } from '../../shared';
 import { Role } from '../../app.constants'
+import { Observable } from "rxjs/Observable";
+import { Organization } from "../../entities/organization/index";
 
 @Component({
     selector: 'jhi-user-mgmt-dialog',
     templateUrl: './user-management-dialog.component.html'
 })
 export class UserMgmtDialogComponent implements OnInit {
-
+    isAdmin: boolean;
     user: User;
     confirmPassword: string;
     isSaving: Boolean;
@@ -21,14 +23,20 @@ export class UserMgmtDialogComponent implements OnInit {
     formType: string;
     hide14: boolean;
     showPassword: boolean;
+    authorities = [Role.Admin, Role.OrgAdmin, Role.Instructor, Role.Student].map(a => { 
+        return {value: a, text: UserService.translateRole(a)};
+    });
+    organizations: Observable<Organization>
+    
 
     constructor(
         public activeModal: NgbActiveModal,
         private languageHelper: JhiLanguageHelper,
         private jhiLanguageService: JhiLanguageService,
         private userService: UserService,
-        private eventManager: EventManager
-    ) {}
+        private eventManager: EventManager,
+        private userModalService: UserModalService
+    ) { }
 
     ngOnInit() {
         this.isSaving = false;
@@ -37,9 +45,12 @@ export class UserMgmtDialogComponent implements OnInit {
         this.formType = this.user.id == null
             ? 'Create '
             : 'Edit ';
-        this.formType += this.user.authorities.map(a => this.userService.translateRole(a)).join(', ')
+        this.formType += this.user.authorities.map(a => UserService.translateRole(a)).join(', ')
 
         this.hide14 = this.user.authorities.every(a => a !== Role.Student);
+        this.isAdmin = this.user.authorities.some(a => a === Role.Admin);
+
+        this.organizations = this.userModalService.getOrganizations()
     }
 
     clear() {
@@ -90,13 +101,13 @@ export class UserDialogComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private userModalService: UserModalService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['login'] ) {
+            if (params['login']) {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
-            }else if (params['type']) {
+            } else if (params['type']) {
                 this.modalRef = this.userModalService.openNew(UserMgmtDialogComponent, params['type']);
             } else {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent);

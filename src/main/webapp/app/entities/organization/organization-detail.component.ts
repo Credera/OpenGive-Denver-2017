@@ -5,6 +5,7 @@ import { EventManager , JhiLanguageService  } from 'ng-jhipster';
 
 import { Organization } from './organization.model';
 import { OrganizationService } from './organization.service';
+import { Role } from "../../app.constants";
 
 @Component({
     selector: 'jhi-organization-detail',
@@ -13,6 +14,7 @@ import { OrganizationService } from './organization.service';
 export class OrganizationDetailComponent implements OnInit, OnDestroy {
 
     organization: Organization;
+    role: any;
     private subscription: any;
     private eventSubscriber: Subscription;
 
@@ -23,6 +25,7 @@ export class OrganizationDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute
     ) {
         this.jhiLanguageService.setLocations(['organization']);
+        this.role = Role;
     }
 
     ngOnInit() {

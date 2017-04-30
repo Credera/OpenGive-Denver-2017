@@ -63,6 +63,8 @@ public class CacheConfiguration {
 			cm.createCache(org.opengive.denver.stem.domain.Program.class.getName() + ".courses", jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.School.class.getName(), jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.School.class.getName() + ".programs", jcacheConfiguration);
+cm.createCache(org.opengive.denver.stem.domain.PortfolioItem.class.getName(), jcacheConfiguration);
+cm.createCache(org.opengive.denver.stem.domain.PortfolioItem.class.getName() + ".resources", jcacheConfiguration);
 			// jhipster-needle-ehcache-add-entry
 		};
 	}

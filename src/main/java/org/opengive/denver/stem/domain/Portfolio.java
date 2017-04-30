@@ -44,12 +44,12 @@ public class Portfolio implements Serializable {
 
 	@ManyToMany
 	@JoinTable(
-			name = "portfolio_link",
+			name = "portfolio_portfolio_item",
 			joinColumns = @JoinColumn(name = "portfolio_id", referencedColumnName = "id"),
-			inverseJoinColumns=@JoinColumn(name="link_id", referencedColumnName="id"))
+			inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	private Set<ItemLink> portfolioItems = new HashSet<>();
+	private Set<PortfolioItem> portfolioItems = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -72,26 +72,26 @@ public class Portfolio implements Serializable {
 		student = user;
 	}
 
-	public Set<ItemLink> getPortfolioItems() {
+	public Set<PortfolioItem> getPortfolioItems() {
 		return portfolioItems;
 	}
 
-	public Portfolio portfolioItems(final Set<ItemLink> itemLinks) {
+	public Portfolio portfolioItems(final Set<PortfolioItem> itemLinks) {
 		portfolioItems = itemLinks;
 		return this;
 	}
 
-	public Portfolio addPortfolioItems(final ItemLink itemLink) {
+	public Portfolio addPortfolioItems(final PortfolioItem itemLink) {
 		portfolioItems.add(itemLink);
 		return this;
 	}
 
-	public Portfolio removePortfolioItems(final ItemLink itemLink) {
+	public Portfolio removePortfolioItems(final PortfolioItem itemLink) {
 		portfolioItems.remove(itemLink);
 		return this;
 	}
 
-	public void setPortfolioItems(final Set<ItemLink> itemLinks) {
+	public void setPortfolioItems(final Set<PortfolioItem> itemLinks) {
 		portfolioItems = itemLinks;
 	}
 

@@ -10,7 +10,7 @@
                 [routerLink]="['/', { outlets: { popup: ['user-management-new', role.Instructor] } }]"
                 *jhiHasAtLeastAuthority="role.OrgAdmin">
             <span class="fa fa-plus"></span> <span>Create New Instructor</span>
-        </button> 
+        </button>
         <button class="btn btn-primary float-right create-button"
                 [routerLink]="['/', { outlets: { popup: ['user-management-new', role.OrgAdmin] } }]"
                 *jhiHasAtLeastAuthority="role.Admin">
@@ -51,9 +51,7 @@
                               *ngIf="user.activated">Active</span>
                     </td>
                     <td>
-                        <div *ngFor="let authority of user.authorities">
-                            <span class="tag tag-info">{{ translateRole(authority) }}</span>
-                        </div>
+                        <span class="tag tag-info">{{ authoritiesString(user) }}</span>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

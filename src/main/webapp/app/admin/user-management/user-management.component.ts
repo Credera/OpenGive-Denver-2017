@@ -29,6 +29,9 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     reverse: any;
     role: any;
     translateRole: (string) => string;
+    authoritiesString(user: User) {
+        return User.authoritiesString(user, ', ');
+    }
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -51,7 +54,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         });
         this.jhiLanguageService.setLocations(['user-management']);
         this.role = Role;
-        this.translateRole = userService.translateRole;
+        this.translateRole = UserService.translateRole;
     }
 
     ngOnInit() {
@@ -90,10 +93,11 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         this.userService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort()
+        }).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
-        );
+            );
     }
 
     trackIdentity(index, item: User) {
@@ -115,12 +119,13 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         }
     }
 
-    transition() : void {
-        this.router.navigate(['/user-management'], { queryParams:
-                {
-                    page: this.page,
-                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-                }
+    transition(): void {
+        this.router.navigate(['/user-management'], {
+            queryParams:
+            {
+                page: this.page,
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+            }
         });
         this.loadAll();
     }
