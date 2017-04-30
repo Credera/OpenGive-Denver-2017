@@ -5,7 +5,7 @@ import { JhiLanguageService, EventManager } from 'ng-jhipster';
 
 import { LoginService } from './login.service';
 import { StateStorageService } from '../auth/state-storage.service';
-import { SocialService } from '../social/social.service';
+import { SocialService } from '../social/social.service'; 
 
 @Component({
     selector: 'jhi-login-modal',
@@ -17,6 +17,8 @@ export class JhiLoginModalComponent implements OnInit, AfterViewInit {
     rememberMe: boolean;
     username: string;
     credentials: any;
+    failureCount = 0;
+    isOverLimit = false;
 
     constructor(
         private eventManager: EventManager,
@@ -76,6 +78,12 @@ export class JhiLoginModalComponent implements OnInit, AfterViewInit {
             }
         }).catch(() => {
             this.authenticationError = true;
+
+            this.failureCount ++;
+        if (this.failureCount > 2) {
+            this.isOverLimit = true;
+        }
+
         });
     }
 

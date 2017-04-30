@@ -92,17 +92,9 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label">Username (suggested: firstname.lastname)</label>
-            <input type="text"
-                   class="form-control"
-                   name="login"
-                   #loginInput="ngModel"
-                   [(ngModel)]="user.login"
-                   required
-                   minlength=5
-                   maxlength=20
-                   pattern="^[_'.@A-Za-z0-9-]*$">
-
+            <label class="form-control-label">Email</label>
+            <input type="email" class="form-control" name="email" #emailInput="ngModel"
+                   [(ngModel)]="user.email" required maxlength="100">
             <div *ngIf="loginInput.dirty && loginInput.invalid">
                 <small class="form-text text-danger"
                        *ngIf="loginInput.errors.required">
@@ -114,9 +106,13 @@
                        translate-value-max="50">
                     This field cannot be longer than 20 characters.
                 </small>
+		<small class="form-text text-danger"
+                   *ngIf="emailInput.errors.email">
+                    Your email is invalid.
+                 </small>
             </div>
         </div>
-
+        
         <div *ngIf="showPassword">
             <div class="form-group">
                 <label class="form-control-label"
@@ -182,7 +178,6 @@
                  *ngIf="!doPasswordsMatch">
                 The password and its confirmation do not match!
             </div>
-        </div>
 
         <div class="form-check"
              *ngIf="this.user.id != null">
