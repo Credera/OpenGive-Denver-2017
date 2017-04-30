@@ -17,7 +17,7 @@ export const achievementRoute: Routes = [
     path: 'achievement',
     component: AchievementComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +25,7 @@ export const achievementRoute: Routes = [
     path: 'achievement/:id',
     component: AchievementDetailComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +37,7 @@ export const achievementPopupRoute: Routes = [
     path: 'achievement-new',
     component: AchievementPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +47,7 @@ export const achievementPopupRoute: Routes = [
     path: 'achievement/:id/edit',
     component: AchievementPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +57,7 @@ export const achievementPopupRoute: Routes = [
     path: 'achievement/:id/deactivate',
     component: AchievementDeactivatePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.achievement.home.title'
     },
     canActivate: [UserRouteAccessService],

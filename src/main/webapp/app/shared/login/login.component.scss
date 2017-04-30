@@ -6,7 +6,10 @@ body {
 
 .Loginlogo {
   
-  margin: 5px 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
 
 }
 .Loginlogo img{
@@ -19,7 +22,6 @@ body {
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    //border-top: 5px solid #ff656c;
     margin: 0 auto;
 }
 
@@ -33,13 +35,12 @@ body {
 }
 
 .login-block input {
-    text-align: center;
     width: 100%;
     height: 42px;
     box-sizing: border-box;
     //border-radius: 5px;
     border: 1px solid #ccc;
-    border-radius: none;
+    border-radius: 0;
     margin-bottom: 20px;
     font-size: 14px;
     //font-family: Montserrat;
@@ -111,3 +112,11 @@ body {
     font-size: 10 px;
 }
 
+.modal-header {
+    display: flex;
+    /* align-items: flex-end; */
+    justify-content: flex-end;
+    padding: 15px;
+    padding-right: 20px;
+    border-bottom: 1px solid #eceeef;
+}

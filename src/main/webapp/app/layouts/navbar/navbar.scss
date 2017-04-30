@@ -8,7 +8,7 @@ Navbar
 }
 
 .jh-navbar {
-    background-color: #353d47;
+    background-color: #293038;
     padding: .2em 1em;
     .profile-image {
         margin: -10px 0px;
@@ -17,7 +17,7 @@ Navbar
         border-radius: 50%;
     }
     .dropdown-item.active, .dropdown-item.active:focus, .dropdown-item.active:hover {
-        background-color: #353d47;
+        background-color: #293038;
     }
     .dropdown-toggle::after {
         margin-left: 0.15em;
@@ -66,5 +66,31 @@ Logo styles
             background: url("../../../content/images/opengive-logo-white.svg") no-repeat center center;
             background-size: contain;
         }
+    }
+}
+
+
+.hipster {
+    display: inline-block;
+    width: 165px;
+    height: 30px;
+    background: url("../../../content/images/opengive-logo-red.svg") no-repeat center top;
+    background-size: contain;
+    position: absolute;
+    top: 17px;
+    left: 15px;
+}
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    .hipster {
+        background: url("../../../content/images/opengive-logo-red.svg") no-repeat center top;
+        background-size: contain;
     }
 }

@@ -17,7 +17,6 @@ import { Role } from '../../app.constants';
 export class OrganizationDialogComponent implements OnInit {
 
     organization: Organization;
-    authorities: any[];
     isSaving: boolean;
     constructor(
         public activeModal: NgbActiveModal,
@@ -31,7 +30,6 @@ export class OrganizationDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
     }
     clear() {
         this.activeModal.dismiss('cancel');

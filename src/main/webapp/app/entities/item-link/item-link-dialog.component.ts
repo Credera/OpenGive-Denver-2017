@@ -19,7 +19,6 @@ import { Role } from '../../app.constants';
 export class ItemLinkDialogComponent implements OnInit {
 
     itemLink: ItemLink;
-    authorities: any[];
     isSaving: boolean;
 
     portfolios: Portfolio[];
@@ -39,7 +38,6 @@ export class ItemLinkDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
         this.portfolioService.query().subscribe(
             (res: Response) => { this.portfolios = res.json(); }, (res: Response) => this.onError(res.json()));
         this.courseService.query().subscribe(

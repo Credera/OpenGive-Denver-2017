@@ -17,7 +17,7 @@ export const organizationRoute: Routes = [
         path: 'organization',
         component: OrganizationComponent,
         data: {
-            authorities: [Role.User],
+            authenticate: true,
             pageTitle: 'opengiveApp.organization.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -25,7 +25,7 @@ export const organizationRoute: Routes = [
         path: 'organization/:id',
         component: OrganizationDetailComponent,
         data: {
-            authorities: [Role.User],
+            authenticate: true,
             pageTitle: 'opengiveApp.organization.home.title'
         },
         canActivate: [UserRouteAccessService]

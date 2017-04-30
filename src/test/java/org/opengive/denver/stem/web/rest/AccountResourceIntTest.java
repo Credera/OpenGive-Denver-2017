@@ -156,7 +156,7 @@ public class AccountResourceIntTest {
 				null,                   // createdDate
 				null,                   // lastModifiedBy
 				null,                   // lastModifiedDate
-				new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)), true // is
+				new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)), true // is
 																				// 14
 																				// plus
 		);
@@ -189,7 +189,7 @@ public class AccountResourceIntTest {
 				null,                   // createdDate
 				null,                   // lastModifiedBy
 				null,                   // lastModifiedDate
-				new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)), true // is
+				new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)), true // is
 																				// 14
 																				// plus
 		);
@@ -222,7 +222,7 @@ public class AccountResourceIntTest {
 				null,                   // createdDate
 				null,                   // lastModifiedBy
 				null,                   // lastModifiedDate
-				new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)), false // is
+				new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)), false // is
 																				// 14
 																				// plus
 		);
@@ -255,7 +255,7 @@ public class AccountResourceIntTest {
 				null,                   // createdDate
 				null,                   // lastModifiedBy
 				null,                   // lastModifiedDate
-				new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)), true // is
+				new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)), true // is
 																				// 14
 																				// plus
 		);
@@ -289,7 +289,7 @@ public class AccountResourceIntTest {
 				null,                   // createdDate
 				null,                   // lastModifiedBy
 				null,                   // lastModifiedDate
-				new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
+				new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)),
 				false					// is 14 plus
 				);
 
@@ -337,7 +337,7 @@ public class AccountResourceIntTest {
 				null,                   // createdDate
 				null,                   // lastModifiedBy
 				null,                   // lastModifiedDate
-				new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
+				new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)),
 				true					// is 14 plus
 				);
 
@@ -396,7 +396,7 @@ public class AccountResourceIntTest {
 		final Optional<User> userDup = userRepository.findOneByLogin("badguy");
 		assertThat(userDup.isPresent()).isTrue();
 		assertThat(userDup.get().getAuthorities()).hasSize(1)
-		.containsExactly(authorityRepository.findOne(AuthoritiesConstants.USER));
+		.containsExactly(authorityRepository.findOne(AuthoritiesConstants.STUDENT));
 	}
 
 	@Test
@@ -416,7 +416,7 @@ public class AccountResourceIntTest {
 				null,                   // createdDate
 				null,                   // lastModifiedBy
 				null,                   // lastModifiedDate
-				new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
+				new HashSet<>(Arrays.asList(AuthoritiesConstants.STUDENT)),
 				true					// is 14 plus
 				);
 

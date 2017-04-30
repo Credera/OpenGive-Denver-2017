@@ -18,7 +18,6 @@ import { Role } from '../../app.constants';
 export class PortfolioDialogComponent implements OnInit {
 
     portfolio: Portfolio;
-    authorities: any[];
     isSaving: boolean;
 
     users: User[];
@@ -35,7 +34,6 @@ export class PortfolioDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
         this.userService.query().subscribe(
             (res: Response) => { this.users = res.json(); }, (res: Response) => this.onError(res.json()));
     }

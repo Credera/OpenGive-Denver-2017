@@ -17,7 +17,7 @@ export const itemLinkRoute: Routes = [
     path: 'item-link',
     component: ItemLinkComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.itemLink.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +25,7 @@ export const itemLinkRoute: Routes = [
     path: 'item-link/:id',
     component: ItemLinkDetailComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.itemLink.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +37,7 @@ export const itemLinkPopupRoute: Routes = [
     path: 'item-link-new',
     component: ItemLinkPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.itemLink.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +47,7 @@ export const itemLinkPopupRoute: Routes = [
     path: 'item-link/:id/edit',
     component: ItemLinkPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.itemLink.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +57,7 @@ export const itemLinkPopupRoute: Routes = [
     path: 'item-link/:id/deactivate',
     component: ItemLinkDeactivatePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.itemLink.home.title'
     },
     canActivate: [UserRouteAccessService],

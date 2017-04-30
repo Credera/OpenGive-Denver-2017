@@ -13,8 +13,7 @@
         <a class="navbar-brand logo float-left"
            routerLink="/"
            (click)="collapseNavbar()">
-            <span class="logo-img"></span>
-            <!-- <span class="navbar-title">OpenGive</span> --><span class="navbar-version">{{version}}</span>
+            <span class="hipster img-fluid img-rounded"></span>
         </a>
     </div>
     <div class="navbar-collapse collapse"
@@ -143,8 +142,11 @@
                         </a>
                     </li>
                     <li uiSrefActive="active">
-                        <a class="dropdown-item" routerLink="portfolio-item" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                        <a class="dropdown-item"
+                           routerLink="portfolio-item"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk"
+                               aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.portfolioItem">Portfolio Item</span>
                         </a>
                     </li>

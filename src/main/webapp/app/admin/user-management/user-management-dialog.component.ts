@@ -43,9 +43,8 @@ export class UserMgmtDialogComponent implements OnInit {
         this.jhiLanguageService.setLocations(['user-management']);
         this.showPassword = this.user.id == null;
         this.formType = this.user.id == null
-            ? 'Create '
-            : 'Edit ';
-        this.formType += this.user.authorities.map(a => UserService.translateRole(a)).join(', ')
+            ? 'Create'
+            : 'Edit';
 
         this.hide14 = this.user.authorities.every(a => a !== Role.Student);
         this.isAdmin = this.user.authorities.some(a => a === Role.Admin);

@@ -9,15 +9,12 @@ import { ActivityDetailComponent } from './activity-detail.component';
 import { ActivityPopupComponent } from './activity-dialog.component';
 import { ActivityDeactivatePopupComponent } from './activity-deactivate-dialog.component';
 
-import { Principal } from '../../shared';
-import { Role } from '../../app.constants';
-
 export const activityRoute: Routes = [
   {
     path: 'activity',
     component: ActivityComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.activity.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +22,7 @@ export const activityRoute: Routes = [
     path: 'activity/:id',
     component: ActivityDetailComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.activity.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +34,7 @@ export const activityPopupRoute: Routes = [
     path: 'activity-new',
     component: ActivityPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.activity.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +44,7 @@ export const activityPopupRoute: Routes = [
     path: 'activity/:id/edit',
     component: ActivityPopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.activity.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +54,7 @@ export const activityPopupRoute: Routes = [
     path: 'activity/:id/deactivate',
     component: ActivityDeactivatePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.activity.home.title'
     },
     canActivate: [UserRouteAccessService],
