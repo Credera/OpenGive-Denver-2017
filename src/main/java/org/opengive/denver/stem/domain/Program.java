@@ -1,7 +1,6 @@
 package org.opengive.denver.stem.domain;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -11,11 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,239 +31,151 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Document(indexName = "program")
 public class Program implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotNull
-    @Size(min = 3, max = 100)
-    @Column(name = "name", length = 100, nullable = false)
-    private String name;
+	@NotNull
+	@Size(min = 5, max = 50)
+	@Column(name = "name", length = 50, nullable = false)
+	private String name;
 
-    @Size(min = 5, max = 200)
-    @Column(name = "description", length = 200)
-    private String description;
+	@Column(name = "description")
+	private String description;
 
-    @Column(name = "start_date")
-    private ZonedDateTime startDate;
+	@Column(name = "active", nullable = false)
+	private Boolean active;
 
-    @Column(name = "end_date")
-    private ZonedDateTime endDate;
+	@ManyToOne
+	private School school;
 
-    @ManyToOne
-    private Organization organization;
+	@ManyToOne(optional = false)
+	private Session session;
 
-    @OneToOne(optional = false)
-    @NotNull
-    @JoinColumn(unique = true)
-    private User instructor;
+	@OneToMany(mappedBy = "program")
+	@JsonIgnore
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	private Set<Course> courses = new HashSet<>();
 
-    @OneToMany(mappedBy = "program")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ItemLink> resources = new HashSet<>();
+	public Long getId() {
+		return id;
+	}
 
-    @OneToMany
-    @JoinTable(
-			name = "STDT_PRGM", 
-			joinColumns = {	@JoinColumn(name = "USER_ID", referencedColumnName = "ID") }, 
-			inverseJoinColumns = { @JoinColumn(name = "PRGM_ID", referencedColumnName = "ID") }
-			)
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<User> students = new HashSet<>();
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    @OneToMany(mappedBy = "program")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Milestone> milestones = new HashSet<>();
+	public String getName() {
+		return name;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Program name(final String name) {
+		this.name = name;
+		return this;
+	}
 
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	public void setName(final String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Program name(final String name) {
-        this.name = name;
-        return this;
-    }
+	public Program description(final String description) {
+		this.description = description;
+		return this;
+	}
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+	public void setDescription(final String description) {
+		this.description = description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public Boolean isActive() {
+		return active;
+	}
 
-    public Program description(final String description) {
-        this.description = description;
-        return this;
-    }
+	public Program active(final Boolean active) {
+		this.active = active;
+		return this;
+	}
 
-    public void setDescription(final String description) {
-        this.description = description;
-    }
+	public void setActive(final Boolean active) {
+		this.active = active;
+	}
 
-    public ZonedDateTime getStartDate() {
-        return startDate;
-    }
+	public School getSchool() {
+		return school;
+	}
 
-    public Program startDate(final ZonedDateTime startDate) {
-        this.startDate = startDate;
-        return this;
-    }
+	public Program school(final School school) {
+		this.school = school;
+		return this;
+	}
 
-    public void setStartDate(final ZonedDateTime startDate) {
-        this.startDate = startDate;
-    }
+	public void setSchool(final School school) {
+		this.school = school;
+	}
 
-    public ZonedDateTime getEndDate() {
-        return endDate;
-    }
+	public Session getSession() {
+		return session;
+	}
 
-    public Program endDate(final ZonedDateTime endDate) {
-        this.endDate = endDate;
-        return this;
-    }
+	public void setSession(final Session session) {
+		this.session = session;
+	}
 
-    public void setEndDate(final ZonedDateTime endDate) {
-        this.endDate = endDate;
-    }
+	public Set<Course> getCourses() {
+		return courses;
+	}
 
-    public Organization getOrganization() {
-        return organization;
-    }
+	public Program courses(final Set<Course> courses) {
+		this.courses = courses;
+		return this;
+	}
 
-    public Program organization(final Organization organization) {
-        this.organization = organization;
-        return this;
-    }
+	public Program addCourse(final Course course) {
+		courses.add(course);
+		course.setProgram(this);
+		return this;
+	}
 
-    public void setOrganization(final Organization organization) {
-        this.organization = organization;
-    }
+	public Program removeCourse(final Course course) {
+		courses.remove(course);
+		course.setProgram(null);
+		return this;
+	}
 
-    public User getInstructor() {
-        return instructor;
-    }
+	public void setCourses(final Set<Course> courses) {
+		this.courses = courses;
+	}
 
-    public Program instructor(final User user) {
-        instructor = user;
-        return this;
-    }
-
-    public void setInstructor(final User user) {
-        instructor = user;
-    }
-
-    public Set<ItemLink> getResources() {
-        return resources;
-    }
-
-    public Program resources(final Set<ItemLink> itemLinks) {
-        resources = itemLinks;
-        return this;
-    }
-
-    public Program addResources(final ItemLink itemLink) {
-        resources.add(itemLink);
-        itemLink.setProgram(this);
-        return this;
-    }
-
-    public Program removeResources(final ItemLink itemLink) {
-        resources.remove(itemLink);
-        itemLink.setProgram(null);
-        return this;
-    }
-
-    public void setResources(final Set<ItemLink> itemLinks) {
-        resources = itemLinks;
-    }
-
-    public Set<User> getStudents() {
-        return students;
-    }
-
-    public Program students(final Set<User> users) {
-        students = users;
-        return this;
-    }
-
-    public Program addStudents(final User user) {
-        students.add(user);
-        return this;
-    }
-
-    public Program removeStudents(final User user) {
-        students.remove(user);
-        return this;
-    }
-
-    public void setStudents(final Set<User> users) {
-        students = users;
-    }
-
-    public Set<Milestone> getMilestones() {
-        return milestones;
-    }
-
-    public Program milestones(final Set<Milestone> milestones) {
-        this.milestones = milestones;
-        return this;
-    }
-
-    public Program addMilestones(final Milestone milestone) {
-        milestones.add(milestone);
-        milestone.setProgram(this);
-        return this;
-    }
-
-    public Program removeMilestones(final Milestone milestone) {
-        milestones.remove(milestone);
-        milestone.setProgram(null);
-        return this;
-    }
-
-    public void setMilestones(final Set<Milestone> milestones) {
-        this.milestones = milestones;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o)
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o)
 			return true;
-        if (o == null || getClass() != o.getClass())
+		if (o == null || getClass() != o.getClass())
 			return false;
-        final Program program = (Program) o;
-        if (program.id == null || id == null)
+		final Program program = (Program) o;
+		if (program.id == null || id == null)
 			return false;
-        return Objects.equals(id, program.id);
-    }
+		return Objects.equals(id, program.id);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(id);
+	}
 
-    @Override
-    public String toString() {
-        return "Program{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", description='" + description + "'" +
-            ", startDate='" + startDate + "'" +
-            ", endDate='" + endDate + "'" +
-            '}';
-    }
+	@Override
+	public String toString() {
+		return "Program{" +
+				"id=" + id +
+				", name='" + name + "'" +
+				", description='" + description + "'" +
+				", active='" + active + "'" +
+				'}';
+	}
 }

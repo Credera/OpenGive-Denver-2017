@@ -1,6 +1,5 @@
 <div class="modal-header">
-    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
-    </button>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span></button>
 </div>
 <div class="Loginlogo">
     <img  src="../../../Login_Logo.png"/>
@@ -17,6 +16,7 @@
             </div>
             
         </div>
+
         <div class="login-block">
             <form class="form" role="form" (ngSubmit)="login()">
                 <div >
@@ -36,17 +36,6 @@
                 <a (click)="requestResetPassword()">Forgot Password?</a>
             </div>
             
-            <!--div class="alert alert-warning">
-            	<span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
-                <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>
-            </div>
         </div>
-        <div class="col-md-6">
-            <br/>
-            <jhi-social provider="google"></jhi-social>
-            <jhi-social provider="facebook"></jhi-social>
-            <jhi-social provider="twitter"></jhi-social>
-            
-        </div-->
     </div>
 </div>

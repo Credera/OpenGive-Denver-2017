@@ -1,4 +1,3 @@
-
 body {
     background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;
     background-size: cover;
@@ -6,9 +5,7 @@ body {
 }
 
 .Loginlogo {
-  /*background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;*/
+  
   margin: 5px 200px;
 
 }
@@ -107,3 +104,10 @@ body {
     font-size: 12px;
     text-decoration: underline;
 }
+
+.login {
+    background-color: rgba(170, 0, 0, 0.5);
+    text-align: center;
+    font-size: 10 px;
+}
+

@@ -10,15 +10,14 @@ import {
     PortfolioDetailComponent,
     PortfolioDialogComponent,
     PortfolioPopupComponent,
-    PortfolioDeletePopupComponent,
-    PortfolioDeleteDialogComponent,
+    PortfolioDeactivatePopupComponent,
+    PortfolioDeactivateDialogComponent,
     portfolioRoute,
-    portfolioPopupRoute,
 } from './';
 
 const ENTITY_STATES = [
     ...portfolioRoute,
-    ...portfolioPopupRoute,
+
 ];
 
 @NgModule({
@@ -31,16 +30,16 @@ const ENTITY_STATES = [
         PortfolioComponent,
         PortfolioDetailComponent,
         PortfolioDialogComponent,
-        PortfolioDeleteDialogComponent,
+        PortfolioDeactivateDialogComponent,
         PortfolioPopupComponent,
-        PortfolioDeletePopupComponent,
+        PortfolioDeactivatePopupComponent,
     ],
     entryComponents: [
         PortfolioComponent,
         PortfolioDialogComponent,
         PortfolioPopupComponent,
-        PortfolioDeleteDialogComponent,
-        PortfolioDeletePopupComponent,
+        PortfolioDeactivateDialogComponent,
+        PortfolioDeactivatePopupComponent,
     ],
     providers: [
         PortfolioService,

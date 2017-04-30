@@ -1,7 +1,7 @@
 package org.opengive.denver.stem.config;
 
 
-import io.github.jhipster.security.*;
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
-import javax.annotation.PostConstruct;
+import io.github.jhipster.security.AjaxLogoutSuccessHandler;
+import io.github.jhipster.security.Http401UnauthorizedEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService) {
+    public SecurityConfiguration(final AuthenticationManagerBuilder authenticationManagerBuilder, final UserDetailsService userDetailsService) {
 
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDetailsService = userDetailsService;
@@ -43,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             authenticationManagerBuilder
                 .userDetailsService(userDetailsService)
                     .passwordEncoder(passwordEncoder());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new BeanInitializationException("Security configuration failed", e);
         }
     }
@@ -64,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(final WebSecurity web) throws Exception {
         web.ignoring()
             .antMatchers(HttpMethod.OPTIONS, "/**")
             .antMatchers("/app/**/*.{js,html}")
@@ -81,7 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(HttpSecurity http) throws Exception {
+    public void configure(final HttpSecurity http) throws Exception {
         http
             .httpBasic().realmName("opengive")
             .and()

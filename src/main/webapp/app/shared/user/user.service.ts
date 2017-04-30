@@ -3,12 +3,28 @@ import { Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { User } from './user.model';
+import { Role } from "../../app.constants";
 
 @Injectable()
 export class UserService {
     private resourceUrl = 'api/users';
 
     constructor(private http: Http) { }
+
+    translateRole(roleKey: string) : string {
+        switch (roleKey) {
+            case Role.Admin:
+                return 'Administrator'
+            case Role.OrgAdmin:
+                return 'Org Admin'
+            case Role.Instructor:
+                return 'Instructor'
+            case Role.Student:
+                return 'Student'
+            default:
+                return 'None'
+        }
+    }
 
     create(user: User): Observable<Response> {
         return this.http.post(this.resourceUrl, user);
@@ -39,7 +55,7 @@ export class UserService {
         return this.http.get(this.resourceUrl, options);
     }
 
-    delete(login: string): Observable<Response> {
+    deactivate(login: string): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${login}`);
     }
 }

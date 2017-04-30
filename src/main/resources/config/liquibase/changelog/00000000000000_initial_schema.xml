@@ -34,7 +34,6 @@
             <column name="activated" type="boolean" valueBoolean="false">
                 <constraints nullable="false" />
             </column>
-            <column name="lang_key" type="varchar(5)"/>
             <column name="activation_key" type="varchar(20)"/>
             <column name="reset_key" type="varchar(20)"/>
             <column name="created_by" type="varchar(50)">
@@ -48,6 +47,9 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
+            <column name="is_14_plus" type="boolean">
+            	<constraints nullable="false"/>
+            </column>
         </createTable>
         <createIndex indexName="idx_user_login"
             tableName="user"
@@ -92,6 +94,7 @@
                   file="config/liquibase/users.csv"
                   separator=","
                   tableName="user">
+            <column name="is_14_plus" type="boolean"/>
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>
@@ -106,7 +109,7 @@
                   file="config/liquibase/users_authorities.csv"
                   separator=","
                   tableName="user_authority"/>
-                  
+
         <createTable tableName="persistent_audit_event">
             <column name="event_id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>

@@ -9,7 +9,7 @@ import { ItemLink } from './item-link.model';
 import { ItemLinkPopupService } from './item-link-popup.service';
 import { ItemLinkService } from './item-link.service';
 import { Portfolio, PortfolioService } from '../portfolio';
-import { Program, ProgramService } from '../program';
+import { Course, CourseService } from '../course';
 import { Role } from '../../app.constants';
 
 @Component({
@@ -24,14 +24,14 @@ export class ItemLinkDialogComponent implements OnInit {
 
     portfolios: Portfolio[];
 
-    programs: Program[];
+    courses: Course[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private itemLinkService: ItemLinkService,
         private portfolioService: PortfolioService,
-        private programService: ProgramService,
+        private courseService: CourseService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['itemLink']);
@@ -42,8 +42,8 @@ export class ItemLinkDialogComponent implements OnInit {
         this.authorities = [Role.User, Role.Admin];
         this.portfolioService.query().subscribe(
             (res: Response) => { this.portfolios = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.programService.query().subscribe(
-            (res: Response) => { this.programs = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.courseService.query().subscribe(
+            (res: Response) => { this.courses = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -86,7 +86,7 @@ export class ItemLinkDialogComponent implements OnInit {
         return item.id;
     }
 
-    trackProgramById(index: number, item: Program) {
+    trackCourseById(index: number, item: Course) {
         return item.id;
     }
 }

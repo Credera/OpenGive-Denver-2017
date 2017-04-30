@@ -15,9 +15,12 @@ import { Role } from '../../app.constants'
 export class UserMgmtDialogComponent implements OnInit {
 
     user: User;
-    languages: any[];
-    authorities: any[];
+    confirmPassword: string;
     isSaving: Boolean;
+    doPasswordsMatch = true;
+    formType: string;
+    hide14: boolean;
+    showPassword: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -29,11 +32,14 @@ export class UserMgmtDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
-        this.languageHelper.getAll().then((languages) => {
-            this.languages = languages;
-        });
         this.jhiLanguageService.setLocations(['user-management']);
+        this.showPassword = this.user.id == null;
+        this.formType = this.user.id == null
+            ? 'Create '
+            : 'Edit ';
+        this.formType += this.user.authorities.map(a => this.userService.translateRole(a)).join(', ')
+
+        this.hide14 = this.user.authorities.every(a => a !== Role.Student);
     }
 
     clear() {
@@ -42,10 +48,22 @@ export class UserMgmtDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+
+        if (this.user.password !== this.confirmPassword)
+            return;
+
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
         } else {
             this.userService.create(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
+        }
+    }
+
+    changePassword() {
+        if (this.user.password !== this.confirmPassword) {
+            this.doPasswordsMatch = false;
+        } else {
+            this.doPasswordsMatch = true;
         }
     }
 
@@ -62,7 +80,7 @@ export class UserMgmtDialogComponent implements OnInit {
 
 @Component({
     selector: 'jhi-user-dialog',
-    template: ''
+    template: '<div></div>'
 })
 export class UserDialogComponent implements OnInit, OnDestroy {
 
@@ -78,6 +96,8 @@ export class UserDialogComponent implements OnInit, OnDestroy {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['login'] ) {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
+            }else if (params['type']) {
+                this.modalRef = this.userModalService.openNew(UserMgmtDialogComponent, params['type']);
             } else {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent);
             }

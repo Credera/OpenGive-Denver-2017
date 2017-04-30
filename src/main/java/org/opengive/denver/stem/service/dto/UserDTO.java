@@ -16,7 +16,8 @@ import org.opengive.denver.stem.domain.User;
 /**
  * A DTO representing a user, with his authorities.
  */
-public class UserDTO {
+public class UserDTO
+{
 
 	private Long id;
 
@@ -44,9 +45,6 @@ public class UserDTO {
 
 	private boolean activated = false;
 
-	@Size(min = 2, max = 5)
-	private String langKey;
-
 	private String createdBy;
 
 	private ZonedDateTime createdDate;
@@ -57,6 +55,8 @@ public class UserDTO {
 
 	private Set<String> authorities;
 
+	private boolean is14Plus;
+
 	public UserDTO() {
 		// Empty constructor needed for MapStruct.
 	}
@@ -64,14 +64,16 @@ public class UserDTO {
 	public UserDTO(final User user) {
 		this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
 				user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getActivated(), user.getImageUrl(),
-				user.getLangKey(), user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(),
-				user.getLastModifiedDate(),	user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
+				user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(),
+				user.getLastModifiedDate(),
+				user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()), user.getIs14Plus());
 	}
 
 	public UserDTO(final Long id, final String login, final String firstName, final String lastName,
 			final String email, final String phoneNumber, final Address address, final boolean activated,
-			final String imageUrl, final String langKey, final String createdBy, final ZonedDateTime createdDate,
-			final String lastModifiedBy, final ZonedDateTime lastModifiedDate, final Set<String> authorities) {
+			final String imageUrl, final String createdBy, final ZonedDateTime createdDate,
+			final String lastModifiedBy, final ZonedDateTime lastModifiedDate, final Set<String> authorities,
+			final boolean is14Plus) {
 
 		this.id = id;
 		this.login = login;
@@ -80,12 +82,12 @@ public class UserDTO {
 		this.email = email;
 		this.activated = activated;
 		this.imageUrl = imageUrl;
-		this.langKey = langKey;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
 		this.authorities = authorities;
+		this.is14Plus = is14Plus;
 	}
 
 	public Long getId() {
@@ -132,10 +134,6 @@ public class UserDTO {
 		return activated;
 	}
 
-	public String getLangKey() {
-		return langKey;
-	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -160,6 +158,10 @@ public class UserDTO {
 		return authorities;
 	}
 
+	public boolean is14Plus() {
+		return is14Plus;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO{" +
@@ -169,7 +171,6 @@ public class UserDTO {
 				", email='" + email + '\'' +
 				", imageUrl='" + imageUrl + '\'' +
 				", activated=" + activated +
-				", langKey='" + langKey + '\'' +
 				", createdBy=" + createdBy +
 				", createdDate=" + createdDate +
 				", lastModifiedBy='" + lastModifiedBy + '\'' +

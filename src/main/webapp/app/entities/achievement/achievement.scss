@@ -1,0 +1,33 @@
+
+/* ==========================================================================
+Achievement page styles
+========================================================================== */
+
+.hipster {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+    background: url("../../../content/images/opengive-icon.svg") no-repeat center top;
+    background-size: contain;
+}
+
+#points {
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.course {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.badge-title {
+    margin-bottom: 8px;
+}
+
+.space-top-md {
+    margin-top: 8px;
+}
+
+.space-top-lg {
+    margin-top: 12px;
+}

@@ -1,5 +1,5 @@
 import { Portfolio } from '../portfolio';
-import { Program } from '../program';
+import { Course } from '../course';
 export class ItemLink {
     constructor(
         public id?: number,
@@ -8,7 +8,7 @@ export class ItemLink {
         public thumbnailImageUrl?: string,
         public itemUrl?: string,
         public portfolio?: Portfolio,
-        public program?: Program,
+        public course?: Course,
     ) {
     }
 }

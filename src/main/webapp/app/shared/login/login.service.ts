@@ -24,9 +24,9 @@ export class LoginService {
                 this.principal.identity(true).then((account) => {
                     // After the login the language will be changed to
                     // the language selected by the user during his registration
-                    if (account !== null) {
-                        this.languageService.changeLanguage(account.langKey);
-                    }
+                    // if (account !== null) {
+                    //    this.languageService.changeLanguage(account.langKey);
+                    // }
                     resolve(data);
                     this.router.navigate(['/portfolio']);
                 });
@@ -44,9 +44,6 @@ export class LoginService {
     logout() {
         this.authServerProvider.logout().subscribe();
         this.principal.authenticate(null);
-       
-
-        
         
     }
 }
