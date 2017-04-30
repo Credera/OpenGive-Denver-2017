@@ -10,7 +10,6 @@ import { ProgramPopupComponent } from './program-dialog.component';
 import { ProgramDeactivatePopupComponent } from './program-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
-import { Role } from '../../app.constants';
 
 export const programRoute: Routes = [
   {

@@ -28,8 +28,8 @@
         </dd>
         <dt><span>Program</span></dt>
         <dd>
-            <div *ngIf="itemLink.program">
-                <a [routerLink]="['/program', itemLink.program?.id]">{{itemLink.program?.id}}</a>
+            <div *ngIf="itemLink.course">
+                <a [routerLink]="['/course', itemLink.course?.id]">{{itemLink.course?.id}}</a>
             </div>
         </dd>
     </dl>

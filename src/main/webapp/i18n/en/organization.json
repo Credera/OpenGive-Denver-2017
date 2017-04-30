@@ -1,0 +1,25 @@
+{
+    "opengiveApp": {
+        "organization" : {
+            "home": {
+                "title": "Organizations",
+                "createLabel": "Create a new Organization",
+                "createOrEditLabel": "Create or edit a Organization",
+                "search": "Search for Organization"
+            },
+            "created": "A new Organization is created with identifier {{ param }}",
+            "updated": "A Organization is updated with identifier {{ param }}",
+            "deactivated": "A Organization is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Organization {{ id }}?"
+            },
+            "detail": {
+                "title": "Organization"
+            },
+            "name": "Name",
+            "description": "Description",
+            "courses": "Courses",
+            "users": "Users"
+        }
+    }
+}

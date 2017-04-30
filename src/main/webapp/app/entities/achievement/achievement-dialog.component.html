@@ -66,10 +66,10 @@
         </div>
 
         <div class="form-group">
-            <label for="field_milestone">Milestone</label>
-            <select class="form-control" id="field_milestone" name="milestone" [(ngModel)]="achievement.milestone" >
+            <label for="field_activity">Activity</label>
+            <select class="form-control" id="field_activity" name="activity" [(ngModel)]="achievement.activity" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="milestoneOption.id === achievement.milestone?.id ? achievement.milestone : milestoneOption" *ngFor="let milestoneOption of milestones; trackBy: trackMilestoneById">{{milestoneOption.id}}</option>
+                <option [ngValue]="activityOption.id === achievement.activity?.id ? achievement.activity : activityOption" *ngFor="let activityOption of activities; trackBy: trackActivityById">{{activityOption.id}}</option>
             </select>
         </div>
     </div>

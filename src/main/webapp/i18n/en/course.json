@@ -1,0 +1,30 @@
+{
+    "opengiveApp": {
+        "course" : {
+            "home": {
+                "title": "Courses",
+                "createLabel": "Create a new Course",
+                "createOrEditLabel": "Create or edit a Course",
+                "search": "Search for Course"
+            },
+            "created": "A new Course is created with identifier {{ param }}",
+            "updated": "A Course is updated with identifier {{ param }}",
+            "deactivated": "A Course is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Course {{ id }}?"
+            },
+            "detail": {
+                "title": "Course"
+            },
+            "name": "Name",
+            "description": "Description",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "organization": "Organization",
+            "instructor": "Instructor",
+            "resources": "Resources",
+            "students": "Students",
+            "activities": "Activitys"
+        }
+    }
+}

@@ -29,10 +29,9 @@
 
             <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
                 <small class="form-text text-danger"
-                       *ngIf="firstNameInput.errors.maxlength"
-                       translate-value-max="50">
+                       *ngIf="firstNameInput.errors.maxlength">
                     This field cannot be longer than 50 characters.
-                </small>
+                </small> 
                 <small class="form-text text-danger"
                        *ngIf="firstNameInput.errors.required">
                     This field is required.
@@ -51,8 +50,7 @@
 
             <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
                 <small class="form-text text-danger"
-                       *ngIf="lastNameInput.errors.maxlength"
-                       translate-value-max="50">
+                       *ngIf="lastNameInput.errors.maxlength">
                     This field cannot be longer than 50 characters.
                 </small>
                 <small class="form-text text-danger"
@@ -113,7 +111,6 @@
                        id="password"
                        name="password"
                        #passwordInput="ngModel"
-                       placeholder="{{'global.form.newpassword.placeholder' | translate}}"
                        [(ngModel)]="user.password"
                        (keyup)="changePassword()"
                        minlength=6
@@ -143,7 +140,6 @@
                        id="confirmPassword"
                        name="confirmPassword"
                        #confirmPasswordInput="ngModel"
-                       placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
                        [(ngModel)]="confirmPassword"
                        (keyup)="changePassword()"
                        minlength=6

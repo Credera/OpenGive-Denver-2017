@@ -50,7 +50,7 @@ public class Organization implements Serializable {
 	@OneToMany(mappedBy = "organization")
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	private Set<Program> programs = new HashSet<>();
+	private Set<Course> courses = new HashSet<>();
 
 	@OneToMany
 	@JoinTable(
@@ -96,29 +96,29 @@ public class Organization implements Serializable {
 		this.description = description;
 	}
 
-	public Set<Program> getPrograms() {
-		return programs;
+	public Set<Course> getCourses() {
+		return courses;
 	}
 
-	public Organization programs(final Set<Program> programs) {
-		this.programs = programs;
+	public Organization courses(final Set<Course> courses) {
+		this.courses = courses;
 		return this;
 	}
 
-	public Organization addPrograms(final Program program) {
-		programs.add(program);
-		program.setOrganization(this);
+	public Organization addCourses(final Course course) {
+		courses.add(course);
+		course.setOrganization(this);
 		return this;
 	}
 
-	public Organization removePrograms(final Program program) {
-		programs.remove(program);
-		program.setOrganization(null);
+	public Organization removeCourses(final Course course) {
+		courses.remove(course);
+		course.setOrganization(null);
 		return this;
 	}
 
-	public void setPrograms(final Set<Program> programs) {
-		this.programs = programs;
+	public void setCourses(final Set<Course> courses) {
+		this.courses = courses;
 	}
 
 	public Set<User> getUsers() {

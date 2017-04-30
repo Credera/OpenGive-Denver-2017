@@ -1,0 +1,27 @@
+{
+    "opengiveApp": {
+        "itemLink" : {
+            "home": {
+                "title": "Item Links",
+                "createLabel": "Create a new Item Link",
+                "createOrEditLabel": "Create or edit a Item Link",
+                "search": "Search for Item Link"
+            },
+            "created": "A new Item Link is created with identifier {{ param }}",
+            "updated": "A Item Link is updated with identifier {{ param }}",
+            "deactivated": "A Item Link is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Item Link {{ id }}?"
+            },
+            "detail": {
+                "title": "Item Link"
+            },
+            "name": "Name",
+            "description": "Description",
+            "thumbnailImageUrl": "Thumbnail Image Url",
+            "itemUrl": "Item Url",
+            "portfolio": "Portfolio",
+            "course": "Course"
+        }
+    }
+}

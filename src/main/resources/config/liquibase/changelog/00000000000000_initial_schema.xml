@@ -94,6 +94,7 @@
                   file="config/liquibase/users.csv"
                   separator=","
                   tableName="user">
+            <column name="is_14_plus" type="boolean"/>
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>

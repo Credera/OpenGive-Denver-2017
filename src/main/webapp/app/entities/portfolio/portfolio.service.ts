@@ -1,7 +1,7 @@
+import { User } from './../../shared/user/user.model';
 import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-
 import { Portfolio } from './portfolio.model';
 @Injectable()
 export class PortfolioService {
@@ -45,6 +45,18 @@ export class PortfolioService {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceSearchUrl, options)
         ;
+    }
+
+    fakeData(): Portfolio[] {
+    var fakeUser = new User(1, "login", "Wheeler", "Olis", "wolis@credera.com", true, "eng", ["USER_ROLE"],
+        null, new Date(), "bob", new Date(), "dksaf")
+        var observable = new Observable();
+        var portfolio = new Portfolio(1, fakeUser);
+        return [portfolio];
+        
+        // return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
+        //     return res.json();
+        // });
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {

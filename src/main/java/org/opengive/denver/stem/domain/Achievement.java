@@ -53,7 +53,7 @@ public class Achievement implements Serializable {
 	private String badgeUrl;
 
 	@ManyToOne
-	private Milestone milestone;
+	private Activity activity;
 
 	@OneToMany
 	@JoinTable(
@@ -112,17 +112,17 @@ public class Achievement implements Serializable {
 		this.badgeUrl = badgeUrl;
 	}
 
-	public Milestone getMilestone() {
-		return milestone;
+	public Activity getActivity() {
+		return activity;
 	}
 
-	public Achievement milestone(final Milestone milestone) {
-		this.milestone = milestone;
+	public Achievement activity(final Activity activity) {
+		this.activity = activity;
 		return this;
 	}
 
-	public void setMilestone(final Milestone milestone) {
-		this.milestone = milestone;
+	public void setActivity(final Activity activity) {
+		this.activity = activity;
 	}
 
 	public Set<User> getAchievedBy() {

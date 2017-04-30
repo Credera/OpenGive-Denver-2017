@@ -39,7 +39,7 @@ public class UserServiceIntTest {
 
 	@Test
 	public void assertThatUserMustExistToResetPassword() {
-		Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
+		Optional<User> maybeUser = userService.requestPasswordReset("john.doe");
 		assertThat(maybeUser.isPresent()).isFalse();
 
 		maybeUser = userService.requestPasswordReset("admin");
@@ -54,7 +54,7 @@ public class UserServiceIntTest {
 	public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
 		final User user = userService.createUser("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
 				"http://placehold.it/50x50");
-		final Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
+		final Optional<User> maybeUser = userService.requestPasswordReset("johndoe");
 		assertThat(maybeUser.isPresent()).isFalse();
 		userRepository.delete(user);
 	}

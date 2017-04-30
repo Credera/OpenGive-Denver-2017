@@ -1,0 +1,23 @@
+{
+    "opengiveApp": {
+        "portfolio" : {
+            "home": {
+                "title": "Portfolios",
+                "createLabel": "Create a new Portfolio",
+                "createOrEditLabel": "Create or edit a Portfolio",
+                "search": "Search for Portfolio"
+            },
+            "created": "A new Portfolio is created with identifier {{ param }}",
+            "updated": "A Portfolio is updated with identifier {{ param }}",
+            "deactivated": "A Portfolio is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Portfolio {{ id }}?"
+            },
+            "detail": {
+                "title": "Portfolio"
+            },
+            "student": "Student",
+            "portfolioItems": "Portfolio Items"
+        }
+    }
+}

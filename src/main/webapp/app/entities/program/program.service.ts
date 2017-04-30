@@ -3,19 +3,16 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Program } from './program.model';
-import { DateUtils } from 'ng-jhipster';
 @Injectable()
 export class ProgramService {
 
     private resourceUrl = 'api/programs';
     private resourceSearchUrl = 'api/_search/programs';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http) { }
 
     create(program: Program): Observable<Program> {
         const copy: Program = Object.assign({}, program);
-        copy.startDate = this.dateUtils.toDate(program.startDate);
-        copy.endDate = this.dateUtils.toDate(program.endDate);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -23,10 +20,6 @@ export class ProgramService {
 
     update(program: Program): Observable<Program> {
         const copy: Program = Object.assign({}, program);
-
-        copy.startDate = this.dateUtils.toDate(program.startDate);
-
-        copy.endDate = this.dateUtils.toDate(program.endDate);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -34,19 +27,13 @@ export class ProgramService {
 
     find(id: number): Observable<Program> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            jsonResponse.startDate = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.startDate);
-            jsonResponse.endDate = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.endDate);
-            return jsonResponse;
+            return res.json();
         });
     }
 
     query(req?: any): Observable<Response> {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res))
         ;
     }
 
@@ -57,20 +44,7 @@ export class ProgramService {
     search(req?: any): Observable<Response> {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceSearchUrl, options)
-            .map((res: any) => this.convertResponse(res))
         ;
-    }
-
-    private convertResponse(res: any): any {
-        const jsonResponse = res.json();
-        for (let i = 0; i < jsonResponse.length; i++) {
-            jsonResponse[i].startDate = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse[i].startDate);
-            jsonResponse[i].endDate = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse[i].endDate);
-        }
-        res._body = jsonResponse;
-        return res;
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {

@@ -13,12 +13,11 @@ import {
     PortfolioDeactivatePopupComponent,
     PortfolioDeactivateDialogComponent,
     portfolioRoute,
-    portfolioPopupRoute,
 } from './';
 
 const ENTITY_STATES = [
     ...portfolioRoute,
-    ...portfolioPopupRoute,
+
 ];
 
 @NgModule({

@@ -1,0 +1,25 @@
+{
+    "opengiveApp": {
+        "session" : {
+            "home": {
+                "title": "Sessions",
+                "createLabel": "Create a new Session",
+                "createOrEditLabel": "Create or edit a Session",
+                "search": "Search for Session"
+            },
+            "created": "A new Session is created with identifier {{ param }}",
+            "updated": "A Session is updated with identifier {{ param }}",
+            "deactivated": "A Session is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Session {{ id }}?"
+            },
+            "detail": {
+                "title": "Session"
+            },
+            "name": "Name",
+            "active": "Active",
+            "manytomany": "Manytomany",
+            "organization": "Organization"
+        }
+    }
+}

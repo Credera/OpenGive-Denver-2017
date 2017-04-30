@@ -1,0 +1,26 @@
+{
+    "opengiveApp": {
+        "address" : {
+            "home": {
+                "title": "Addresses",
+                "createLabel": "Create a new Address",
+                "createOrEditLabel": "Create or edit a Address",
+                "search": "Search for Address"
+            },
+            "created": "A new Address is created with identifier {{ param }}",
+            "updated": "A Address is updated with identifier {{ param }}",
+            "deactivated": "A Address is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Address {{ id }}?"
+            },
+            "detail": {
+                "title": "Address"
+            },
+            "streetAddress1": "Street Address 1",
+            "streetAddress2": "Street Address 2",
+            "city": "City",
+            "state": "State",
+            "postalCode": "Postal Code"
+        }
+    }
+}

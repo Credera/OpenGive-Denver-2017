@@ -1,0 +1,41 @@
+
+<div *ngIf="session">
+    <h2><span jhiTranslate="opengiveApp.session.detail.title">Session</span> {{session.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="opengiveApp.session.name">Name</span></dt>
+        <dd>
+            <span>{{session.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="opengiveApp.session.active">Active</span></dt>
+        <dd>
+            <span>{{session.active}}</span>
+        </dd>
+        <dt><span jhiTranslate="opengiveApp.session.manytomany">Manytomany</span></dt>
+        <dd>
+            <span *ngFor="let manytomany of session.programs; let last = last">
+                <a [routerLink]="['/course', manytomany?.id ]">{{manytomany.name}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiTranslate="opengiveApp.session.organization">Organization</span></dt>
+        <dd>
+            <div *ngIf="session.organization">
+                <a [routerLink]="['/organization', session.organization?.id]">{{session.organization?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'session/'+ session.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

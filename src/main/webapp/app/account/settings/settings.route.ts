@@ -2,7 +2,6 @@ import { Route } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { SettingsComponent } from './settings.component';
-import { Role } from '../../app.constants';
 
 export const settingsRoute: Route = {
   path: 'settings',

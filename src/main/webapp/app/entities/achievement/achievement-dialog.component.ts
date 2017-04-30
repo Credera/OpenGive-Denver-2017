@@ -8,8 +8,7 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Achievement } from './achievement.model';
 import { AchievementPopupService } from './achievement-popup.service';
 import { AchievementService } from './achievement.service';
-import { Milestone, MilestoneService } from '../milestone';
-import { Role } from '../../app.constants';
+import { Activity, ActivityService } from '../activity';
 
 @Component({
     selector: 'jhi-achievement-dialog',
@@ -20,13 +19,13 @@ export class AchievementDialogComponent implements OnInit {
     achievement: Achievement;
     isSaving: boolean;
 
-    milestones: Milestone[];
+    activities: Activity[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private achievementService: AchievementService,
-        private milestoneService: MilestoneService,
+        private activityService: ActivityService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['achievement']);
@@ -34,8 +33,8 @@ export class AchievementDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.milestoneService.query().subscribe(
-            (res: Response) => { this.milestones = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.activityService.query().subscribe(
+            (res: Response) => { this.activities = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -74,7 +73,7 @@ export class AchievementDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackMilestoneById(index: number, item: Milestone) {
+    trackActivityById(index: number, item: Activity) {
         return item.id;
     }
 }

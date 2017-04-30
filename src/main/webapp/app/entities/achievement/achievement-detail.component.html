@@ -16,10 +16,10 @@
         <dd>
             <span>{{achievement.badgeUrl}}</span>
         </dd>
-        <dt><span>Milestone</span></dt>
+        <dt><span>Activity</span></dt>
         <dd>
-            <div *ngIf="achievement.milestone">
-                <a [routerLink]="['/milestone', achievement.milestone?.id]">{{achievement.milestone?.id}}</a>
+            <div *ngIf="achievement.activity">
+                <a [routerLink]="['/activity', achievement.activity?.id]">{{achievement.activity?.id}}</a>
             </div>
         </dd>
     </dl>

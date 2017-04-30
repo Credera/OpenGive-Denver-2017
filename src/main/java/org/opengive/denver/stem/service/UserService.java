@@ -102,10 +102,10 @@ public class UserService {
     public User createUser(String login, String password, String firstName, String lastName, String email,
         String imageUrl) {
 
-        User newUser = new User();
-        Authority authority = authorityRepository.findOne(AuthoritiesConstants.STUDENT);
-        Set<Authority> authorities = new HashSet<>();
-        String encryptedPassword = passwordEncoder.encode(password);
+        final User newUser = new User();
+        final Authority authority = authorityRepository.findOne(AuthoritiesConstants.STUDENT);
+        final Set<Authority> authorities = new HashSet<>();
+        final String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
@@ -126,7 +126,7 @@ public class UserService {
     }
 
     public User createUser(UserDTO userDTO) {
-        User user = new User();
+        final User user = new User();
         user.setLogin(userDTO.getLogin());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -166,7 +166,7 @@ public class UserService {
      * @param email email id of user
      * @param imageUrl image URL of user
      */
-    public void updateUser(String firstName, String lastName, String email, String imageUrl) {
+	public void updateUser(final String firstName, final String lastName, final String email, final String imageUrl) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
             user.setFirstName(firstName);
             user.setLastName(lastName);
@@ -183,7 +183,7 @@ public class UserService {
      * @param userDTO user to update
      * @return updated user
      */
-    public Optional<UserDTO> updateUser(UserDTO userDTO) {
+	public Optional<UserDTO> updateUser(final UserDTO userDTO) {
         return Optional.of(userRepository
             .findOne(userDTO.getId()))
             .map(user -> {
@@ -193,7 +193,7 @@ public class UserService {
                 user.setEmail(userDTO.getEmail());
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
-                Set<Authority> managedAuthorities = user.getAuthorities();
+					final Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()
                     .map(authorityRepository::findOne)
@@ -204,7 +204,7 @@ public class UserService {
             .map(UserDTO::new);
     }
 
-    public void deleteUser(String login) {
+	public void deleteUser(final String login) {
         jdbcTokenStore.findTokensByUserName(login).forEach(token ->
             jdbcTokenStore.removeAccessToken(token));
         userRepository.findOneByLogin(login).ifPresent(user -> {
@@ -215,26 +215,26 @@ public class UserService {
         });
     }
 
-    public void changePassword(String password) {
+	public void changePassword(final String password) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
-            String encryptedPassword = passwordEncoder.encode(password);
+			final String encryptedPassword = passwordEncoder.encode(password);
             user.setPassword(encryptedPassword);
             log.debug("Changed password for User: {}", user);
         });
     }
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
+	public Page<UserDTO> getAllManagedUsers(final Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthoritiesByLogin(String login) {
+	public Optional<User> getUserWithAuthoritiesByLogin(final String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);
     }
 
     @Transactional(readOnly = true)
-    public User getUserWithAuthorities(Long id) {
+	public User getUserWithAuthorities(final Long id) {
         return userRepository.findOneWithAuthoritiesById(id);
     }
 
@@ -252,9 +252,9 @@ public class UserService {
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
-        ZonedDateTime now = ZonedDateTime.now();
-        List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
-        for (User user : users) {
+		final ZonedDateTime now = ZonedDateTime.now();
+		final List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
+		for (final User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
             userSearchRepository.delete(user);

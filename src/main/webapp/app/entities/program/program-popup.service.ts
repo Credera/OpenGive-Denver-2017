@@ -1,14 +1,12 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common';
 import { Program } from './program.model';
 import { ProgramService } from './program.service';
 @Injectable()
 export class ProgramPopupService {
     private isOpen = false;
     constructor(
-        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private programService: ProgramService
@@ -23,10 +21,6 @@ export class ProgramPopupService {
 
         if (id) {
             this.programService.find(id).subscribe((program) => {
-                program.startDate = this.datePipe
-                    .transform(program.startDate, 'yyyy-MM-ddThh:mm');
-                program.endDate = this.datePipe
-                    .transform(program.endDate, 'yyyy-MM-ddThh:mm');
                 this.programModalRef(component, program);
             });
         } else {

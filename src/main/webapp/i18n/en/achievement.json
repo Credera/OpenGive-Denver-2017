@@ -1,0 +1,26 @@
+{
+    "opengiveApp": {
+        "achievement" : {
+            "home": {
+                "title": "Achievements",
+                "createLabel": "Create a new Achievement",
+                "createOrEditLabel": "Create or edit a Achievement",
+                "search": "Search for Achievement"
+            },
+            "created": "A new Achievement is created with identifier {{ param }}",
+            "updated": "A Achievement is updated with identifier {{ param }}",
+            "deactivated": "A Achievement is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Achievement {{ id }}?"
+            },
+            "detail": {
+                "title": "Achievement"
+            },
+            "name": "Name",
+            "description": "Description",
+            "badgeUrl": "Badge Url",
+            "activity": "Activity",
+            "achievedBy": "Achieved By"
+        }
+    }
+}

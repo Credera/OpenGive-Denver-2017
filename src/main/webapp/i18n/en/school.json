@@ -1,0 +1,25 @@
+{
+    "opengiveApp": {
+        "school" : {
+            "home": {
+                "title": "Schools",
+                "createLabel": "Create a new School",
+                "createOrEditLabel": "Create or edit a School",
+                "search": "Search for School"
+            },
+            "created": "A new School is created with identifier {{ param }}",
+            "updated": "A School is updated with identifier {{ param }}",
+            "deactivated": "A School is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate School {{ id }}?"
+            },
+            "detail": {
+                "title": "School"
+            },
+            "name": "Name",
+            "district": "District",
+            "address": "Address",
+            "program": "Program"
+        }
+    }
+}

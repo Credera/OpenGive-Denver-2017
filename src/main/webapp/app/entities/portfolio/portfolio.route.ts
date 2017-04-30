@@ -21,46 +21,6 @@ export const portfolioRoute: Routes = [
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService]
-  }, {
-    path: 'portfolio/:id',
-    component: PortfolioDetailComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.portfolio.home.title'
-    },
-    canActivate: [UserRouteAccessService]
   }
 ];
 
-export const portfolioPopupRoute: Routes = [
-  {
-    path: 'portfolio-new',
-    component: PortfolioPopupComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.portfolio.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'portfolio/:id/edit',
-    component: PortfolioPopupComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.portfolio.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: 'portfolio/:id/deactivate',
-    component: PortfolioDeactivatePopupComponent,
-    data: {
-        authenticate: true,
-        pageTitle: 'opengiveApp.portfolio.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
-];
