@@ -8,6 +8,7 @@ import { Organization } from './organization.model';
 import { OrganizationService } from './organization.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { Role } from "../../app.constants";
 
 @Component({
     selector: 'jhi-organization',
@@ -26,6 +27,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
     currentSearch: string;
+    role: any;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -46,6 +48,8 @@ export class OrganizationComponent implements OnInit, OnDestroy {
         this.reverse = true;
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
         this.jhiLanguageService.setLocations(['organization']);
+
+        this.role = Role;
     }
 
     loadAll() {
