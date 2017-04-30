@@ -9,10 +9,10 @@ import { CoursePopupService } from './course-popup.service';
 import { CourseService } from './course.service';
 
 @Component({
-    selector: 'jhi-course-delete-dialog',
-    templateUrl: './course-delete-dialog.component.html'
+    selector: 'jhi-course-deactivate-dialog',
+    templateUrl: './course-deactivate-dialog.component.html'
 })
-export class CourseDeleteDialogComponent {
+export class CourseDeactivateDialogComponent {
 
     course: Course;
 
@@ -29,11 +29,11 @@ export class CourseDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.courseService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.courseService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'courseListModification',
-                content: 'Deleted an course'
+                content: 'Deactivated an course'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class CourseDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-course-delete-popup',
+    selector: 'jhi-course-deactivate-popup',
     template: ''
 })
-export class CourseDeletePopupComponent implements OnInit, OnDestroy {
+export class CourseDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class CourseDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.coursePopupService
-                .open(CourseDeleteDialogComponent, params['id']);
+                .open(CourseDeactivateDialogComponent, params['id']);
         });
     }
 

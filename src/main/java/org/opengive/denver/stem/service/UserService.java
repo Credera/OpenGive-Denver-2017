@@ -85,15 +85,17 @@ public class UserService {
 				});
 	}
 
-	public Optional<User> requestPasswordReset(final String mail) {
-		return userRepository.findOneByEmail(mail)
-				.filter(User::getActivated)
-				.map(user -> {
-					user.setResetKey(RandomUtil.generateResetKey());
-					user.setResetDate(ZonedDateTime.now());
-					return user;
-				});
-	}
+    public Optional<User> requestPasswordReset(String login) {
+        return userRepository.findOneByLogin(login)
+            .filter(User::getActivated)
+            .map(user -> {
+                if (!Strings.isNullOrEmpty(user.getEmail())) {
+                    user.setResetKey(RandomUtil.generateResetKey());
+                    user.setResetDate(ZonedDateTime.now());
+                }
+                return user;
+            });
+    }
 
 	public User createUser(final String login, final String password, final String firstName, final String lastName, final String email,
 			final String imageUrl) {

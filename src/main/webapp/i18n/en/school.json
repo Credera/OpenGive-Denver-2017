@@ -9,9 +9,9 @@
             },
             "created": "A new School is created with identifier {{ param }}",
             "updated": "A School is updated with identifier {{ param }}",
-            "deleted": "A School is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete School {{ id }}?"
+            "deactivated": "A School is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate School {{ id }}?"
             },
             "detail": {
                 "title": "School"

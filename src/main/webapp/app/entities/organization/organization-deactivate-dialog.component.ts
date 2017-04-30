@@ -9,10 +9,10 @@ import { OrganizationPopupService } from './organization-popup.service';
 import { OrganizationService } from './organization.service';
 
 @Component({
-    selector: 'jhi-organization-delete-dialog',
-    templateUrl: './organization-delete-dialog.component.html'
+    selector: 'jhi-organization-deactivate-dialog',
+    templateUrl: './organization-deactivate-dialog.component.html'
 })
-export class OrganizationDeleteDialogComponent {
+export class OrganizationDeactivateDialogComponent {
 
     organization: Organization;
 
@@ -29,11 +29,11 @@ export class OrganizationDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.organizationService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.organizationService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'organizationListModification',
-                content: 'Deleted an organization'
+                content: 'Deactivated an organization'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class OrganizationDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-organization-delete-popup',
+    selector: 'jhi-organization-deactivate-popup',
     template: ''
 })
-export class OrganizationDeletePopupComponent implements OnInit, OnDestroy {
+export class OrganizationDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class OrganizationDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.organizationPopupService
-                .open(OrganizationDeleteDialogComponent, params['id']);
+                .open(OrganizationDeactivateDialogComponent, params['id']);
         });
     }
 

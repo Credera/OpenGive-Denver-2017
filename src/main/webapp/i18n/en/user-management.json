@@ -7,9 +7,9 @@
         },
         "created": "A new user is created with identifier {{ param }}",
         "updated": "An user is updated with identifier {{ param }}",
-        "deleted": "An user is deleted with identifier {{ param }}",
-        "delete": {
-            "question": "Are you sure you want to delete user {{ login }}?"
+        "deactivated": "An user is deactivated with identifier {{ param }}",
+        "deactivate": {
+            "question": "Are you sure you want to deactivate user {{ login }}?"
         },
         "detail": {
             "title": "User"

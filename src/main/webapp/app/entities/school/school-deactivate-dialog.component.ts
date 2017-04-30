@@ -4,36 +4,36 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 
-import { ItemLink } from './item-link.model';
-import { ItemLinkPopupService } from './item-link-popup.service';
-import { ItemLinkService } from './item-link.service';
+import { School } from './school.model';
+import { SchoolPopupService } from './school-popup.service';
+import { SchoolService } from './school.service';
 
 @Component({
-    selector: 'jhi-item-link-delete-dialog',
-    templateUrl: './item-link-delete-dialog.component.html'
+    selector: 'jhi-school-deactivate-dialog',
+    templateUrl: './school-deactivate-dialog.component.html'
 })
-export class ItemLinkDeleteDialogComponent {
+export class SchoolDeactivateDialogComponent {
 
-    itemLink: ItemLink;
+    school: School;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
-        private itemLinkService: ItemLinkService,
+        private schoolService: SchoolService,
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['itemLink']);
+        this.jhiLanguageService.setLocations(['school']);
     }
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.itemLinkService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.schoolService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
-                name: 'itemLinkListModification',
-                content: 'Deleted an itemLink'
+                name: 'schoolListModification',
+                content: 'Deactivated an school'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,23 +41,23 @@ export class ItemLinkDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-item-link-delete-popup',
+    selector: 'jhi-school-deactivate-popup',
     template: ''
 })
-export class ItemLinkDeletePopupComponent implements OnInit, OnDestroy {
+export class SchoolDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private itemLinkPopupService: ItemLinkPopupService
+        private schoolPopupService: SchoolPopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.itemLinkPopupService
-                .open(ItemLinkDeleteDialogComponent, params['id']);
+            this.modalRef = this.schoolPopupService
+                .open(SchoolDeactivateDialogComponent, params['id']);
         });
     }
 

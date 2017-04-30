@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { OrganizationComponent } from './organization.component';
 import { OrganizationDetailComponent } from './organization-detail.component';
 import { OrganizationPopupComponent } from './organization-dialog.component';
-import { OrganizationDeletePopupComponent } from './organization-delete-dialog.component';
+import { OrganizationDeactivatePopupComponent } from './organization-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 import { Role } from '../../app.constants';
@@ -54,8 +54,8 @@ export const organizationPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'organization/:id/delete',
-    component: OrganizationDeletePopupComponent,
+    path: 'organization/:id/deactivate',
+    component: OrganizationDeactivatePopupComponent,
     data: {
         authorities: [Role.User],
         pageTitle: 'opengiveApp.organization.home.title'

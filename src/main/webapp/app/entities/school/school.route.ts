@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { SchoolComponent } from './school.component';
 import { SchoolDetailComponent } from './school-detail.component';
 import { SchoolPopupComponent } from './school-dialog.component';
-import { SchoolDeletePopupComponent } from './school-delete-dialog.component';
+import { SchoolDeactivatePopupComponent } from './school-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 
@@ -53,8 +53,8 @@ export const schoolPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'school/:id/delete',
-    component: SchoolDeletePopupComponent,
+    path: 'school/:id/deactivate',
+    component: SchoolDeactivatePopupComponent,
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'opengiveApp.school.home.title'

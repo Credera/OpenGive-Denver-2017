@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { CourseComponent } from './course.component';
 import { CourseDetailComponent } from './course-detail.component';
 import { CoursePopupComponent } from './course-dialog.component';
-import { CourseDeletePopupComponent } from './course-delete-dialog.component';
+import { CourseDeactivatePopupComponent } from './course-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 import { Role } from '../../app.constants';
@@ -54,8 +54,8 @@ export const coursePopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'course/:id/delete',
-    component: CourseDeletePopupComponent,
+    path: 'course/:id/deactivate',
+    component: CourseDeactivatePopupComponent,
     data: {
         authorities: [Role.User],
         pageTitle: 'opengiveApp.course.home.title'

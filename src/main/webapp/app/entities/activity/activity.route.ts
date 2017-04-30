@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { ActivityComponent } from './activity.component';
 import { ActivityDetailComponent } from './activity-detail.component';
 import { ActivityPopupComponent } from './activity-dialog.component';
-import { ActivityDeletePopupComponent } from './activity-delete-dialog.component';
+import { ActivityDeactivatePopupComponent } from './activity-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 import { Role } from '../../app.constants';
@@ -54,8 +54,8 @@ export const activityPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'activity/:id/delete',
-    component: ActivityDeletePopupComponent,
+    path: 'activity/:id/deactivate',
+    component: ActivityDeactivatePopupComponent,
     data: {
         authorities: [Role.User],
         pageTitle: 'opengiveApp.activity.home.title'

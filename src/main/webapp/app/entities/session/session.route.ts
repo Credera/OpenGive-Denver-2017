@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { SessionComponent } from './session.component';
 import { SessionDetailComponent } from './session-detail.component';
 import { SessionPopupComponent } from './session-dialog.component';
-import { SessionDeletePopupComponent } from './session-delete-dialog.component';
+import { SessionDeactivatePopupComponent } from './session-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 
@@ -53,8 +53,8 @@ export const sessionPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'session/:id/delete',
-    component: SessionDeletePopupComponent,
+    path: 'session/:id/deactivate',
+    component: SessionDeactivatePopupComponent,
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'opengiveApp.session.home.title'

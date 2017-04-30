@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-import { User, StudentUserRegisterModel } from './user.model';
+import { User } from './user.model';
+import { Role } from "../../app.constants";
 
 @Injectable()
 export class UserService {
@@ -10,11 +11,26 @@ export class UserService {
 
     constructor(private http: Http) { }
 
-    create(user: StudentUserRegisterModel): Observable<Response> {
+    translateRole(roleKey: string) : string {
+        switch (roleKey) {
+            case Role.Admin:
+                return 'Administrator'
+            case Role.OrgAdmin:
+                return 'Org Admin'
+            case Role.Instructor:
+                return 'Instructor'
+            case Role.Student:
+                return 'Student'
+            default:
+                return 'None'
+        }
+    }
+
+    create(user: User): Observable<Response> {
         return this.http.post(this.resourceUrl, user);
     }
 
-    update(user: StudentUserRegisterModel): Observable<Response> {
+    update(user: User): Observable<Response> {
         return this.http.put(this.resourceUrl, user);
     }
 
@@ -39,7 +55,7 @@ export class UserService {
         return this.http.get(this.resourceUrl, options);
     }
 
-    delete(login: string): Observable<Response> {
+    deactivate(login: string): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${login}`);
     }
 }

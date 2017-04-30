@@ -9,10 +9,10 @@ import { SessionPopupService } from './session-popup.service';
 import { SessionService } from './session.service';
 
 @Component({
-    selector: 'jhi-session-delete-dialog',
-    templateUrl: './session-delete-dialog.component.html'
+    selector: 'jhi-session-deactivate-dialog',
+    templateUrl: './session-deactivate-dialog.component.html'
 })
-export class SessionDeleteDialogComponent {
+export class SessionDeactivateDialogComponent {
 
     session: Session;
 
@@ -29,11 +29,11 @@ export class SessionDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.sessionService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.sessionService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'sessionListModification',
-                content: 'Deleted an session'
+                content: 'Deactivated an session'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class SessionDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-session-delete-popup',
+    selector: 'jhi-session-deactivate-popup',
     template: ''
 })
-export class SessionDeletePopupComponent implements OnInit, OnDestroy {
+export class SessionDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class SessionDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.sessionPopupService
-                .open(SessionDeleteDialogComponent, params['id']);
+                .open(SessionDeactivateDialogComponent, params['id']);
         });
     }
 

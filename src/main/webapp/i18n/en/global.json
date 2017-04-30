@@ -101,7 +101,7 @@
             "addimage": "Add image",
             "back": "Back",
             "cancel": "Cancel",
-            "delete": "Delete",
+            "deactivate": "deactivate",
             "edit": "Edit",
             "open": "Open",
             "save": "Save",
@@ -111,8 +111,8 @@
             "field": "Field",
             "value": "Value"
         },
-        "delete": {
-            "title": "Confirm delete operation"
+        "deactivate": {
+            "title": "Confirm deactivate operation"
         },
         "validation": {
             "required": "This field is required.",

@@ -9,10 +9,10 @@ import { AddressPopupService } from './address-popup.service';
 import { AddressService } from './address.service';
 
 @Component({
-    selector: 'jhi-address-delete-dialog',
-    templateUrl: './address-delete-dialog.component.html'
+    selector: 'jhi-address-deactivate-dialog',
+    templateUrl: './address-deactivate-dialog.component.html'
 })
-export class AddressDeleteDialogComponent {
+export class AddressDeactivateDialogComponent {
 
     address: Address;
 
@@ -29,11 +29,11 @@ export class AddressDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.addressService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.addressService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'addressListModification',
-                content: 'Deleted an address'
+                content: 'Deactivated an address'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class AddressDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-address-delete-popup',
+    selector: 'jhi-address-deactivate-popup',
     template: ''
 })
-export class AddressDeletePopupComponent implements OnInit, OnDestroy {
+export class AddressDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class AddressDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.addressPopupService
-                .open(AddressDeleteDialogComponent, params['id']);
+                .open(AddressDeactivateDialogComponent, params['id']);
         });
     }
 
