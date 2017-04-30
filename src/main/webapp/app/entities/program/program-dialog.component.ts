@@ -17,7 +17,6 @@ import { School, SchoolService } from '../school';
 export class ProgramDialogComponent implements OnInit {
 
     program: Program;
-    authorities: any[];
     isSaving: boolean;
 
     schools: School[];
@@ -34,7 +33,6 @@ export class ProgramDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.schoolService.query().subscribe(
             (res: Response) => { this.schools = res.json(); }, (res: Response) => this.onError(res.json()));
     }

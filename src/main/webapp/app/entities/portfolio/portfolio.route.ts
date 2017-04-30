@@ -17,7 +17,7 @@ export const portfolioRoute: Routes = [
     path: 'portfolio',
     component: PortfolioComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.portfolio.home.title'
     },
     canActivate: [UserRouteAccessService]

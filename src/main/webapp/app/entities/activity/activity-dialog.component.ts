@@ -18,7 +18,6 @@ import { Role } from '../../app.constants';
 export class ActivityDialogComponent implements OnInit {
 
     activity: Activity;
-    authorities: any[];
     isSaving: boolean;
 
     courses: Course[];
@@ -35,7 +34,6 @@ export class ActivityDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
         this.courseService.query().subscribe(
             (res: Response) => { this.courses = res.json(); }, (res: Response) => this.onError(res.json()));
     }
