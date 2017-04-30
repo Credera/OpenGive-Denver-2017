@@ -8,6 +8,7 @@ export class User {
     public email?: string;
     public activated?: Boolean;
     public authorities?: any[];
+    public organizations?: any[];
     public createdBy?: string;
     public createdDate?: Date;
     public lastModifiedBy?: string;
@@ -31,12 +32,12 @@ export class User {
         email?: string,
         activated?: Boolean,
         authorities?: any[],
-        organizations?: any[],
         createdBy?: string,
         createdDate?: Date,
         lastModifiedBy?: string,
         lastModifiedDate?: Date,
-        password?: string
+        password?: string,
+        organizations?: any[]
     ) {
         this.id = id ? id : null;
         this.login = login ? login : null;
