@@ -44,10 +44,7 @@ export class LoginService {
     logout() {
         this.authServerProvider.logout().subscribe();
         this.principal.authenticate(null);
-       /* this.failureCount ++;
-        if (this.failureCount > 2) {
-            this.isOverLimit = true;
-        }*/
+       
 
         
         
