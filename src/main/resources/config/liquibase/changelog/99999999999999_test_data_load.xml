@@ -22,7 +22,6 @@
                   file="config/liquibase/organizations.csv"
                   separator=","
                   tableName="organization">
-<!--             <column name="Y" type="timestamp"/> -->
         </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/schools.csv"
@@ -46,6 +45,8 @@
                   separator=","
                   tableName="course">
 	    		<column name="active" type="boolean"/>
+	    		<column name="start_date" type="timestamp"/>
+	    		<column name="end_date" type="timestamp"/>
         </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/activity.csv"
