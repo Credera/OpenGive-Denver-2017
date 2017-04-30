@@ -9,10 +9,10 @@ import { PortfolioItemPopupService } from './portfolio-item-popup.service';
 import { PortfolioItemService } from './portfolio-item.service';
 
 @Component({
-    selector: 'jhi-portfolio-item-delete-dialog',
-    templateUrl: './portfolio-item-delete-dialog.component.html'
+    selector: 'jhi-portfolio-item-deactivate-dialog',
+    templateUrl: './portfolio-item-deactivate-dialog.component.html'
 })
-export class PortfolioItemDeleteDialogComponent {
+export class PortfolioItemDeactivateDialogComponent {
 
     portfolioItem: PortfolioItem;
 
@@ -29,11 +29,11 @@ export class PortfolioItemDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.portfolioItemService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.portfolioItemService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'portfolioItemListModification',
-                content: 'Deleted an portfolioItem'
+                content: 'Deactivated an portfolioItem'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class PortfolioItemDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-portfolio-item-delete-popup',
+    selector: 'jhi-portfolio-item-deactivate-popup',
     template: ''
 })
-export class PortfolioItemDeletePopupComponent implements OnInit, OnDestroy {
+export class PortfolioItemDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class PortfolioItemDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.portfolioItemPopupService
-                .open(PortfolioItemDeleteDialogComponent, params['id']);
+                .open(PortfolioItemDeactivateDialogComponent, params['id']);
         });
     }
 

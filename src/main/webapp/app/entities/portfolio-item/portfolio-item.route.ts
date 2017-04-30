@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { PortfolioItemComponent } from './portfolio-item.component';
 import { PortfolioItemDetailComponent } from './portfolio-item-detail.component';
 import { PortfolioItemPopupComponent } from './portfolio-item-dialog.component';
-import { PortfolioItemDeletePopupComponent } from './portfolio-item-delete-dialog.component';
+import { PortfolioItemDeactivatePopupComponent } from './portfolio-item-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 
@@ -53,8 +53,8 @@ export const portfolioItemPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'portfolio-item/:id/delete',
-    component: PortfolioItemDeletePopupComponent,
+    path: 'portfolio-item/:id/deactivate',
+    component: PortfolioItemDeactivatePopupComponent,
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'opengiveApp.portfolioItem.home.title'
