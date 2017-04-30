@@ -28,7 +28,7 @@ export class LoginService {
                     //    this.languageService.changeLanguage(account.langKey);
                     // }
                     resolve(data);
-                    this.router.navigate(['/portfolio']);
+                    this.router.navigate(['/home']);
                 });
                 return cb();
             }, (err) => {
