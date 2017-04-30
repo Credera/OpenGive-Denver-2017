@@ -1,9 +1,7 @@
 package org.opengive.denver.stem.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,8 +18,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A Achievement.
@@ -55,15 +50,10 @@ public class Achievement implements Serializable {
 	@ManyToOne
 	private Activity activity;
 
-	@OneToMany
-	@JoinTable(
-			name = "USER_ACHV", 
-			joinColumns = {	@JoinColumn(name = "USER_ID", referencedColumnName = "ID") }, 
-			inverseJoinColumns = { @JoinColumn(name = "ACHV_ID", referencedColumnName = "ID") }
-			)
-	@JsonIgnore
-	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	private Set<User> achievedBy = new HashSet<>();
+	@NotNull
+	@OneToOne(optional = false)
+	@JoinColumn(name = "student_id", unique = true)
+	private User achievedBy = null;
 
 	public Long getId() {
 		return id;
@@ -125,27 +115,17 @@ public class Achievement implements Serializable {
 		this.activity = activity;
 	}
 
-	public Set<User> getAchievedBy() {
+	public User getAchievedBy() {
 		return achievedBy;
 	}
 
-	public Achievement achievedBy(final Set<User> users) {
-		achievedBy = users;
+	public Achievement achievedBy(final User user) {
+		achievedBy = user;
 		return this;
 	}
 
-	public Achievement addAchievedBy(final User user) {
-		achievedBy.add(user);
-		return this;
-	}
-
-	public Achievement removeAchievedBy(final User user) {
-		achievedBy.remove(user);
-		return this;
-	}
-
-	public void setAchievedBy(final Set<User> users) {
-		achievedBy = users;
+	public void setAchievedBy(final User user) {
+		achievedBy = user;
 	}
 
 	@Override
@@ -167,11 +147,10 @@ public class Achievement implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Achievement{" +
-				"id=" + id +
-				", name='" + name + "'" +
-				", description='" + description + "'" +
-				", badgeUrl='" + badgeUrl + "'" +
-				'}';
+		final StringBuilder builder = new StringBuilder();
+		builder.append("Achievement [id=").append(id).append(", name=").append(name).append(", description=")
+		.append(description).append(", badgeUrl=").append(badgeUrl).append(", activity=").append(activity)
+		.append(", achievedBy=").append(achievedBy).append("]");
+		return builder.toString();
 	}
 }

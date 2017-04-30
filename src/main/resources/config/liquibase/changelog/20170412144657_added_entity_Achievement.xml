@@ -37,17 +37,12 @@
             <column name="activity_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            
+            <column name="student_id" type="bigint">
+                <constraints unique="true" nullable="false" />
+            </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
-        </createTable>
-        
-        <createTable tableName="user_achv">
-            <column name="user_id" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="achv_id" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
         </createTable>
         
     </changeSet>

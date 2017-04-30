@@ -2,6 +2,7 @@
     <h2>
         <span>Organizations</span>
         <button class="btn btn-primary float-right create-organization"
+                *jhiHasAtLeastAuthority="role.OrgAdmin"
                 [routerLink]="['/', { outlets: { popup: ['organization-new'] } }]">
             <span class="fa fa-plus"></span>
             <span class="hidden-sm-down" >
@@ -61,24 +62,25 @@
                             <button type="submit"
                                     [routerLink]="['../organization', organization.id ]"
                                     class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="hidden-md-down">View</span>
-                        </button>
+                                <span class="fa fa-eye"></span>
+                                <span class="hidden-md-down">View</span>
+                            </button>
                             <button type="submit"
                                     [routerLink]="['/', { outlets: { popup: 'organization/'+ organization.id + '/edit'} }]"
+                                    *jhiHasAtLeastAuthority="role.OrgAdmin"
                                     replaceUrl="true"
                                     class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
-                            <span class="hidden-md-down">Edit</span>
-                        </button>
+                                <span class="fa fa-pencil"></span>
+                                <span class="hidden-md-down">Edit</span>
+                            </button>
                             <button type="submit"
                                     [routerLink]="['/', { outlets: { popup: 'organization/'+ organization.id + '/deactivate'} }]"
-                        
+                                    *jhiHasAtLeastAuthority="role.OrgAdmin"
                                     replaceUrl="true"
                                     class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down">Deactivate</span>
-                        </button>
+                                <span class="fa fa-remove"></span>
+                                <span class="hidden-md-down">Deactivate</span>
+                            </button>
                         </div>
                     </td>
                 </tr>
