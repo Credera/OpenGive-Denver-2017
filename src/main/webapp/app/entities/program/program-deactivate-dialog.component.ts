@@ -9,10 +9,10 @@ import { ProgramPopupService } from './program-popup.service';
 import { ProgramService } from './program.service';
 
 @Component({
-    selector: 'jhi-program-delete-dialog',
-    templateUrl: './program-delete-dialog.component.html'
+    selector: 'jhi-program-deactivate-dialog',
+    templateUrl: './program-deactivate-dialog.component.html'
 })
-export class ProgramDeleteDialogComponent {
+export class ProgramDeactivateDialogComponent {
 
     program: Program;
 
@@ -29,11 +29,11 @@ export class ProgramDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.programService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.programService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'programListModification',
-                content: 'Deleted an program'
+                content: 'Deactivated an program'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class ProgramDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-program-delete-popup',
+    selector: 'jhi-program-deactivate-popup',
     template: ''
 })
-export class ProgramDeletePopupComponent implements OnInit, OnDestroy {
+export class ProgramDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class ProgramDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.programPopupService
-                .open(ProgramDeleteDialogComponent, params['id']);
+                .open(ProgramDeactivateDialogComponent, params['id']);
         });
     }
 

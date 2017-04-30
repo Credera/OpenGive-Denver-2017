@@ -9,10 +9,10 @@ import { MilestonePopupService } from './milestone-popup.service';
 import { MilestoneService } from './milestone.service';
 
 @Component({
-    selector: 'jhi-milestone-delete-dialog',
-    templateUrl: './milestone-delete-dialog.component.html'
+    selector: 'jhi-milestone-deactivate-dialog',
+    templateUrl: './milestone-deactivate-dialog.component.html'
 })
-export class MilestoneDeleteDialogComponent {
+export class MilestoneDeactivateDialogComponent {
 
     milestone: Milestone;
 
@@ -29,11 +29,11 @@ export class MilestoneDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.milestoneService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.milestoneService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'milestoneListModification',
-                content: 'Deleted an milestone'
+                content: 'Deactivated an milestone'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class MilestoneDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-milestone-delete-popup',
+    selector: 'jhi-milestone-deactivate-popup',
     template: ''
 })
-export class MilestoneDeletePopupComponent implements OnInit, OnDestroy {
+export class MilestoneDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class MilestoneDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.milestonePopupService
-                .open(MilestoneDeleteDialogComponent, params['id']);
+                .open(MilestoneDeactivateDialogComponent, params['id']);
         });
     }
 

@@ -9,10 +9,10 @@ import { AchievementPopupService } from './achievement-popup.service';
 import { AchievementService } from './achievement.service';
 
 @Component({
-    selector: 'jhi-achievement-delete-dialog',
-    templateUrl: './achievement-delete-dialog.component.html'
+    selector: 'jhi-achievement-deactivate-dialog',
+    templateUrl: './achievement-deactivate-dialog.component.html'
 })
-export class AchievementDeleteDialogComponent {
+export class AchievementDeactivateDialogComponent {
 
     achievement: Achievement;
 
@@ -29,11 +29,11 @@ export class AchievementDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.achievementService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.achievementService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'achievementListModification',
-                content: 'Deleted an achievement'
+                content: 'Deactivated an achievement'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class AchievementDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-achievement-delete-popup',
+    selector: 'jhi-achievement-deactivate-popup',
     template: ''
 })
-export class AchievementDeletePopupComponent implements OnInit, OnDestroy {
+export class AchievementDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class AchievementDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.achievementPopupService
-                .open(AchievementDeleteDialogComponent, params['id']);
+                .open(AchievementDeactivateDialogComponent, params['id']);
         });
     }
 
