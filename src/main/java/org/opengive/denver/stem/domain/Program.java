@@ -46,7 +46,7 @@ public class Program implements Serializable {
 	private String description;
 
 	@Column(name = "active", nullable = false)
-	private Boolean active;
+	private boolean active;
 
 	@ManyToOne
 	private School school;

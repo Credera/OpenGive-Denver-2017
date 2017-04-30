@@ -14,17 +14,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="activity"/>
                                  
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="user_achv"
-                                 constraintName="fk_user_achievement_user_id"
+        <addForeignKeyConstraint baseColumnNames="student_id"
+                                 baseTableName="achievement"
+                                 constraintName="fk_achievement_student_id"
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
-                                 
-       	<addForeignKeyConstraint baseColumnNames="achv_id"
-                                 baseTableName="user_achv"
-                                 constraintName="fk_user_achievement_achv_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="achievement"/>
-                                 
     </changeSet>
 </databaseChangeLog>

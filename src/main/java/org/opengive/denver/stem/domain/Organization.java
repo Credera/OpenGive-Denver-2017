@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,8 +21,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A Organization.
@@ -48,17 +47,17 @@ public class Organization implements Serializable {
 	private String description;
 
 	@OneToMany(mappedBy = "organization")
-	@JsonIgnore
+	// @JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Set<Course> courses = new HashSet<>();
 
-	@OneToMany
+	@ManyToMany
 	@JoinTable(
-			name = "USER_ORG",
-			joinColumns = {	@JoinColumn(name = "USER_ID", referencedColumnName = "ID") },
-			inverseJoinColumns = { @JoinColumn(name = "ORG_ID", referencedColumnName = "ID") }
+			name = "user_org", 
+			joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id") }, 
+			inverseJoinColumns = {@JoinColumn(name = "org_id", referencedColumnName = "id") }
 			)
-	@JsonIgnore
+	// @JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Set<User> users = new HashSet<>();
 

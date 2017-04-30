@@ -49,7 +49,7 @@ export class PortfolioService {
 
     fakeData(): Portfolio[] {
     var fakeUser = new User(1, "login", "Wheeler", "Olis", "wolis@credera.com", true, ["USER_ROLE"],
-        null, new Date(), "bob", new Date(), "dksaf")
+        null, new Date(), "bob", new Date(), "dksaf", [1])
         var observable = new Observable();
         var portfolio = new Portfolio(1, fakeUser);
         return [portfolio];
