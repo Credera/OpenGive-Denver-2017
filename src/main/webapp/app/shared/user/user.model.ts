@@ -1,3 +1,5 @@
+import { UserService } from "./user.service";
+
 export class User {
     public id?: any;
     public login?: string;
@@ -13,6 +15,14 @@ export class User {
     public password?: string;
     public is14Plus: Boolean;
 
+    public getAuthoritiesString(joinWith: string) {
+        return (this.authorities || []).map(a => UserService.translateRole(a)).join(joinWith);
+    }
+
+    public static authoritiesString(user: User, joinWith: string) {
+        return (user.authorities || []).map(a => UserService.translateRole(a)).join(joinWith);
+    }
+
     constructor(
         id?: any,
         login?: string,
@@ -21,6 +31,7 @@ export class User {
         email?: string,
         activated?: Boolean,
         authorities?: any[],
+        organizations?: any[],
         createdBy?: string,
         createdDate?: Date,
         lastModifiedBy?: string,
