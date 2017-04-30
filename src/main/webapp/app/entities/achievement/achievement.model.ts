@@ -1,4 +1,4 @@
-import { Milestone } from '../milestone';
+import { Activity } from '../activity';
 import { User } from '../../shared';
 export class Achievement {
     constructor(
@@ -6,7 +6,7 @@ export class Achievement {
         public name?: string,
         public description?: string,
         public badgeUrl?: string,
-        public milestone?: Milestone,
+        public activity?: Activity,
         public achievedBy?: User,
     ) {
     }

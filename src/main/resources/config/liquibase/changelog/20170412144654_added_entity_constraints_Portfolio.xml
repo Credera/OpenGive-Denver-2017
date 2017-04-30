@@ -13,6 +13,18 @@
                                  constraintName="fk_portfolio_student_id"
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
+                                 
+       <addForeignKeyConstraint baseColumnNames="portfolio_id"
+                                 baseTableName="portfolio_link"
+                                 constraintName="fk_portfolio_link_course_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="portfolio"/>
+                                 
+       	<addForeignKeyConstraint baseColumnNames="link_id"
+                                 baseTableName="portfolio_link"
+                                 constraintName="fk_portfolio_link_link_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="item_link"/>
 
     </changeSet>
 </databaseChangeLog>

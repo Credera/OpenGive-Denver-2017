@@ -100,7 +100,7 @@
             <label for="field_program">Program</label>
             <select class="form-control" id="field_program" name="program" [(ngModel)]="itemLink.program" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="programOption.id === itemLink.program?.id ? itemLink.program : programOption" *ngFor="let programOption of programs; trackBy: trackProgramById">{{programOption.id}}</option>
+                <option [ngValue]="courseOption.id === itemLink.course?.id ? itemLink.course : courseOption" *ngFor="let courseOption of courses; trackBy: trackCourseById">{{courseOption.id}}</option>
             </select>
         </div>
     </div>

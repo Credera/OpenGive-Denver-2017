@@ -14,7 +14,13 @@
         </dd>
         <dt><span>Start Date</span></dt>
         <dd>
-            <span>{{program.startDate | date:'medium'}}</span>
+            <span>{{program.active}}</span>
+        </dd>
+        <dt><span>School</span></dt>
+        <dd>
+            <div *ngIf="program.school">
+                <a [routerLink]="['/school', program.school?.id]">{{program.school?.name}}</a>
+            </div>
         </dd>
         <dt><span>End Date</span></dt>
         <dd>

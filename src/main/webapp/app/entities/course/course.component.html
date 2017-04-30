@@ -1,0 +1,101 @@
+<div>
+    <h2>
+        <span>Courses</span>
+        <button class="btn btn-primary float-right create-course"
+                [routerLink]="['/', { outlets: { popup: ['course-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  >
+            Create new Course
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12 no-padding-right">
+            <form name="searchForm"
+                  class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text"
+                           class="form-control"
+                           [(ngModel)]="currentSearch"
+                           id="currentSearch"
+                           name="currentSearch">
+                    <button class="input-group-addon btn btn-info"
+                            (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger"
+                            (click)="clear()"
+                            *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive"
+         *ngIf="courses">
+        <table class="table table-striped">
+            <thead>
+                <tr jhiSort
+                    [(predicate)]="predicate"
+                    [(ascending)]="reverse"
+                    [callback]="reset.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="startDate"><span>Start Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="endDate"><span>End Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="organization.id"><span>Organization</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="instructor.id"><span>Instructor</span> <span class="fa fa-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll
+                   (scrolled)="loadPage(page + 1)"
+                   [infiniteScrollDisabled]="page >= links['last']"
+                   [infiniteScrollDistance]="0">
+                <tr *ngFor="let course of courses ;trackBy: trackId">
+                    <td><a [routerLink]="['../course', course.id ]">{{course.id}}</a></td>
+                    <td>{{course.name}}</td>
+                    <td>{{course.description}}</td>
+                    <td>{{course.startDate | date:'medium'}}</td>
+                    <td>{{course.endDate | date:'medium'}}</td>
+                    <td>
+                        <div *ngIf="course.organization">
+                            <a [routerLink]="['../organization', course.organization?.id ]">{{course.organization?.id}}</a>
+                        </div>
+                    </td>
+                    <td>
+                        {{course.instructor?.id}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['../course', course.id ]"
+                                    class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" >View</span>
+                        </button>
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'course/'+ course.id + '/edit'} }]"
+                                    replaceUrl="true"
+                                    class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" >Edit</span>
+                        </button>
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'course/'+ course.id + '/deactivate'} }]"
+                                    replaceUrl="true"
+                                    class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" >Deactivate</span>
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

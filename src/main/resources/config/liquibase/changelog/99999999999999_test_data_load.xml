@@ -23,8 +23,17 @@
                   separator=","
                   tableName="organization">
         </loadData>
-    </changeSet>
-    <changeSet id="99999999999999-2" author="kwheeler">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/schools.csv"
+                  separator=","
+                  tableName="school">
+        </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/session.csv"
+                  separator=","
+                  tableName="session">
+                  <column name="active" type="boolean"/>
+        </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/program.csv"
                   separator=","
@@ -40,9 +49,9 @@
 	    		<column name="end_date" type="timestamp"/>
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/milestone.csv"
+                  file="config/liquibase/activity.csv"
                   separator=","
-                  tableName="milestone">
+                  tableName="activity">
         </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/achievement.csv"

@@ -10,14 +10,13 @@ import { ProgramPopupComponent } from './program-dialog.component';
 import { ProgramDeactivatePopupComponent } from './program-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
-import { Role } from '../../app.constants';
 
 export const programRoute: Routes = [
   {
     path: 'program',
     component: ProgramComponent,
     data: {
-        authorities: [Role.User],
+        authorities: ['ROLE_USER'],
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +24,7 @@ export const programRoute: Routes = [
     path: 'program/:id',
     component: ProgramDetailComponent,
     data: {
-        authorities: [Role.User],
+        authorities: ['ROLE_USER'],
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +36,7 @@ export const programPopupRoute: Routes = [
     path: 'program-new',
     component: ProgramPopupComponent,
     data: {
-        authorities: [Role.User],
+        authorities: ['ROLE_USER'],
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +46,7 @@ export const programPopupRoute: Routes = [
     path: 'program/:id/edit',
     component: ProgramPopupComponent,
     data: {
-        authorities: [Role.User],
+        authorities: ['ROLE_USER'],
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +56,7 @@ export const programPopupRoute: Routes = [
     path: 'program/:id/deactivate',
     component: ProgramDeactivatePopupComponent,
     data: {
-        authorities: [Role.User],
+        authorities: ['ROLE_USER'],
         pageTitle: 'opengiveApp.program.home.title'
     },
     canActivate: [UserRouteAccessService],

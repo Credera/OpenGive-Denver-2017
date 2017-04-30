@@ -1,13 +1,20 @@
 package org.opengive.denver.stem.domain;
 
+import java.io.Serializable;
+import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A ItemLink.
@@ -43,17 +50,11 @@ public class ItemLink implements Serializable {
     @Column(name = "item_url", length = 200, nullable = false)
     private String itemUrl;
 
-    @ManyToOne
-    private Portfolio portfolio;
-
-    @ManyToOne
-    private Program program;
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -61,12 +62,12 @@ public class ItemLink implements Serializable {
         return name;
     }
 
-    public ItemLink name(String name) {
+    public ItemLink name(final String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -74,12 +75,12 @@ public class ItemLink implements Serializable {
         return description;
     }
 
-    public ItemLink description(String description) {
+    public ItemLink description(final String description) {
         this.description = description;
         return this;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -87,12 +88,12 @@ public class ItemLink implements Serializable {
         return thumbnailImageUrl;
     }
 
-    public ItemLink thumbnailImageUrl(String thumbnailImageUrl) {
+    public ItemLink thumbnailImageUrl(final String thumbnailImageUrl) {
         this.thumbnailImageUrl = thumbnailImageUrl;
         return this;
     }
 
-    public void setThumbnailImageUrl(String thumbnailImageUrl) {
+    public void setThumbnailImageUrl(final String thumbnailImageUrl) {
         this.thumbnailImageUrl = thumbnailImageUrl;
     }
 
@@ -100,53 +101,24 @@ public class ItemLink implements Serializable {
         return itemUrl;
     }
 
-    public ItemLink itemUrl(String itemUrl) {
+    public ItemLink itemUrl(final String itemUrl) {
         this.itemUrl = itemUrl;
         return this;
     }
 
-    public void setItemUrl(String itemUrl) {
+    public void setItemUrl(final String itemUrl) {
         this.itemUrl = itemUrl;
-    }
-
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
-
-    public ItemLink portfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
-        return this;
-    }
-
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
-    }
-
-    public Program getProgram() {
-        return program;
-    }
-
-    public ItemLink program(Program program) {
-        this.program = program;
-        return this;
-    }
-
-    public void setProgram(Program program) {
-        this.program = program;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ItemLink itemLink = (ItemLink) o;
-        if (itemLink.id == null || id == null) {
-            return false;
-        }
+    public boolean equals(final Object o) {
+        if (this == o)
+			return true;
+        if (o == null || getClass() != o.getClass())
+			return false;
+        final ItemLink itemLink = (ItemLink) o;
+        if (itemLink.id == null || id == null)
+			return false;
         return Objects.equals(id, itemLink.id);
     }
 

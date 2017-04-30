@@ -1,7 +1,8 @@
 <div>
     <h2>
         <span>Programs</span>
-        <button class="btn btn-primary float-right create-program" [routerLink]="['/', { outlets: { popup: ['program-new'] } }]">
+        <button class="btn btn-primary float-right create-program"
+                [routerLink]="['/', { outlets: { popup: ['program-new'] } }]">
             <span class="fa fa-plus"></span>
             <span class="hidden-sm-down" >
             Create new Program
@@ -11,13 +12,21 @@
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12 no-padding-right">
-            <form name="searchForm" class="form-inline">
+            <form name="searchForm"
+                  class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'opengiveApp.program.home.search' | translate }}">
-                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                    <input type="text"
+                           class="form-control"
+                           [(ngModel)]="currentSearch"
+                           id="currentSearch"
+                           name="currentSearch">
+                    <button class="input-group-addon btn btn-info"
+                            (click)="search(currentSearch)">
                         <span class="fa fa-search"></span>
                     </button>
-                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                    <button class="input-group-addon btn btn-danger"
+                            (click)="clear()"
+                            *ngIf="currentSearch">
                         <span class="fa fa-trash-o"></span>
                     </button>
                 </div>
@@ -25,60 +34,60 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="programs">
+    <div class="table-responsive"
+         *ngIf="programs?.length">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="startDate"><span>Start Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="endDate"><span>End Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="organization.id"><span>Organization</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="instructor.id"><span>Instructor</span> <span class="fa fa-sort"></span></th>
-            <th></th>
-            </tr>
+                <tr jhiSort
+                    [(predicate)]="predicate"
+                    [(ascending)]="reverse"
+                    [callback]="reset.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="startDate"><span>Start Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="endDate"><span>End Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="organization.id"><span>Organization</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="instructor.id"><span>Instructor</span> <span class="fa fa-sort"></span></th>
+                    <th></th>
+                </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let program of programs ;trackBy: trackId">
-                <td><a [routerLink]="['../program', program.id ]">{{program.id}}</a></td>
-                <td>{{program.name}}</td>
-                <td>{{program.description}}</td>
-                <td>{{program.startDate | date:'medium'}}</td>
-                <td>{{program.endDate | date:'medium'}}</td>
-                <td>
-                    <div *ngIf="program.organization">
-                        <a [routerLink]="['../organization', program.organization?.id ]" >{{program.organization?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    {{program.instructor?.id}}
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['../program', program.id ]"
-                                class="btn btn-info btn-sm">
+            <tbody>
+                <tr *ngFor="let program of programs ;trackBy: trackId">
+                    <td><a [routerLink]="['../program', program.id ]">{{program.id}}</a></td>
+                    <td>{{program.name}}</td>
+                    <td>{{program.description}}</td>
+                    <td>{{program.active}}</td>
+                    <td>
+                        <div *ngIf="program.school">
+                            <a [routerLink]="['../school', program.school?.id ]">{{program.school?.name}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['../program', program.id ]"
+                                    class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="hidden-md-down">View</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'program/'+ program.id + '/edit'} }]"
-                                replaceUrl="true"
-                                class="btn btn-primary btn-sm">
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'program/'+ program.id + '/edit'} }]"
+                                    replaceUrl="true"
+                                    class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
                             <span class="hidden-md-down">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'program/'+ program.id + '/deactivate'} }]"
-                                replaceUrl="true"
-                                class="btn btn-danger btn-sm">
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'program/'+ program.id + '/deactivate'} }]"
+                                    replaceUrl="true"
+                                    class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
                             <span class="hidden-md-down">Deactivate</span>
                         </button>
-                    </div>
-                </td>
-            </tr>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

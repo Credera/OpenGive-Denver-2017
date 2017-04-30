@@ -5,8 +5,6 @@ import org.opengive.denver.stem.repository.ProgramRepository;
 import org.opengive.denver.stem.repository.search.ProgramSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -50,13 +48,13 @@ public class ProgramService {
     /**
      *  Get all the programs.
      *  
-     *  @param pageable the pagination information
      *  @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<Program> findAll(Pageable pageable) {
+    public List<Program> findAll() {
         log.debug("Request to get all Programs");
-        Page<Program> result = programRepository.findAll(pageable);
+        List<Program> result = programRepository.findAll();
+
         return result;
     }
 
@@ -88,13 +86,13 @@ public class ProgramService {
      * Search for the program corresponding to the query.
      *
      *  @param query the query of the search
-     *  @param pageable the pagination information
      *  @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<Program> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Programs for query {}", query);
-        Page<Program> result = programSearchRepository.search(queryStringQuery(query), pageable);
-        return result;
+    public List<Program> search(String query) {
+        log.debug("Request to search Programs for query {}", query);
+        return StreamSupport
+            .stream(programSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
     }
 }
