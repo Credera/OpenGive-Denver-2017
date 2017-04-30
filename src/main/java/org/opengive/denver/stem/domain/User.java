@@ -111,6 +111,16 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@BatchSize(size = 20)
 	private Set<Authority> authorities = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(
+			name = "user_org", 
+			joinColumns = {@JoinColumn(name = "org_id", referencedColumnName = "id") }, 
+			inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id") }
+			)
+	// @JsonIgnore
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	private Set<User> users = new HashSet<>();
 
 	public Long getId() {
 		return id;
