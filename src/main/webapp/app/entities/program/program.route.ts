@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { ProgramComponent } from './program.component';
 import { ProgramDetailComponent } from './program-detail.component';
 import { ProgramPopupComponent } from './program-dialog.component';
-import { ProgramDeletePopupComponent } from './program-delete-dialog.component';
+import { ProgramDeactivatePopupComponent } from './program-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 import { Role } from '../../app.constants';
@@ -54,8 +54,8 @@ export const programPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'program/:id/delete',
-    component: ProgramDeletePopupComponent,
+    path: 'program/:id/deactivate',
+    component: ProgramDeactivatePopupComponent,
     data: {
         authorities: [Role.User],
         pageTitle: 'opengiveApp.program.home.title'

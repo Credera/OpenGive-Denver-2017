@@ -7,12 +7,13 @@ import { User, UserService } from '../../shared';
 import { UserModalService } from './user-modal.service';
 
 @Component({
-    selector: 'jhi-user-mgmt-delete-dialog',
-    templateUrl: './user-management-delete-dialog.component.html'
+    selector: 'jhi-user-mgmt-deactivate-dialog',
+    templateUrl: './user-management-deactivate-dialog.component.html'
 })
-export class UserMgmtDeleteDialogComponent {
+export class UserMgmtDeactivateDialogComponent {
 
     user: User;
+    show14: boolean;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -27,10 +28,10 @@ export class UserMgmtDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(login) {
-        this.userService.delete(login).subscribe((response) => {
+    confirmDeactivate(login) {
+        this.userService.deactivate(login).subscribe((response) => {
             this.eventManager.broadcast({ name: 'userListModification',
-                content: 'Deleted a user'});
+                content: 'Deactivated a user'});
             this.activeModal.dismiss(true);
         });
     }
@@ -38,10 +39,10 @@ export class UserMgmtDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-user-delete-dialog',
-    template: ''
+    selector: 'jhi-user-deactivate-dialog',
+    template: '<div></div>'
 })
-export class UserDeleteDialogComponent implements OnInit, OnDestroy {
+export class UserDeactivateDialogComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -53,7 +54,7 @@ export class UserDeleteDialogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.userModalService.open(UserMgmtDeleteDialogComponent, params['login']);
+            this.modalRef = this.userModalService.open(UserMgmtDeactivateDialogComponent, params['login']);
         });
     }
 

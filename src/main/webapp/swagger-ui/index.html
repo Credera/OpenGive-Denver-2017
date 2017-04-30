@@ -55,7 +55,7 @@
                 window.swaggerUi = new SwaggerUi({
                     dom_id: "swagger-ui-container",
                     validatorUrl: data.validatorUrl,
-                    supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+                    supportedSubmitMethods: ['get', 'post', 'put', 'deactivate', 'patch'],
                     onComplete: function(swaggerApi, swaggerUi) {
                         initializeSpringfox();
                         if (window.SwaggerTranslator) {

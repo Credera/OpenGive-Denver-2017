@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { AddressComponent } from './address.component';
 import { AddressDetailComponent } from './address-detail.component';
 import { AddressPopupComponent } from './address-dialog.component';
-import { AddressDeletePopupComponent } from './address-delete-dialog.component';
+import { AddressDeactivatePopupComponent } from './address-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 import { Role } from '../../app.constants';
@@ -54,8 +54,8 @@ export const addressPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'address/:id/delete',
-    component: AddressDeletePopupComponent,
+    path: 'address/:id/deactivate',
+    component: AddressDeactivatePopupComponent,
     data: {
         authorities: [Role.User],
         pageTitle: 'opengiveApp.address.home.title'

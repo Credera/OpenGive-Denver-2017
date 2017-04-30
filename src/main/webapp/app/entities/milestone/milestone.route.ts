@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { MilestoneComponent } from './milestone.component';
 import { MilestoneDetailComponent } from './milestone-detail.component';
 import { MilestonePopupComponent } from './milestone-dialog.component';
-import { MilestoneDeletePopupComponent } from './milestone-delete-dialog.component';
+import { MilestoneDeactivatePopupComponent } from './milestone-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 import { Role } from '../../app.constants';
@@ -54,8 +54,8 @@ export const milestonePopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'milestone/:id/delete',
-    component: MilestoneDeletePopupComponent,
+    path: 'milestone/:id/deactivate',
+    component: MilestoneDeactivatePopupComponent,
     data: {
         authorities: [Role.User],
         pageTitle: 'opengiveApp.milestone.home.title'

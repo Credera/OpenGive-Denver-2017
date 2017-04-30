@@ -50,7 +50,7 @@ export class ProgramService {
         ;
     }
 
-    delete(id: number): Observable<Response> {
+    deactivate(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
