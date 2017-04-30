@@ -73,5 +73,11 @@
                   separator=","
                   tableName="item_link">
         </loadData>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/users_orgs.csv"
+                  separator=","
+                  tableName="user_org">
+        </loadData>
+        
     </changeSet>
 </databaseChangeLog>
