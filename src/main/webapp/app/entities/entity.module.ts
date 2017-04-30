@@ -10,6 +10,7 @@ import { OpengiveItemLinkModule } from './item-link/item-link.module';
 import { OpengiveSessionModule } from './session/session.module';
 import { OpengiveProgramModule } from './program/program.module';
 import { OpengiveSchoolModule } from './school/school.module';
+import { OpengivePortfolioItemModule } from './portfolio-item/portfolio-item.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -24,6 +25,7 @@ import { OpengiveSchoolModule } from './school/school.module';
         OpengiveSessionModule,
         OpengiveProgramModule,
         OpengiveSchoolModule,
+        OpengivePortfolioItemModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

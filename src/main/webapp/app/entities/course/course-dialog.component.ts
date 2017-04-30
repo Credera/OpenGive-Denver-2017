@@ -19,7 +19,6 @@ import { Role } from '../../app.constants';
 export class CourseDialogComponent implements OnInit {
 
     course: Course;
-    authorities: any[];
     isSaving: boolean;
 
     organizations: Organization[];
@@ -39,7 +38,6 @@ export class CourseDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
         this.organizationService.query().subscribe(
             (res: Response) => { this.organizations = res.json(); }, (res: Response) => this.onError(res.json()));
         this.userService.query().subscribe(

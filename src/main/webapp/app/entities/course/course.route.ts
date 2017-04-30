@@ -9,15 +9,12 @@ import { CourseDetailComponent } from './course-detail.component';
 import { CoursePopupComponent } from './course-dialog.component';
 import { CourseDeactivatePopupComponent } from './course-deactivate-dialog.component';
 
-import { Principal } from '../../shared';
-import { Role } from '../../app.constants';
-
 export const courseRoute: Routes = [
   {
     path: 'course',
     component: CourseComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.course.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -25,7 +22,7 @@ export const courseRoute: Routes = [
     path: 'course/:id',
     component: CourseDetailComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.course.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -37,7 +34,7 @@ export const coursePopupRoute: Routes = [
     path: 'course-new',
     component: CoursePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.course.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -47,7 +44,7 @@ export const coursePopupRoute: Routes = [
     path: 'course/:id/edit',
     component: CoursePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.course.home.title'
     },
     canActivate: [UserRouteAccessService],
@@ -57,7 +54,7 @@ export const coursePopupRoute: Routes = [
     path: 'course/:id/deactivate',
     component: CourseDeactivatePopupComponent,
     data: {
-        authorities: [Role.User],
+        authenticate: true,
         pageTitle: 'opengiveApp.course.home.title'
     },
     canActivate: [UserRouteAccessService],

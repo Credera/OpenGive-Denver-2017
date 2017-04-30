@@ -8,7 +8,7 @@ export const passwordRoute: Route = {
   path: 'password',
   component: PasswordComponent,
   data: {
-    authorities: [Role.User],
+      authenticate: true,
     pageTitle: 'global.menu.account.password'
   },
   canActivate: [UserRouteAccessService]

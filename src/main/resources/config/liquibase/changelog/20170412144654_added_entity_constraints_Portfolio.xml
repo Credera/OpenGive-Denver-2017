@@ -15,16 +15,16 @@
                                  referencedTableName="user"/>
                                  
        <addForeignKeyConstraint baseColumnNames="portfolio_id"
-                                 baseTableName="portfolio_link"
-                                 constraintName="fk_portfolio_link_course_id"
+                                 baseTableName="portfolio_portfolio_item"
+                                 constraintName="fk_portfolio_port_item_port_id"
                                  referencedColumnNames="id"
                                  referencedTableName="portfolio"/>
                                  
-       	<addForeignKeyConstraint baseColumnNames="link_id"
-                                 baseTableName="portfolio_link"
-                                 constraintName="fk_portfolio_link_link_id"
+       	<addForeignKeyConstraint baseColumnNames="item_id"
+                                 baseTableName="portfolio_portfolio_item"
+                                 constraintName="fk_portfolio_port_item_item_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="item_link"/>
+                                 referencedTableName="portfolio_item"/>
 
     </changeSet>
 </databaseChangeLog>

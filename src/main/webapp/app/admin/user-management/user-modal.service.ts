@@ -1,19 +1,38 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Response } from '@angular/http';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { User, UserService, Principal } from '../../shared';
 import { Role } from "../../app.constants";
+import { OrganizationService } from "../../entities/organization/organization.service";
+import { Observable } from "rxjs/Observable";
+import { Organization } from "../../entities/organization/index";
 
 @Injectable()
 export class UserModalService {
     private isOpen = false;
+    private orgsObservable: Observable<Organization>
+
     constructor(
         private modalService: NgbModal,
         private router: Router,
         private userService: UserService,
-        private principal: Principal
-    ) { }
+        private principal: Principal,
+        private orgService: OrganizationService
+    ) {
+        this.orgsObservable = this.orgService
+            .query({
+                page: 0,
+                size: 20,
+                sort: ['name']
+            })
+            .map((res: Response) => res.json());
+    }
+
+    getOrganizations() : Observable<Organization> {
+        return this.orgsObservable;
+    }
 
     open(component: Component, login?: string): NgbModalRef {
         if (this.isOpen) {

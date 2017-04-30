@@ -28,6 +28,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -103,13 +105,26 @@ public class UserResource {
 	 * @return the ResponseEntity with status 201 (Created) and with body the new user, or with status 400 (Bad Request) if the login or email is already in use
 	 * @throws URISyntaxException if the Location URI syntax is incorrect
 	 */
-	@PostMapping("/users")
-	@Timed
-	@Secured(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> createUser(@RequestBody final ManagedUserVM managedUserVM) throws URISyntaxException {
-		log.debug("REST request to save User : {}", managedUserVM);
+    @PostMapping("/users")
+    @Timed
+    @Secured({ AuthoritiesConstants.ADMIN, AuthoritiesConstants.INSTRUCTOR, AuthoritiesConstants.ORG_ADMIN })
+    public ResponseEntity<?> createUser(@RequestBody final ManagedUserVM managedUserVM,
+        Authentication authentication) throws URISyntaxException
+    {
+        log.debug("REST request to save User : {}", managedUserVM);
 
-		if (managedUserVM.getId() != null)
+        if(managedUserVM.getAuthorities() == null || managedUserVM.getAuthorities().size() == 0)
+        {
+            return ResponseEntity.badRequest()
+                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "missingAuthority", "A new user must have at least one authority"))
+                .body(null);
+        }
+        else if(!AuthoritiesConstants.hasHigherPermissions(authentication.getAuthorities().stream().map(
+            GrantedAuthority::getAuthority).collect(Collectors.toList()), managedUserVM.getAuthorities()))
+        {
+            return new ResponseEntity<>("Insufficient permissions to create user with selected role", HttpStatus.UNAUTHORIZED);
+        }
+		else if (managedUserVM.getId() != null)
 			return ResponseEntity.badRequest()
 					.headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new user cannot already have an ID"))
 					.body(null);
@@ -141,7 +156,7 @@ public class UserResource {
 	 */
 	@PutMapping("/users")
 	@Timed
-	@Secured(AuthoritiesConstants.ADMIN)
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.INSTRUCTOR, AuthoritiesConstants.ORG_ADMIN, AuthoritiesConstants.STUDENT})
 	public ResponseEntity<UserDTO> updateUser(@RequestBody final ManagedUserVM managedUserVM) {
 		log.debug("REST request to update User : {}", managedUserVM);
 		Optional<User> existingUser = userRepository.findOneByEmail(managedUserVM.getEmail());

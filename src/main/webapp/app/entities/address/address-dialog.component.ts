@@ -17,7 +17,6 @@ import { Role } from '../../app.constants';
 export class AddressDialogComponent implements OnInit {
 
     address: Address;
-    authorities: any[];
     isSaving: boolean;
     constructor(
         public activeModal: NgbActiveModal,
@@ -31,7 +30,6 @@ export class AddressDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
     }
     clear() {
         this.activeModal.dismiss('cancel');

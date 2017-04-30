@@ -9,7 +9,6 @@ import { Achievement } from './achievement.model';
 import { AchievementPopupService } from './achievement-popup.service';
 import { AchievementService } from './achievement.service';
 import { Activity, ActivityService } from '../activity';
-import { Role } from '../../app.constants';
 
 @Component({
     selector: 'jhi-achievement-dialog',
@@ -18,7 +17,6 @@ import { Role } from '../../app.constants';
 export class AchievementDialogComponent implements OnInit {
 
     achievement: Achievement;
-    authorities: any[];
     isSaving: boolean;
 
     activities: Activity[];
@@ -35,7 +33,6 @@ export class AchievementDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
         this.activityService.query().subscribe(
             (res: Response) => { this.activities = res.json(); }, (res: Response) => this.onError(res.json()));
     }

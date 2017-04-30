@@ -19,6 +19,9 @@ export class UserRouteAccessService implements CanActivate {
 
         const authorities = route.data['authorities'];
         if (!authorities || authorities.length === 0) {
+            if (route.data['authenticate'] == true) {
+                return this.principal.isAuthenticated();
+            }
             return true;
         }
 
