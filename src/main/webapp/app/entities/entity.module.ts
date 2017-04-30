@@ -4,7 +4,7 @@ import { OpengiveOrganizationModule } from './organization/organization.module';
 import { OpengiveAddressModule } from './address/address.module';
 import { OpengivePortfolioModule } from './portfolio/portfolio.module';
 import { OpengiveCourseModule } from './course/course.module';
-import { OpengiveMilestoneModule } from './milestone/milestone.module';
+import { OpengiveActivityModule } from './activity/activity.module';
 import { OpengiveAchievementModule } from './achievement/achievement.module';
 import { OpengiveItemLinkModule } from './item-link/item-link.module';
 import { OpengiveSessionModule } from './session/session.module';
@@ -18,7 +18,7 @@ import { OpengiveSchoolModule } from './school/school.module';
         OpengiveAddressModule,
         OpengivePortfolioModule,
         OpengiveCourseModule,
-        OpengiveMilestoneModule,
+        OpengiveActivityModule,
         OpengiveAchievementModule,
         OpengiveItemLinkModule,
         OpengiveSessionModule,

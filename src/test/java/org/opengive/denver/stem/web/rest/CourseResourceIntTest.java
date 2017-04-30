@@ -1,18 +1,37 @@
 package org.opengive.denver.stem.web.rest;
 
-import org.opengive.denver.stem.OpenGiveApplication;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.opengive.denver.stem.web.rest.TestUtil.sameInstant;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.opengive.denver.stem.domain.Course;
-import org.opengive.denver.stem.domain.User;
-import org.opengive.denver.stem.repository.CourseRepository;
-import org.opengive.denver.stem.service.CourseService;
-import org.opengive.denver.stem.repository.search.CourseSearchRepository;
-import org.opengive.denver.stem.web.rest.errors.ExceptionTranslator;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.opengive.denver.stem.OpenGiveApplication;
+import org.opengive.denver.stem.domain.Course;
+import org.opengive.denver.stem.domain.Organization;
+import org.opengive.denver.stem.domain.Program;
+import org.opengive.denver.stem.domain.User;
+import org.opengive.denver.stem.repository.CourseRepository;
+import org.opengive.denver.stem.repository.search.CourseSearchRepository;
+import org.opengive.denver.stem.service.CourseService;
+import org.opengive.denver.stem.web.rest.errors.ExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -23,19 +42,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
-import java.util.List;
-
-import static org.opengive.denver.stem.web.rest.TestUtil.sameInstant;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 /**
  * Test class for the CourseResource REST controller.
  *
@@ -45,278 +51,291 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = OpenGiveApplication.class)
 public class CourseResourceIntTest {
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
+	private static final String DEFAULT_NAME = "AAAAAAAAAA";
+	private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+	private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+	private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_START_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_START_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+	private static final ZonedDateTime DEFAULT_START_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+	private static final ZonedDateTime UPDATED_START_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    private static final ZonedDateTime DEFAULT_END_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_END_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+	private static final ZonedDateTime DEFAULT_END_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+	private static final ZonedDateTime UPDATED_END_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    @Autowired
-    private CourseRepository courseRepository;
+	@Autowired
+	private CourseRepository courseRepository;
 
-    @Autowired
-    private CourseService courseService;
+	@Autowired
+	private CourseService courseService;
 
-    @Autowired
-    private CourseSearchRepository courseSearchRepository;
+	@Autowired
+	private CourseSearchRepository courseSearchRepository;
 
-    @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
+	@Autowired
+	private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+	@Autowired
+	private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
+	@Autowired
+	private ExceptionTranslator exceptionTranslator;
 
-    @Autowired
-    private EntityManager em;
+	@Autowired
+	private EntityManager em;
 
-    private MockMvc restCourseMockMvc;
+	private MockMvc restCourseMockMvc;
 
-    private Course course;
+	private Course course;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        CourseResource courseResource = new CourseResource(courseService);
-        this.restCourseMockMvc = MockMvcBuilders.standaloneSetup(courseResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+		final CourseResource courseResource = new CourseResource(courseService);
+		restCourseMockMvc = MockMvcBuilders.standaloneSetup(courseResource)
+				.setCustomArgumentResolvers(pageableArgumentResolver)
+				.setControllerAdvice(exceptionTranslator)
+				.setMessageConverters(jacksonMessageConverter).build();
+	}
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static Course createEntity(EntityManager em) {
-        Course course = new Course()
-            .name(DEFAULT_NAME)
-            .description(DEFAULT_DESCRIPTION)
-            .startDate(DEFAULT_START_DATE)
-            .endDate(DEFAULT_END_DATE);
-        // Add required entity
-        User instructor = UserResourceIntTest.createEntity(em);
-        em.persist(instructor);
-        em.flush();
-        course.setInstructor(instructor);
-        return course;
-    }
+	/**
+	 * Create an entity for this test.
+	 *
+	 * This is a static method, as tests for other entities might also need it,
+	 * if they test an entity which requires the current entity.
+	 */
+	public static Course createEntity(final EntityManager em) {
 
-    @Before
-    public void initTest() {
-        courseSearchRepository.deleteAll();
-        course = createEntity(em);
-    }
+		final Course course = new Course()
+				.name(DEFAULT_NAME)
+				.description(DEFAULT_DESCRIPTION)
+				.startDate(DEFAULT_START_DATE)
+				.endDate(DEFAULT_END_DATE);
 
-    @Test
-    @Transactional
-    public void createCourse() throws Exception {
-        int databaseSizeBeforeCreate = courseRepository.findAll().size();
+		// Add required entity
+		final User instructor = UserResourceIntTest.createEntity(em);
+		em.persist(instructor);
+		em.flush();
+		course.setInstructor(instructor);
 
-        // Create the Course
-        restCourseMockMvc.perform(post("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(course)))
-            .andExpect(status().isCreated());
+		final Program program = ProgramResourceIntTest.createEntity(em);
+		em.persist(program);
+		em.flush();
+		course.setProgram(program);
 
-        // Validate the Course in the database
-        List<Course> courseList = courseRepository.findAll();
-        assertThat(courseList).hasSize(databaseSizeBeforeCreate + 1);
-        Course testCourse = courseList.get(courseList.size() - 1);
-        assertThat(testCourse.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testCourse.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testCourse.getStartDate()).isEqualTo(DEFAULT_START_DATE);
-        assertThat(testCourse.getEndDate()).isEqualTo(DEFAULT_END_DATE);
+		final Organization org = OrganizationResourceIntTest.createEntity(em);
+		em.persist(org);
+		em.flush();
+		course.setOrganization(org);
 
-        // Validate the Course in Elasticsearch
-        Course courseEs = courseSearchRepository.findOne(testCourse.getId());
-        assertThat(courseEs).isEqualToComparingFieldByField(testCourse);
-    }
+		return course;
+	}
 
-    @Test
-    @Transactional
-    public void createCourseWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = courseRepository.findAll().size();
+	@Before
+	public void initTest() {
+		courseSearchRepository.deleteAll();
+		course = createEntity(em);
+	}
 
-        // Create the Course with an existing ID
-        course.setId(1L);
+	@Test
+	@Transactional
+	public void createCourse() throws Exception {
+		final int databaseSizeBeforeCreate = courseRepository.findAll().size();
 
-        // An entity with an existing ID cannot be created, so this API call must fail
-        restCourseMockMvc.perform(post("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(course)))
-            .andExpect(status().isBadRequest());
+		// Create the Course
+		restCourseMockMvc.perform(post("/api/courses")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(course)))
+		.andExpect(status().isCreated());
 
-        // Validate the Alice in the database
-        List<Course> courseList = courseRepository.findAll();
-        assertThat(courseList).hasSize(databaseSizeBeforeCreate);
-    }
+		// Validate the Course in the database
+		final List<Course> courseList = courseRepository.findAll();
+		assertThat(courseList).hasSize(databaseSizeBeforeCreate + 1);
+		final Course testCourse = courseList.get(courseList.size() - 1);
+		assertThat(testCourse.getName()).isEqualTo(DEFAULT_NAME);
+		assertThat(testCourse.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+		assertThat(testCourse.getStartDate()).isEqualTo(DEFAULT_START_DATE);
+		assertThat(testCourse.getEndDate()).isEqualTo(DEFAULT_END_DATE);
 
-    @Test
-    @Transactional
-    public void checkNameIsRequired() throws Exception {
-        int databaseSizeBeforeTest = courseRepository.findAll().size();
-        // set the field null
-        course.setName(null);
+		// Validate the Course in Elasticsearch
+		final Course courseEs = courseSearchRepository.findOne(testCourse.getId());
+		assertThat(courseEs).isEqualToComparingFieldByField(testCourse);
+	}
 
-        // Create the Course, which fails.
+	@Test
+	@Transactional
+	public void createCourseWithExistingId() throws Exception {
+		final int databaseSizeBeforeCreate = courseRepository.findAll().size();
 
-        restCourseMockMvc.perform(post("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(course)))
-            .andExpect(status().isBadRequest());
+		// Create the Course with an existing ID
+		course.setId(1L);
 
-        List<Course> courseList = courseRepository.findAll();
-        assertThat(courseList).hasSize(databaseSizeBeforeTest);
-    }
+		// An entity with an existing ID cannot be created, so this API call must fail
+		restCourseMockMvc.perform(post("/api/courses")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(course)))
+		.andExpect(status().isBadRequest());
 
-    @Test
-    @Transactional
-    public void getAllCourses() throws Exception {
-        // Initialize the database
-        courseRepository.saveAndFlush(course);
+		// Validate the Alice in the database
+		final List<Course> courseList = courseRepository.findAll();
+		assertThat(courseList).hasSize(databaseSizeBeforeCreate);
+	}
 
-        // Get all the courseList
-        restCourseMockMvc.perform(get("/api/courses?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(course.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].startDate").value(hasItem(sameInstant(DEFAULT_START_DATE))))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(sameInstant(DEFAULT_END_DATE))));
-    }
+	@Test
+	@Transactional
+	public void checkNameIsRequired() throws Exception {
+		final int databaseSizeBeforeTest = courseRepository.findAll().size();
+		// set the field null
+		course.setName(null);
 
-    @Test
-    @Transactional
-    public void getCourse() throws Exception {
-        // Initialize the database
-        courseRepository.saveAndFlush(course);
+		// Create the Course, which fails.
 
-        // Get the course
-        restCourseMockMvc.perform(get("/api/courses/{id}", course.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(course.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.startDate").value(sameInstant(DEFAULT_START_DATE)))
-            .andExpect(jsonPath("$.endDate").value(sameInstant(DEFAULT_END_DATE)));
-    }
+		restCourseMockMvc.perform(post("/api/courses")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(course)))
+		.andExpect(status().isBadRequest());
 
-    @Test
-    @Transactional
-    public void getNonExistingCourse() throws Exception {
-        // Get the course
-        restCourseMockMvc.perform(get("/api/courses/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
-    }
+		final List<Course> courseList = courseRepository.findAll();
+		assertThat(courseList).hasSize(databaseSizeBeforeTest);
+	}
 
-    @Test
-    @Transactional
-    public void updateCourse() throws Exception {
-        // Initialize the database
-        courseService.save(course);
+	@Test
+	@Transactional
+	public void getAllCourses() throws Exception {
+		// Initialize the database
+		courseRepository.saveAndFlush(course);
 
-        int databaseSizeBeforeUpdate = courseRepository.findAll().size();
+		// Get all the courseList
+		restCourseMockMvc.perform(get("/api/courses?sort=id,desc"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		.andExpect(jsonPath("$.[*].id").value(hasItem(course.getId().intValue())))
+		.andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+		.andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+		.andExpect(jsonPath("$.[*].startDate").value(hasItem(sameInstant(DEFAULT_START_DATE))))
+		.andExpect(jsonPath("$.[*].endDate").value(hasItem(sameInstant(DEFAULT_END_DATE))));
+	}
 
-        // Update the course
-        Course updatedCourse = courseRepository.findOne(course.getId());
-        updatedCourse
-            .name(UPDATED_NAME)
-            .description(UPDATED_DESCRIPTION)
-            .startDate(UPDATED_START_DATE)
-            .endDate(UPDATED_END_DATE);
+	@Test
+	@Transactional
+	public void getCourse() throws Exception {
+		// Initialize the database
+		courseRepository.saveAndFlush(course);
 
-        restCourseMockMvc.perform(put("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedCourse)))
-            .andExpect(status().isOk());
+		// Get the course
+		restCourseMockMvc.perform(get("/api/courses/{id}", course.getId()))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		.andExpect(jsonPath("$.id").value(course.getId().intValue()))
+		.andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+		.andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+		.andExpect(jsonPath("$.startDate").value(sameInstant(DEFAULT_START_DATE)))
+		.andExpect(jsonPath("$.endDate").value(sameInstant(DEFAULT_END_DATE)));
+	}
 
-        // Validate the Course in the database
-        List<Course> courseList = courseRepository.findAll();
-        assertThat(courseList).hasSize(databaseSizeBeforeUpdate);
-        Course testCourse = courseList.get(courseList.size() - 1);
-        assertThat(testCourse.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testCourse.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testCourse.getStartDate()).isEqualTo(UPDATED_START_DATE);
-        assertThat(testCourse.getEndDate()).isEqualTo(UPDATED_END_DATE);
+	@Test
+	@Transactional
+	public void getNonExistingCourse() throws Exception {
+		// Get the course
+		restCourseMockMvc.perform(get("/api/courses/{id}", Long.MAX_VALUE))
+		.andExpect(status().isNotFound());
+	}
 
-        // Validate the Course in Elasticsearch
-        Course courseEs = courseSearchRepository.findOne(testCourse.getId());
-        assertThat(courseEs).isEqualToComparingFieldByField(testCourse);
-    }
+	@Test
+	@Transactional
+	public void updateCourse() throws Exception {
+		// Initialize the database
+		courseService.save(course);
 
-    @Test
-    @Transactional
-    public void updateNonExistingCourse() throws Exception {
-        int databaseSizeBeforeUpdate = courseRepository.findAll().size();
+		final int databaseSizeBeforeUpdate = courseRepository.findAll().size();
 
-        // Create the Course
+		// Update the course
+		final Course updatedCourse = courseRepository.findOne(course.getId());
+		updatedCourse
+		.name(UPDATED_NAME)
+		.description(UPDATED_DESCRIPTION)
+		.startDate(UPDATED_START_DATE)
+		.endDate(UPDATED_END_DATE);
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
-        restCourseMockMvc.perform(put("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(course)))
-            .andExpect(status().isCreated());
+		restCourseMockMvc.perform(put("/api/courses")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(updatedCourse)))
+		.andExpect(status().isOk());
 
-        // Validate the Course in the database
-        List<Course> courseList = courseRepository.findAll();
-        assertThat(courseList).hasSize(databaseSizeBeforeUpdate + 1);
-    }
+		// Validate the Course in the database
+		final List<Course> courseList = courseRepository.findAll();
+		assertThat(courseList).hasSize(databaseSizeBeforeUpdate);
+		final Course testCourse = courseList.get(courseList.size() - 1);
+		assertThat(testCourse.getName()).isEqualTo(UPDATED_NAME);
+		assertThat(testCourse.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+		assertThat(testCourse.getStartDate()).isEqualTo(UPDATED_START_DATE);
+		assertThat(testCourse.getEndDate()).isEqualTo(UPDATED_END_DATE);
 
-    @Test
-    @Transactional
-    public void deleteCourse() throws Exception {
-        // Initialize the database
-        courseService.save(course);
+		// Validate the Course in Elasticsearch
+		final Course courseEs = courseSearchRepository.findOne(testCourse.getId());
+		assertThat(courseEs).isEqualToComparingFieldByField(testCourse);
+	}
 
-        int databaseSizeBeforeDelete = courseRepository.findAll().size();
+	@Test
+	@Transactional
+	public void updateNonExistingCourse() throws Exception {
+		final int databaseSizeBeforeUpdate = courseRepository.findAll().size();
 
-        // Get the course
-        restCourseMockMvc.perform(delete("/api/courses/{id}", course.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+		// Create the Course
 
-        // Validate Elasticsearch is empty
-        boolean courseExistsInEs = courseSearchRepository.exists(course.getId());
-        assertThat(courseExistsInEs).isFalse();
+		// If the entity doesn't have an ID, it will be created instead of just being updated
+		restCourseMockMvc.perform(put("/api/courses")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(course)))
+		.andExpect(status().isCreated());
 
-        // Validate the database is empty
-        List<Course> courseList = courseRepository.findAll();
-        assertThat(courseList).hasSize(databaseSizeBeforeDelete - 1);
-    }
+		// Validate the Course in the database
+		final List<Course> courseList = courseRepository.findAll();
+		assertThat(courseList).hasSize(databaseSizeBeforeUpdate + 1);
+	}
 
-    @Test
-    @Transactional
-    public void searchCourse() throws Exception {
-        // Initialize the database
-        courseService.save(course);
+	@Test
+	@Transactional
+	public void deleteCourse() throws Exception {
+		// Initialize the database
+		courseService.save(course);
 
-        // Search the course
-        restCourseMockMvc.perform(get("/api/_search/courses?query=id:" + course.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(course.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].startDate").value(hasItem(sameInstant(DEFAULT_START_DATE))))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(sameInstant(DEFAULT_END_DATE))));
-    }
+		final int databaseSizeBeforeDelete = courseRepository.findAll().size();
 
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Course.class);
-    }
+		// Get the course
+		restCourseMockMvc.perform(delete("/api/courses/{id}", course.getId())
+				.accept(TestUtil.APPLICATION_JSON_UTF8))
+		.andExpect(status().isOk());
+
+		// Validate Elasticsearch is empty
+		final boolean courseExistsInEs = courseSearchRepository.exists(course.getId());
+		assertThat(courseExistsInEs).isFalse();
+
+		// Validate the database is empty
+		final List<Course> courseList = courseRepository.findAll();
+		assertThat(courseList).hasSize(databaseSizeBeforeDelete - 1);
+	}
+
+	@Test
+	@Transactional
+	public void searchCourse() throws Exception {
+		// Initialize the database
+		courseService.save(course);
+
+		// Search the course
+		restCourseMockMvc.perform(get("/api/_search/courses?query=id:" + course.getId()))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		.andExpect(jsonPath("$.[*].id").value(hasItem(course.getId().intValue())))
+		.andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+		.andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+		.andExpect(jsonPath("$.[*].startDate").value(hasItem(sameInstant(DEFAULT_START_DATE))))
+		.andExpect(jsonPath("$.[*].endDate").value(hasItem(sameInstant(DEFAULT_END_DATE))));
+	}
+
+	@Test
+	@Transactional
+	public void equalsVerifier() throws Exception {
+		TestUtil.equalsVerifier(Course.class);
+	}
 }

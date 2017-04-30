@@ -1,10 +1,10 @@
 <div>
     <h2>
-        <span>Achievements</span>
-        <button class="btn btn-primary float-right create-achievement" [routerLink]="['/', { outlets: { popup: ['achievement-new'] } }]">
+        <span>Activitys</span>
+        <button class="btn btn-primary float-right create-activity" [routerLink]="['/', { outlets: { popup: ['activity-new'] } }]">
             <span class="fa fa-plus"></span>
             <span class="hidden-sm-down" >
-            Create new Achievement
+            Create new Activity
             </span>
         </button>
     </h2>
@@ -13,7 +13,7 @@
         <div class="col-sm-12 no-padding-right">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'opengiveApp.achievement.home.search' | translate }}">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'opengiveApp.activity.home.search' | translate }}">
                     <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
                         <span class="fa fa-search"></span>
                     </button>
@@ -25,46 +25,42 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="achievements">
+    <div class="table-responsive" *ngIf="activities">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="badgeUrl"><span>Badge Url</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="activity.id"><span>Activity</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="program.id"><span>Program</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let achievement of achievements ;trackBy: trackId">
-                <td><a [routerLink]="['../achievement', achievement.id ]">{{achievement.id}}</a></td>
-                <td>{{achievement.name}}</td>
-                <td>{{achievement.description}}</td>
-                <td>{{achievement.badgeUrl}}</td>
+            <tr *ngFor="let activity of activities ;trackBy: trackId">
+                <td><a [routerLink]="['../activity', activity.id ]">{{activity.id}}</a></td>
+                <td>{{activity.name}}</td>
                 <td>
-                    <div *ngIf="achievement.activity">
-                        <a [routerLink]="['../activity', achievement.activity?.id ]" >{{achievement.activity?.id}}</a>
+                    <div *ngIf="activity.course">
+                        <a [routerLink]="['../course', activity.course?.id ]" >{{activity.course?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../achievement', achievement.id ]"
+                                [routerLink]="['../activity', activity.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="hidden-md-down">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'achievement/'+ achievement.id + '/edit'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'activity/'+ activity.id + '/edit'} }]"
                                 replaceUrl="true"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
                             <span class="hidden-md-down">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'achievement/'+ achievement.id + '/delete'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'activity/'+ activity.id + '/delete'} }]"
                                 replaceUrl="true"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>

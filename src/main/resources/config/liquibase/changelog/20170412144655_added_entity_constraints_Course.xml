@@ -27,16 +27,28 @@
                                  referencedTableName="program"/>
                                  
         <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="stdt_course"
+                                 baseTableName="student_course"
                                  constraintName="fk_student_course_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
 
         <addForeignKeyConstraint baseColumnNames="course_id"
-                                 baseTableName="stdt_course"
+                                 baseTableName="student_course"
                                  constraintName="fk_student_course_course_id"
                                  referencedColumnNames="id"
                                  referencedTableName="course"/>
+                                 
+        <addForeignKeyConstraint baseColumnNames="course_id"
+                                 baseTableName="course_link"
+                                 constraintName="fk_course_link_course_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="activity"/>
+                                 
+       	<addForeignKeyConstraint baseColumnNames="link_id"
+                                 baseTableName="course_link"
+                                 constraintName="fk_course_link_link_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="item_link"/>
 
     </changeSet>
     

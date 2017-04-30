@@ -1,6 +1,7 @@
 package org.opengive.denver.stem.domain;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -39,6 +40,16 @@ public class Session implements Serializable {
 	@Size(min = 5, max = 100)
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
+
+	@Size(min = 5, max = 200)
+	@Column(name = "description", length = 200)
+	private String description;
+
+	@Column(name = "start_date")
+	private ZonedDateTime startDate;
+
+	@Column(name = "end_date")
+	private ZonedDateTime endDate;
 
 	@NotNull
 	@Column(name = "active", nullable = false)
@@ -122,6 +133,30 @@ public class Session implements Serializable {
 
 	public void setOrganization(final Organization organization) {
 		this.organization = organization;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(final String description) {
+		this.description = description;
+	}
+
+	public ZonedDateTime getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(final ZonedDateTime startDate) {
+		this.startDate = startDate;
+	}
+
+	public ZonedDateTime getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(final ZonedDateTime endDate) {
+		this.endDate = endDate;
 	}
 
 	@Override

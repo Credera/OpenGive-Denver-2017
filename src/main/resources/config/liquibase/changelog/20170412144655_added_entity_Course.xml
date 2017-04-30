@@ -52,7 +52,7 @@
         <dropDefaultValue tableName="course" columnName="start_date" columnDataType="datetime"/>
         <dropDefaultValue tableName="course" columnName="end_date" columnDataType="datetime"/>
         
-        <createTable tableName="stdt_course">
+        <createTable tableName="student_course">
             <column name="user_id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -60,5 +60,15 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>
+        
+        <createTable tableName="course_link">
+            <column name="course_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="link_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        
     </changeSet>
 </databaseChangeLog>

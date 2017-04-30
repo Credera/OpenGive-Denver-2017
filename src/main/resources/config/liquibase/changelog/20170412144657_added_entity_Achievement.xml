@@ -34,7 +34,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="milestone_id" type="bigint">
+            <column name="activity_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

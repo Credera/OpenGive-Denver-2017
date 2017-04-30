@@ -5,39 +5,39 @@ import { Response } from '@angular/http';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 
-import { Achievement } from './achievement.model';
-import { AchievementPopupService } from './achievement-popup.service';
-import { AchievementService } from './achievement.service';
-import { Activity, ActivityService } from '../activity';
+import { Activity } from './activity.model';
+import { ActivityPopupService } from './activity-popup.service';
+import { ActivityService } from './activity.service';
+import { Course, CourseService } from '../course';
 import { Role } from '../../app.constants';
 
 @Component({
-    selector: 'jhi-achievement-dialog',
-    templateUrl: './achievement-dialog.component.html'
+    selector: 'jhi-activity-dialog',
+    templateUrl: './activity-dialog.component.html'
 })
-export class AchievementDialogComponent implements OnInit {
+export class ActivityDialogComponent implements OnInit {
 
-    achievement: Achievement;
+    activity: Activity;
     authorities: any[];
     isSaving: boolean;
 
-    activities: Activity[];
+    courses: Course[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
-        private achievementService: AchievementService,
         private activityService: ActivityService,
+        private courseService: CourseService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['achievement']);
+        this.jhiLanguageService.setLocations(['activity']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = [Role.User, Role.Admin];
-        this.activityService.query().subscribe(
-            (res: Response) => { this.activities = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.courseService.query().subscribe(
+            (res: Response) => { this.courses = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -45,19 +45,19 @@ export class AchievementDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.achievement.id !== undefined) {
-            this.achievementService.update(this.achievement)
-                .subscribe((res: Achievement) =>
+        if (this.activity.id !== undefined) {
+            this.activityService.update(this.activity)
+                .subscribe((res: Activity) =>
                     this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
-            this.achievementService.create(this.achievement)
-                .subscribe((res: Achievement) =>
+            this.activityService.create(this.activity)
+                .subscribe((res: Activity) =>
                     this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
-    private onSaveSuccess(result: Achievement) {
-        this.eventManager.broadcast({ name: 'achievementListModification', content: 'OK'});
+    private onSaveSuccess(result: Activity) {
+        this.eventManager.broadcast({ name: 'activityListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -76,33 +76,33 @@ export class AchievementDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackActivityById(index: number, item: Activity) {
+    trackCourseById(index: number, item: Course) {
         return item.id;
     }
 }
 
 @Component({
-    selector: 'jhi-achievement-popup',
+    selector: 'jhi-activity-popup',
     template: ''
 })
-export class AchievementPopupComponent implements OnInit, OnDestroy {
+export class ActivityPopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private achievementPopupService: AchievementPopupService
+        private activityPopupService: ActivityPopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.modalRef = this.achievementPopupService
-                    .open(AchievementDialogComponent, params['id']);
+                this.modalRef = this.activityPopupService
+                    .open(ActivityDialogComponent, params['id']);
             } else {
-                this.modalRef = this.achievementPopupService
-                    .open(AchievementDialogComponent);
+                this.modalRef = this.activityPopupService
+                    .open(ActivityDialogComponent);
             }
         });
     }

@@ -19,7 +19,7 @@
             "name": "Name",
             "description": "Description",
             "badgeUrl": "Badge Url",
-            "milestone": "Milestone",
+            "activity": "Activity",
             "achievedBy": "Achieved By"
         }
     }

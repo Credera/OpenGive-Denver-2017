@@ -1,7 +1,7 @@
 import { Organization } from '../organization';
 import { User } from '../../shared';
 import { ItemLink } from '../item-link';
-import { Milestone } from '../milestone';
+import { Activity } from '../activity';
 export class Course {
     constructor(
         public id?: number,
@@ -13,7 +13,7 @@ export class Course {
         public instructor?: User,
         public resources?: ItemLink,
         public students?: User,
-        public milestones?: Milestone,
+        public activities?: Activity,
     ) {
     }
 }

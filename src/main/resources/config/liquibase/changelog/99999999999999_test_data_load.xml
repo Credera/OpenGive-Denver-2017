@@ -48,9 +48,9 @@
 	    		<column name="active" type="boolean"/>
         </loadData>
         <loadData encoding="UTF-8"
-                  file="config/liquibase/milestone.csv"
+                  file="config/liquibase/activity.csv"
                   separator=","
-                  tableName="milestone">
+                  tableName="activity">
         </loadData>
         <loadData encoding="UTF-8"
                   file="config/liquibase/achievement.csv"

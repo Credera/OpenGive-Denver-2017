@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -23,13 +26,13 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * A Portfolio.
+ * A Activity.
  */
 @Entity
-@Table(name = "portfolio")
+@Table(name = "activity")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "portfolio")
-public class Portfolio implements Serializable {
+@Document(indexName = "activity")
+public class Activity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,19 +40,30 @@ public class Portfolio implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(optional = false)
 	@NotNull
-	@JoinColumn(unique = true)
-	private User student;
+	@Size(min = 3, max = 100)
+	@Column(name = "name", length = 100, nullable = false)
+	private String name;
+
+	@Size(min = 5, max = 200)
+	@Column(name = "description", length = 200)
+	private String description;
+
+	@ManyToOne
+	private Course course;
 
 	@ManyToMany
 	@JoinTable(
-			name = "portfolio_link",
-			joinColumns = @JoinColumn(name = "portfolio_id", referencedColumnName = "id"),
+			name="actvity_link",
+			joinColumns=@JoinColumn(name="actv_id", referencedColumnName="id"),
 			inverseJoinColumns=@JoinColumn(name="link_id", referencedColumnName="id"))
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	private Set<ItemLink> portfolioItems = new HashSet<>();
+	private final Set<ItemLink> resources = new HashSet<>();
+
+	@Column(name = "points")
+	@Min(0)
+	private Integer points;
 
 	public Long getId() {
 		return id;
@@ -59,40 +73,30 @@ public class Portfolio implements Serializable {
 		this.id = id;
 	}
 
-	public User getStudent() {
-		return student;
+	public String getName() {
+		return name;
 	}
 
-	public Portfolio student(final User user) {
-		student = user;
+	public Activity name(final String name) {
+		this.name = name;
 		return this;
 	}
 
-	public void setStudent(final User user) {
-		student = user;
+	public void setName(final String name) {
+		this.name = name;
 	}
 
-	public Set<ItemLink> getPortfolioItems() {
-		return portfolioItems;
+	public Course getCourse() {
+		return course;
 	}
 
-	public Portfolio portfolioItems(final Set<ItemLink> itemLinks) {
-		portfolioItems = itemLinks;
+	public Activity course(final Course course) {
+		this.course = course;
 		return this;
 	}
 
-	public Portfolio addPortfolioItems(final ItemLink itemLink) {
-		portfolioItems.add(itemLink);
-		return this;
-	}
-
-	public Portfolio removePortfolioItems(final ItemLink itemLink) {
-		portfolioItems.remove(itemLink);
-		return this;
-	}
-
-	public void setPortfolioItems(final Set<ItemLink> itemLinks) {
-		portfolioItems = itemLinks;
+	public void setCourse(final Course course) {
+		this.course = course;
 	}
 
 	@Override
@@ -101,10 +105,10 @@ public class Portfolio implements Serializable {
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
-		final Portfolio portfolio = (Portfolio) o;
-		if (portfolio.id == null || id == null)
+		final Activity activity = (Activity) o;
+		if (activity.id == null || id == null)
 			return false;
-		return Objects.equals(id, portfolio.id);
+		return Objects.equals(id, activity.id);
 	}
 
 	@Override
@@ -114,8 +118,9 @@ public class Portfolio implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Portfolio{" +
+		return "Activity{" +
 				"id=" + id +
+				", name='" + name + "'" +
 				'}';
 	}
 }

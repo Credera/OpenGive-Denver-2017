@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -69,16 +70,20 @@ public class Course implements Serializable {
 	@JoinColumn(unique = true)
 	private User instructor;
 
-	@OneToMany(mappedBy = "course")
+	@ManyToMany
+	@JoinTable(
+			name="course_link",
+			joinColumns=@JoinColumn(name="course_id", referencedColumnName="id"),
+			inverseJoinColumns=@JoinColumn(name="link_id", referencedColumnName="id"))
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Set<ItemLink> resources = new HashSet<>();
 
 	@OneToMany
 	@JoinTable(
-			name = "STDT_PRGM",
-			joinColumns = {	@JoinColumn(name = "USER_ID", referencedColumnName = "ID") },
-			inverseJoinColumns = { @JoinColumn(name = "PRGM_ID", referencedColumnName = "ID") }
+			name = "student_course",
+			joinColumns = {	@JoinColumn(name = "user_id", referencedColumnName = "id") },
+			inverseJoinColumns = { @JoinColumn(name = "course_id", referencedColumnName = "id") }
 			)
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -87,7 +92,7 @@ public class Course implements Serializable {
 	@OneToMany(mappedBy = "course")
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	private Set<Milestone> milestones = new HashSet<>();
+	private Set<Activity> activities = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -194,13 +199,11 @@ public class Course implements Serializable {
 
 	public Course addResources(final ItemLink itemLink) {
 		resources.add(itemLink);
-		itemLink.setCourse(this);
 		return this;
 	}
 
 	public Course removeResources(final ItemLink itemLink) {
 		resources.remove(itemLink);
-		itemLink.setCourse(null);
 		return this;
 	}
 
@@ -231,29 +234,29 @@ public class Course implements Serializable {
 		students = users;
 	}
 
-	public Set<Milestone> getMilestones() {
-		return milestones;
+	public Set<Activity> getActivitys() {
+		return activities;
 	}
 
-	public Course milestones(final Set<Milestone> milestones) {
-		this.milestones = milestones;
+	public Course activities(final Set<Activity> activities) {
+		this.activities = activities;
 		return this;
 	}
 
-	public Course addMilestones(final Milestone milestone) {
-		milestones.add(milestone);
-		milestone.setCourse(this);
+	public Course addActivitys(final Activity activity) {
+		activities.add(activity);
+		activity.setCourse(this);
 		return this;
 	}
 
-	public Course removeMilestones(final Milestone milestone) {
-		milestones.remove(milestone);
-		milestone.setCourse(null);
+	public Course removeActivitys(final Activity activity) {
+		activities.remove(activity);
+		activity.setCourse(null);
 		return this;
 	}
 
-	public void setMilestones(final Set<Milestone> milestones) {
-		this.milestones = milestones;
+	public void setActivitys(final Set<Activity> activities) {
+		this.activities = activities;
 	}
 
 	@Override
@@ -280,7 +283,7 @@ public class Course implements Serializable {
 		.append(description).append(", startDate=").append(startDate).append(", endDate=").append(endDate)
 		.append(", organization=").append(organization).append(", program=").append(program)
 		.append(", instructor=").append(instructor).append(", resources=").append(resources)
-		.append(", students=").append(students).append(", milestones=").append(milestones).append("]");
+		.append(", students=").append(students).append(", activities=").append(activities).append("]");
 		return builder.toString();
 	}
 }
