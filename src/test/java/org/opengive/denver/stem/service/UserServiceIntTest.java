@@ -42,7 +42,7 @@ public class UserServiceIntTest {
         Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
         assertThat(maybeUser.isPresent()).isFalse();
 
-        maybeUser = userService.requestPasswordReset("admin@localhost");
+        maybeUser = userService.requestPasswordReset("admin");
         assertThat(maybeUser.isPresent()).isTrue();
 
         assertThat(maybeUser.get().getEmail()).isEqualTo("admin@localhost");
