@@ -27,23 +27,23 @@ export class UserRouteAccessService implements CanActivate {
 
     checkLogin(authorities: string[], url: string): Promise<boolean> {
         const principal = this.principal;
-        let p = principal.identity().then(account => {
+        const p = principal.identity().then( (account) => {
 
             if (account) {
-                return principal.hasAnyAuthority(authorities).then(hasAuth => {
-                    if (hasAuth)
+                return principal.hasAnyAuthority(authorities).then( (hasAuth) => {
+                    if (hasAuth) {
                         return Promise.resolve(true);
+                    }
 
                     this.stateStorageService.storeUrl(url);
                     this.router.navigate(['accessdenied']);
 
                     return Promise.resolve(false);
-                })
+                });
             }
 
-
             return Promise.resolve(false);
-        })
+        });
         return Promise.resolve(p);
     }
 }

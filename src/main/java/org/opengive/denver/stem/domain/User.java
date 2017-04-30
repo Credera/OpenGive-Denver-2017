@@ -82,10 +82,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@Column(nullable = false)
 	private boolean activated = false;
 
-	@Size(min = 2, max = 5)
-	@Column(name = "lang_key", length = 5)
-	private String langKey;
-
 	@Size(max = 256)
 	@Column(name = "image_url", length = 256)
 	private String imageUrl;
@@ -221,14 +217,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 		this.resetDate = resetDate;
 	}
 
-	public String getLangKey() {
-		return langKey;
-	}
-
-	public void setLangKey(final String langKey) {
-		this.langKey = langKey;
-	}
-
 	public Set<Authority> getAuthorities() {
 		return authorities;
 	}
@@ -266,15 +254,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User{" +
-				"login='" + login + '\'' +
-				", firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", email='" + email + '\'' +
-				", imageUrl='" + imageUrl + '\'' +
-				", activated='" + activated + '\'' +
-				", langKey='" + langKey + '\'' +
-				", activationKey='" + activationKey + '\'' +
-				"}";
+		final StringBuilder builder = new StringBuilder();
+		builder.append("User [id=").append(id).append(", login=").append(login).append(", password=").append(password)
+		.append(", firstName=").append(firstName).append(", lastName=").append(lastName).append(", email=")
+		.append(email).append(", phoneNumber=").append(phoneNumber).append(", address=").append(address)
+		.append(", activated=").append(activated).append(", imageUrl=").append(imageUrl)
+		.append(", authorities=").append(authorities).append("]");
+		return builder.toString();
 	}
+
 }

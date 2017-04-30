@@ -76,7 +76,7 @@ public class AccountResource {
 							final User user = userService
 									.createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
 											managedUserVM.getFirstName(), managedUserVM.getLastName(),
-											managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl(), managedUserVM.getLangKey());
+											managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl());
 
 							mailService.sendActivationEmail(user);
 							return new ResponseEntity<>(HttpStatus.CREATED);
@@ -140,7 +140,7 @@ public class AccountResource {
 				.findOneByLogin(SecurityUtils.getCurrentUserLogin())
 				.map(u -> {
 					userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-							userDTO.getLangKey(), userDTO.getImageUrl());
+							userDTO.getImageUrl());
 					return new ResponseEntity<>(HttpStatus.OK);
 				})
 				.orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
