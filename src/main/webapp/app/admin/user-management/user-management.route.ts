@@ -6,7 +6,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { UserMgmtComponent } from './user-management.component';
 import { UserMgmtDetailComponent } from './user-management-detail.component';
 import { UserDialogComponent } from './user-management-dialog.component';
-import { UserDeleteDialogComponent } from './user-management-delete-dialog.component';
+import { UserDeactivateDialogComponent } from './user-management-deactivate-dialog.component';
 
 import { Principal } from '../../shared';
 import { Role } from '../../app.constants';
@@ -63,7 +63,7 @@ export const userMgmtRoute: Routes = [
 
 export const userDialogRoute: Routes = [
     {
-        path: 'user-management-new',
+        path: 'user-management-new/:type',
         component: UserDialogComponent,
         outlet: 'popup'
     },
@@ -73,8 +73,8 @@ export const userDialogRoute: Routes = [
         outlet: 'popup'
     },
     {
-        path: 'user-management/:login/delete',
-        component: UserDeleteDialogComponent,
+        path: 'user-management/:login/deactivate',
+        component: UserDeactivateDialogComponent,
         outlet: 'popup'
     }
 ];

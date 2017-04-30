@@ -9,10 +9,10 @@ import { ItemLinkPopupService } from './item-link-popup.service';
 import { ItemLinkService } from './item-link.service';
 
 @Component({
-    selector: 'jhi-item-link-delete-dialog',
-    templateUrl: './item-link-delete-dialog.component.html'
+    selector: 'jhi-item-link-deactivate-dialog',
+    templateUrl: './item-link-deactivate-dialog.component.html'
 })
-export class ItemLinkDeleteDialogComponent {
+export class ItemLinkDeactivateDialogComponent {
 
     itemLink: ItemLink;
 
@@ -29,11 +29,11 @@ export class ItemLinkDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.itemLinkService.delete(id).subscribe((response) => {
+    confirmDeactivate(id: number) {
+        this.itemLinkService.deactivate(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'itemLinkListModification',
-                content: 'Deleted an itemLink'
+                content: 'Deactivated an itemLink'
             });
             this.activeModal.dismiss(true);
         });
@@ -41,10 +41,10 @@ export class ItemLinkDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-item-link-delete-popup',
+    selector: 'jhi-item-link-deactivate-popup',
     template: ''
 })
-export class ItemLinkDeletePopupComponent implements OnInit, OnDestroy {
+export class ItemLinkDeactivatePopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +57,7 @@ export class ItemLinkDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.itemLinkPopupService
-                .open(ItemLinkDeleteDialogComponent, params['id']);
+                .open(ItemLinkDeactivateDialogComponent, params['id']);
         });
     }
 
