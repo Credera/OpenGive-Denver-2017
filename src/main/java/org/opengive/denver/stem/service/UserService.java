@@ -100,7 +100,7 @@ public class UserService {
     }
 
     public User createUser(String login, String password, String firstName, String lastName, String email,
-        String imageUrl, String langKey) {
+        String imageUrl) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.STUDENT);
@@ -113,7 +113,6 @@ public class UserService {
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setImageUrl(imageUrl);
-        newUser.setLangKey(langKey);
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
@@ -133,11 +132,6 @@ public class UserService {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setImageUrl(userDTO.getImageUrl());
-        if (userDTO.getLangKey() == null) {
-            user.setLangKey("en"); // default language
-        } else {
-            user.setLangKey(userDTO.getLangKey());
-        }
         if (userDTO.getAuthorities() != null) {
 
             Set<Authority> authorities = new HashSet<>();
@@ -170,15 +164,13 @@ public class UserService {
      * @param firstName first name of user
      * @param lastName last name of user
      * @param email email id of user
-     * @param langKey language key
      * @param imageUrl image URL of user
      */
-    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
+    public void updateUser(String firstName, String lastName, String email, String imageUrl) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);
-            user.setLangKey(langKey);
             user.setImageUrl(imageUrl);
             userSearchRepository.save(user);
             log.debug("Changed Information for User: {}", user);
@@ -201,7 +193,6 @@ public class UserService {
                 user.setEmail(userDTO.getEmail());
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
-                user.setLangKey(userDTO.getLangKey());
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()

@@ -1,32 +1,32 @@
 
 <div *ngIf="itemLink">
-    <h2><span jhiTranslate="opengiveApp.itemLink.detail.title">Item Link</span> {{itemLink.id}}</h2>
+    <h2><span>Item Link</span> {{itemLink.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="opengiveApp.itemLink.name">Name</span></dt>
+        <dt><span>Name</span></dt>
         <dd>
             <span>{{itemLink.name}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.itemLink.description">Description</span></dt>
+        <dt><span>Description</span></dt>
         <dd>
             <span>{{itemLink.description}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.itemLink.thumbnailImageUrl">Thumbnail Image Url</span></dt>
+        <dt><span>Thumbnail Image Url</span></dt>
         <dd>
             <span>{{itemLink.thumbnailImageUrl}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.itemLink.itemUrl">Item Url</span></dt>
+        <dt><span>Item Url</span></dt>
         <dd>
             <span>{{itemLink.itemUrl}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.itemLink.portfolio">Portfolio</span></dt>
+        <dt><span>Portfolio</span></dt>
         <dd>
             <div *ngIf="itemLink.portfolio">
                 <a [routerLink]="['/portfolio', itemLink.portfolio?.id]">{{itemLink.portfolio?.id}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.itemLink.program">Program</span></dt>
+        <dt><span>Program</span></dt>
         <dd>
             <div *ngIf="itemLink.program">
                 <a [routerLink]="['/program', itemLink.program?.id]">{{itemLink.program?.id}}</a>
@@ -37,13 +37,13 @@
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
     <button type="button"
             [routerLink]="['/', { outlets: { popup: 'item-link/'+ itemLink.id + '/edit'} }]"
             replaceUrl="true"
             class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
     </button>
 </div>

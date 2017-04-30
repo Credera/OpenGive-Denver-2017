@@ -33,6 +33,7 @@ export class PasswordResetInitComponent implements OnInit, AfterViewInit {
 
     requestReset() {
         this.error = null;
+        this.success = null;
         this.errorEmailNotExists = null;
         this.notRegistered = null;
 

@@ -1,19 +1,16 @@
 <div class="modal-header">
-    <h4 class="modal-title">Welcome!</h4>
+    <h4 class="modal-title">Sign in</h4>
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
     </button>
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-md-4 offset-md-4">
-            <h2>Please Sign In:</h2>
+            <h1>Sign in</h1>
         </div>
         <div class="col-md-8 offset-md-2">
             <div class="alert alert-danger" *ngIf="authenticationError">
-                <strong>Sorry!</strong> Thats not correct!
-            </div>
-            <div *ngIf="isOverLimit" class="alert alert-warning">
-                <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
+                <strong>Failed to sign in!</strong> Please check your credentials and try again.
             </div>
         </div>
         <div class="col-md-6">
@@ -24,7 +21,7 @@
                     [(ngModel)]="username">
                 </div>
                 <div class="form-group">
-                    <label for="password" jhiTranslate="login.form.password">Password</label>
+                    <label for="password">Password</label>
                     <input type="password" class="form-control" name="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
                            [(ngModel)]="password">
                 </div>
@@ -34,16 +31,15 @@
                         <span>Remember me</span>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button">Sign in</button>
+                <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
             <p></p>
-            <div class="col-md-4 offset-md-4">
-                <a (click)="requestResetPassword()">Reset password?</a>
+            <div class="alert alert-warning">
+                <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
             </div>
-            
-            <!--div class="alert alert-warning">
-            	<span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
-                <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+            <div class="alert alert-warning">
+            	<span>You don't have an account yet?</span>
+                <a class="alert-link" (click)="register()">Register a new account</a>
             </div>
         </div>
         <div class="col-md-6">
@@ -52,6 +48,6 @@
             <jhi-social provider="facebook"></jhi-social>
             <jhi-social provider="twitter"></jhi-social>
             
-        </div-->
+      </div>
     </div>
 </div>

@@ -1,9 +1,9 @@
 <div>
     <h2>
-        <span jhiTranslate="opengiveApp.itemLink.home.title">Item Links</span>
+        <span>Item Links</span>
         <button class="btn btn-primary float-right create-item-link" [routerLink]="['/', { outlets: { popup: ['item-link-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span class="hidden-sm-down"  jhiTranslate="opengiveApp.itemLink.home.createLabel">
+            <span class="hidden-sm-down" >
             Create new Item Link
             </span>
         </button>
@@ -29,13 +29,13 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span jhiTranslate="opengiveApp.itemLink.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="description"><span jhiTranslate="opengiveApp.itemLink.description">Description</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="thumbnailImageUrl"><span jhiTranslate="opengiveApp.itemLink.thumbnailImageUrl">Thumbnail Image Url</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="itemUrl"><span jhiTranslate="opengiveApp.itemLink.itemUrl">Item Url</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="portfolio.id"><span jhiTranslate="opengiveApp.itemLink.portfolio">Portfolio</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="program.id"><span jhiTranslate="opengiveApp.itemLink.program">Program</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="thumbnailImageUrl"><span>Thumbnail Image Url</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="itemUrl"><span>Item Url</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="portfolio.id"><span>Portfolio</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="program.id"><span>Program</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -62,21 +62,21 @@
                                 [routerLink]="['../item-link', itemLink.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                            <span class="hidden-md-down">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'item-link/'+ itemLink.id + '/edit'} }]"
                                 replaceUrl="true"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                            <span class="hidden-md-down">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'item-link/'+ itemLink.id + '/delete'} }]"
                                 replaceUrl="true"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="hidden-md-down">Delete</span>
                         </button>
                     </div>
                 </td>

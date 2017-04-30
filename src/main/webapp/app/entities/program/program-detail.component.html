@@ -1,32 +1,32 @@
 
 <div *ngIf="program">
-    <h2><span jhiTranslate="opengiveApp.program.detail.title">Program</span> {{program.id}}</h2>
+    <h2><span>Program</span> {{program.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="opengiveApp.program.name">Name</span></dt>
+        <dt><span>Name</span></dt>
         <dd>
             <span>{{program.name}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.program.description">Description</span></dt>
+        <dt><span>Description</span></dt>
         <dd>
             <span>{{program.description}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.program.startDate">Start Date</span></dt>
+        <dt><span>Start Date</span></dt>
         <dd>
             <span>{{program.startDate | date:'medium'}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.program.endDate">End Date</span></dt>
+        <dt><span>End Date</span></dt>
         <dd>
             <span>{{program.endDate | date:'medium'}}</span>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.program.organization">Organization</span></dt>
+        <dt><span>Organization</span></dt>
         <dd>
             <div *ngIf="program.organization">
                 <a [routerLink]="['/organization', program.organization?.id]">{{program.organization?.id}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="opengiveApp.program.instructor">Instructor</span></dt>
+        <dt><span>Instructor</span></dt>
         <dd>
             {{program.instructor?.id}}
         </dd>
@@ -35,13 +35,13 @@
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
     <button type="button"
             [routerLink]="['/', { outlets: { popup: 'program/'+ program.id + '/edit'} }]"
             replaceUrl="true"
             class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
     </button>
 </div>
