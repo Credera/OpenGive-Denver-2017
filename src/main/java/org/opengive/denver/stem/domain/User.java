@@ -98,8 +98,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@Column(name = "reset_date")
 	private ZonedDateTime resetDate = null;
 
-    @NotNull
-    @Column(name = "is_14_plus", nullable = false)
+	@NotNull
+	@Column(name = "is_14_plus", nullable = false)
 	private boolean is14Plus;
 
 	@JsonIgnore
@@ -111,16 +111,16 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@BatchSize(size = 20)
 	private Set<Authority> authorities = new HashSet<>();
-	
+
 	@ManyToMany
 	@JoinTable(
-			name = "user_org", 
-			joinColumns = {@JoinColumn(name = "org_id", referencedColumnName = "id") }, 
+			name = "user_org",
+			joinColumns = {@JoinColumn(name = "org_id", referencedColumnName = "id") },
 			inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id") }
 			)
-	// @JsonIgnore
+	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	private Set<User> users = new HashSet<>();
+	private final Set<User> organizations = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -235,17 +235,17 @@ public class User extends AbstractAuditingEntity implements Serializable {
 		this.authorities = authorities;
 	}
 
-    public boolean getIs14Plus()
-    {
-        return is14Plus;
-    }
+	public boolean getIs14Plus()
+	{
+		return is14Plus;
+	}
 
-    public void setIs14Plus(boolean is14Plus)
-    {
-        this.is14Plus = is14Plus;
-    }
+	public void setIs14Plus(final boolean is14Plus)
+	{
+		this.is14Plus = is14Plus;
+	}
 
-    @Override
+	@Override
 	public boolean equals(final Object o) {
 		if (this == o)
 			return true;

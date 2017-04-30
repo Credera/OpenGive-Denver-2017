@@ -41,6 +41,8 @@ public class CacheConfiguration {
 			cm.createCache(org.opengive.denver.stem.domain.User.class.getName(), jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.Authority.class.getName(), jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+			cm.createCache(org.opengive.denver.stem.domain.User.class.getName() + ".organizations",
+					jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.Organization.class.getName(), jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.Organization.class.getName() + ".courses", jcacheConfiguration);
@@ -63,8 +65,8 @@ public class CacheConfiguration {
 			cm.createCache(org.opengive.denver.stem.domain.Program.class.getName() + ".courses", jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.School.class.getName(), jcacheConfiguration);
 			cm.createCache(org.opengive.denver.stem.domain.School.class.getName() + ".programs", jcacheConfiguration);
-cm.createCache(org.opengive.denver.stem.domain.PortfolioItem.class.getName(), jcacheConfiguration);
-cm.createCache(org.opengive.denver.stem.domain.PortfolioItem.class.getName() + ".resources", jcacheConfiguration);
+			cm.createCache(org.opengive.denver.stem.domain.PortfolioItem.class.getName(), jcacheConfiguration);
+			cm.createCache(org.opengive.denver.stem.domain.PortfolioItem.class.getName() + ".resources", jcacheConfiguration);
 			// jhipster-needle-ehcache-add-entry
 		};
 	}
