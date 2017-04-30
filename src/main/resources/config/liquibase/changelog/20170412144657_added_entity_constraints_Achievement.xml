@@ -8,11 +8,11 @@
     -->
     <changeSet id="20170412144657-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="milestone_id"
+        <addForeignKeyConstraint baseColumnNames="activity_id"
                                  baseTableName="achievement"
-                                 constraintName="fk_achievement_milestone_id"
+                                 constraintName="fk_achievement_activity_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="milestone"/>
+                                 referencedTableName="activity"/>
                                  
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="user_achv"

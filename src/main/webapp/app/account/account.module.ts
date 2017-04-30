@@ -4,19 +4,16 @@ import { RouterModule } from '@angular/router';
 import { OpengiveSharedModule } from '../shared';
 
 import {
-    Register,
     Activate,
     Password,
     PasswordResetInit,
     PasswordResetFinish,
     PasswordStrengthBarComponent,
-    RegisterComponent,
     ActivateComponent,
     PasswordComponent,
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
     SettingsComponent,
-    SocialRegisterComponent,
     accountState
 } from './';
 
@@ -26,9 +23,7 @@ import {
         RouterModule.forRoot(accountState, { useHash: true })
     ],
     declarations: [
-        SocialRegisterComponent,
         ActivateComponent,
-        RegisterComponent,
         PasswordComponent,
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
@@ -36,7 +31,6 @@ import {
         SettingsComponent
     ],
     providers: [
-        Register,
         Activate,
         Password,
         PasswordResetInit,

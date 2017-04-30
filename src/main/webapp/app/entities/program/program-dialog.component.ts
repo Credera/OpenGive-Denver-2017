@@ -8,9 +8,7 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Program } from './program.model';
 import { ProgramPopupService } from './program-popup.service';
 import { ProgramService } from './program.service';
-import { Organization, OrganizationService } from '../organization';
-import { User, UserService } from '../../shared';
-import { Role } from '../../app.constants';
+import { School, SchoolService } from '../school';
 
 @Component({
     selector: 'jhi-program-dialog',
@@ -22,16 +20,13 @@ export class ProgramDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
-    organizations: Organization[];
-
-    users: User[];
+    schools: School[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private programService: ProgramService,
-        private organizationService: OrganizationService,
-        private userService: UserService,
+        private schoolService: SchoolService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['program']);
@@ -39,11 +34,9 @@ export class ProgramDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = [Role.User, Role.Admin];
-        this.organizationService.query().subscribe(
-            (res: Response) => { this.organizations = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.userService.query().subscribe(
-            (res: Response) => { this.users = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.schoolService.query().subscribe(
+            (res: Response) => { this.schools = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -82,11 +75,7 @@ export class ProgramDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackOrganizationById(index: number, item: Organization) {
-        return item.id;
-    }
-
-    trackUserById(index: number, item: User) {
+    trackSchoolById(index: number, item: School) {
         return item.id;
     }
 }

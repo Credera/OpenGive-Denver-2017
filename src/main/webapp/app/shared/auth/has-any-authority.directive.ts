@@ -39,3 +39,31 @@ export class HasAnyAuthorityDirective {
         });
     }
 }
+
+
+@Directive({
+    selector: '[jhiHasAtLeastAuthority]'
+})
+export class HasAtLeastAuthorityDirective {
+
+    private authority: string;
+
+    constructor(private principal: Principal, private templateRef: TemplateRef<any>, private viewContainerRef: ViewContainerRef) {
+    }
+
+    @Input()
+    set jhiHasAtLeastAuthority(value: string) {
+        this.authority = value;
+        this.updateView();
+        this.principal.getAuthenticationState().subscribe((identity) => this.updateView());
+    }
+
+    private updateView(): void {
+        this.principal.hasAtLeastAuthority(this.authority).then((result) => {
+            this.viewContainerRef.clear();
+            if (result) {
+                this.viewContainerRef.createEmbeddedView(this.templateRef);
+            }
+        });
+    }
+}

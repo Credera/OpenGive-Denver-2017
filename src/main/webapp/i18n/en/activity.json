@@ -1,0 +1,24 @@
+{
+    "opengiveApp": {
+        "activity" : {
+            "home": {
+                "title": "Activitys",
+                "createLabel": "Create a new Activity",
+                "createOrEditLabel": "Create or edit a Activity",
+                "search": "Search for Activity"
+            },
+            "created": "A new Activity is created with identifier {{ param }}",
+            "updated": "A Activity is updated with identifier {{ param }}",
+            "deactivated": "A Activity is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Activity {{ id }}?"
+            },
+            "detail": {
+                "title": "Activity"
+            },
+            "name": "Name",
+            "course": "Course",
+            "achievement": "Achievement"
+        }
+    }
+}

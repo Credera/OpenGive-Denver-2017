@@ -7,7 +7,7 @@ import { PaginationUtil } from 'ng-jhipster';
 import { AchievementComponent } from './achievement.component';
 import { AchievementDetailComponent } from './achievement-detail.component';
 import { AchievementPopupComponent } from './achievement-dialog.component';
-import { AchievementDeletePopupComponent } from './achievement-delete-dialog.component';
+import { AchievementDeactivatePopupComponent } from './achievement-deactivate-dialog.component';
 import { Role } from '../../app.constants';
 
 import { Principal } from '../../shared';
@@ -54,8 +54,8 @@ export const achievementPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'achievement/:id/delete',
-    component: AchievementDeletePopupComponent,
+    path: 'achievement/:id/deactivate',
+    component: AchievementDeactivatePopupComponent,
     data: {
         authorities: [Role.User],
         pageTitle: 'opengiveApp.achievement.home.title'

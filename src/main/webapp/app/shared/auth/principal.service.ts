@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { AccountService } from './account.service';
+import { Role } from "../../app.constants";
+import { AccountModel } from "../index";
 
 @Injectable()
 export class Principal {
-    private userIdentity: any;
+    private userIdentity: AccountModel;
     private authenticated = false;
-    private authenticationState = new Subject<any>();
+    private authenticationState = new Subject<AccountModel>();
 
     constructor(
         private account: AccountService
@@ -33,6 +35,33 @@ export class Principal {
         return Promise.resolve(false);
     }
 
+    collectionHasAtLeastAuthority(authorities: string[], authToCheck: string): boolean {
+        
+        var isAuth = false;
+
+        switch (authToCheck) {
+            case Role.Student:
+                isAuth = isAuth || authorities.some(a => a === Role.Student);
+            case Role.Instructor:
+                isAuth = isAuth || authorities.some(a => a === Role.Instructor);
+            case Role.OrgAdmin:
+                isAuth = isAuth || authorities.some(a => a === Role.OrgAdmin);
+            case Role.Admin:
+                isAuth = isAuth || authorities.some(a => a === Role.Admin);
+        }
+
+        return isAuth;
+    }
+
+    hasAtLeastAuthority(authority: string): Promise<boolean> {
+        if (!this.authenticated || !this.userIdentity || !this.userIdentity.authorities) {
+            return Promise.resolve(false);
+        }
+
+        let isAuth = this.collectionHasAtLeastAuthority(this.userIdentity.authorities, authority);
+        return Promise.resolve(isAuth);
+    }
+
     hasAuthority(authority: string): Promise<boolean> {
         if (!this.authenticated) {
            return Promise.resolve(false);
@@ -45,7 +74,7 @@ export class Principal {
         });
     }
 
-    identity(force?: boolean): Promise<any> {
+    identity(force?: boolean): Promise<AccountModel> {
         if (force === true) {
             this.userIdentity = undefined;
         }
@@ -83,7 +112,7 @@ export class Principal {
         return this.userIdentity !== undefined;
     }
 
-    getAuthenticationState(): Observable<any> {
+    getAuthenticationState(): Observable<AccountModel> {
         return this.authenticationState.asObservable();
     }
 

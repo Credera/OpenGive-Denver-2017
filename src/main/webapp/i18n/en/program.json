@@ -9,22 +9,18 @@
             },
             "created": "A new Program is created with identifier {{ param }}",
             "updated": "A Program is updated with identifier {{ param }}",
-            "deleted": "A Program is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Program {{ id }}?"
+            "deactivated": "A Program is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Program {{ id }}?"
             },
             "detail": {
                 "title": "Program"
             },
             "name": "Name",
             "description": "Description",
-            "startDate": "Start Date",
-            "endDate": "End Date",
-            "organization": "Organization",
-            "instructor": "Instructor",
-            "resources": "Resources",
-            "students": "Students",
-            "milestones": "Milestones"
+            "active": "Active",
+            "school": "School",
+            "course": "Course"
         }
     }
 }

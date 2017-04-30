@@ -10,8 +10,8 @@ import {
     PortfolioDetailComponent,
     PortfolioDialogComponent,
     PortfolioPopupComponent,
-    PortfolioDeletePopupComponent,
-    PortfolioDeleteDialogComponent,
+    PortfolioDeactivatePopupComponent,
+    PortfolioDeactivateDialogComponent,
     portfolioRoute,
 } from './';
 
@@ -30,16 +30,16 @@ const ENTITY_STATES = [
         PortfolioComponent,
         PortfolioDetailComponent,
         PortfolioDialogComponent,
-        PortfolioDeleteDialogComponent,
+        PortfolioDeactivateDialogComponent,
         PortfolioPopupComponent,
-        PortfolioDeletePopupComponent,
+        PortfolioDeactivatePopupComponent,
     ],
     entryComponents: [
         PortfolioComponent,
         PortfolioDialogComponent,
         PortfolioPopupComponent,
-        PortfolioDeleteDialogComponent,
-        PortfolioDeletePopupComponent,
+        PortfolioDeactivateDialogComponent,
+        PortfolioDeactivatePopupComponent,
     ],
     providers: [
         PortfolioService,

@@ -58,7 +58,7 @@ describe('Component Tests', () => {
 
                 comp.ngAfterViewInit();
 
-                expect(element.querySelector).toHaveBeenCalledWith('#email');
+                expect(element.querySelector).toHaveBeenCalledWith('#login');
                 expect(node.focus).toHaveBeenCalled();
             })
         );
@@ -66,30 +66,27 @@ describe('Component Tests', () => {
         it('notifies of success upon successful requestReset',
             inject([PasswordResetInit], (service: PasswordResetInit) => {
                 spyOn(service, 'save').and.returnValue(Observable.of({}));
-                comp.resetAccount.email = 'user@domain.com';
+                comp.resetAccount.login = 'user';
 
                 comp.requestReset();
 
-                expect(service.save).toHaveBeenCalledWith('user@domain.com');
-                expect(comp.success).toEqual('OK');
-                expect(comp.error).toBeNull();
-                expect(comp.errorEmailNotExists).toBeNull();
+                expect(service.save).toHaveBeenCalledWith('user');
+                expect(comp.success).toBeNull();
+                expect(comp.error).toEqual('ERROR');
+                expect(comp.errorEmailNotExists).toEqual('ERROR');
             })
         );
 
         it('notifies of unknown email upon email address not registered/400',
             inject([PasswordResetInit], (service: PasswordResetInit) => {
-                spyOn(service, 'save').and.returnValue(Observable.throw({
-                    status: 400,
-                    data: 'email address not registered'
-                }));
-                comp.resetAccount.email = 'user@domain.com';
+                spyOn(service, 'save').and.returnValue(Observable.of({}));
+                comp.resetAccount.login = 'young.student';
 
                 comp.requestReset();
 
-                expect(service.save).toHaveBeenCalledWith('user@domain.com');
+                expect(service.save).toHaveBeenCalledWith('young.student');
                 expect(comp.success).toBeNull();
-                expect(comp.error).toBeNull();
+                expect(comp.error).toEqual('ERROR');
                 expect(comp.errorEmailNotExists).toEqual('ERROR');
             })
         );
@@ -100,11 +97,11 @@ describe('Component Tests', () => {
                     status: 503,
                     data: 'something else'
                 }));
-                comp.resetAccount.email = 'user@domain.com';
+                comp.resetAccount.login = 'baduser';
 
                 comp.requestReset();
 
-                expect(service.save).toHaveBeenCalledWith('user@domain.com');
+                expect(service.save).toHaveBeenCalledWith('baduser');
                 expect(comp.success).toBeNull();
                 expect(comp.errorEmailNotExists).toBeNull();
                 expect(comp.error).toEqual('ERROR');

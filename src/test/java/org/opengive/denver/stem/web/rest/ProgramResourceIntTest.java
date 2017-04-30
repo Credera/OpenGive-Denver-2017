@@ -1,18 +1,30 @@
 package org.opengive.denver.stem.web.rest;
 
-import org.opengive.denver.stem.OpenGiveApplication;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.opengive.denver.stem.domain.Program;
-import org.opengive.denver.stem.domain.User;
-import org.opengive.denver.stem.repository.ProgramRepository;
-import org.opengive.denver.stem.service.ProgramService;
-import org.opengive.denver.stem.repository.search.ProgramSearchRepository;
-import org.opengive.denver.stem.web.rest.errors.ExceptionTranslator;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.opengive.denver.stem.OpenGiveApplication;
+import org.opengive.denver.stem.domain.Program;
+import org.opengive.denver.stem.domain.Session;
+import org.opengive.denver.stem.repository.ProgramRepository;
+import org.opengive.denver.stem.repository.search.ProgramSearchRepository;
+import org.opengive.denver.stem.service.ProgramService;
+import org.opengive.denver.stem.web.rest.errors.ExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -23,19 +35,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
-import java.util.List;
-
-import static org.opengive.denver.stem.web.rest.TestUtil.sameInstant;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 /**
  * Test class for the ProgramResource REST controller.
  *
@@ -45,278 +44,269 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = OpenGiveApplication.class)
 public class ProgramResourceIntTest {
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
+	private static final String DEFAULT_NAME = "AAAAAAAAAA";
+	private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+	private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+	private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_START_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_START_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+	private static final Boolean DEFAULT_ACTIVE = false;
+	private static final Boolean UPDATED_ACTIVE = true;
 
-    private static final ZonedDateTime DEFAULT_END_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_END_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+	@Autowired
+	private ProgramRepository programRepository;
 
-    @Autowired
-    private ProgramRepository programRepository;
+	@Autowired
+	private ProgramService programService;
 
-    @Autowired
-    private ProgramService programService;
+	@Autowired
+	private ProgramSearchRepository programSearchRepository;
 
-    @Autowired
-    private ProgramSearchRepository programSearchRepository;
+	@Autowired
+	private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
-    @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
+	@Autowired
+	private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+	@Autowired
+	private ExceptionTranslator exceptionTranslator;
 
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
+	@Autowired
+	private EntityManager em;
 
-    @Autowired
-    private EntityManager em;
+	private MockMvc restProgramMockMvc;
 
-    private MockMvc restProgramMockMvc;
+	private Program program;
 
-    private Program program;
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+		final ProgramResource programResource = new ProgramResource(programService);
+		restProgramMockMvc = MockMvcBuilders.standaloneSetup(programResource)
+				.setCustomArgumentResolvers(pageableArgumentResolver)
+				.setControllerAdvice(exceptionTranslator)
+				.setMessageConverters(jacksonMessageConverter).build();
+	}
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        ProgramResource programResource = new ProgramResource(programService);
-        this.restProgramMockMvc = MockMvcBuilders.standaloneSetup(programResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
+	/**
+	 * Create an entity for this test.
+	 *
+	 * This is a static method, as tests for other entities might also need it,
+	 * if they test an entity which requires the current entity.
+	 */
+	public static Program createEntity(final EntityManager em) {
+		final Program program = new Program()
+				.name(DEFAULT_NAME)
+				.description(DEFAULT_DESCRIPTION)
+				.active(DEFAULT_ACTIVE);
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static Program createEntity(EntityManager em) {
-        Program program = new Program()
-            .name(DEFAULT_NAME)
-            .description(DEFAULT_DESCRIPTION)
-            .startDate(DEFAULT_START_DATE)
-            .endDate(DEFAULT_END_DATE);
-        // Add required entity
-        User instructor = UserResourceIntTest.createEntity(em);
-        em.persist(instructor);
-        em.flush();
-        program.setInstructor(instructor);
-        return program;
-    }
+		final Session session = SessionResourceIntTest.createEntity(em);
+		em.persist(session);
+		em.flush();
+		program.setSession(session);
 
-    @Before
-    public void initTest() {
-        programSearchRepository.deleteAll();
-        program = createEntity(em);
-    }
+		return program;
+	}
 
-    @Test
-    @Transactional
-    public void createProgram() throws Exception {
-        int databaseSizeBeforeCreate = programRepository.findAll().size();
+	@Before
+	public void initTest() {
+		programSearchRepository.deleteAll();
+		program = createEntity(em);
+	}
 
-        // Create the Program
-        restProgramMockMvc.perform(post("/api/programs")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(program)))
-            .andExpect(status().isCreated());
+	@Test
+	@Transactional
+	public void createProgram() throws Exception {
+		final int databaseSizeBeforeCreate = programRepository.findAll().size();
 
-        // Validate the Program in the database
-        List<Program> programList = programRepository.findAll();
-        assertThat(programList).hasSize(databaseSizeBeforeCreate + 1);
-        Program testProgram = programList.get(programList.size() - 1);
-        assertThat(testProgram.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testProgram.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testProgram.getStartDate()).isEqualTo(DEFAULT_START_DATE);
-        assertThat(testProgram.getEndDate()).isEqualTo(DEFAULT_END_DATE);
+		// Create the Program
+		restProgramMockMvc.perform(post("/api/programs")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(program)))
+		.andExpect(status().isCreated());
 
-        // Validate the Program in Elasticsearch
-        Program programEs = programSearchRepository.findOne(testProgram.getId());
-        assertThat(programEs).isEqualToComparingFieldByField(testProgram);
-    }
+		// Validate the Program in the database
+		final List<Program> programList = programRepository.findAll();
+		assertThat(programList).hasSize(databaseSizeBeforeCreate + 1);
+		final Program testProgram = programList.get(programList.size() - 1);
+		assertThat(testProgram.getName()).isEqualTo(DEFAULT_NAME);
+		assertThat(testProgram.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+		assertThat(testProgram.isActive()).isEqualTo(DEFAULT_ACTIVE);
 
-    @Test
-    @Transactional
-    public void createProgramWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = programRepository.findAll().size();
+		// Validate the Program in Elasticsearch
+		final Program programEs = programSearchRepository.findOne(testProgram.getId());
+		assertThat(programEs).isEqualToComparingFieldByField(testProgram);
+	}
 
-        // Create the Program with an existing ID
-        program.setId(1L);
+	@Test
+	@Transactional
+	public void createProgramWithExistingId() throws Exception {
+		final int databaseSizeBeforeCreate = programRepository.findAll().size();
 
-        // An entity with an existing ID cannot be created, so this API call must fail
-        restProgramMockMvc.perform(post("/api/programs")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(program)))
-            .andExpect(status().isBadRequest());
+		// Create the Program with an existing ID
+		program.setId(1L);
 
-        // Validate the Alice in the database
-        List<Program> programList = programRepository.findAll();
-        assertThat(programList).hasSize(databaseSizeBeforeCreate);
-    }
+		// An entity with an existing ID cannot be created, so this API call must fail
+		restProgramMockMvc.perform(post("/api/programs")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(program)))
+		.andExpect(status().isBadRequest());
 
-    @Test
-    @Transactional
-    public void checkNameIsRequired() throws Exception {
-        int databaseSizeBeforeTest = programRepository.findAll().size();
-        // set the field null
-        program.setName(null);
+		// Validate the Alice in the database
+		final List<Program> programList = programRepository.findAll();
+		assertThat(programList).hasSize(databaseSizeBeforeCreate);
+	}
 
-        // Create the Program, which fails.
+	@Test
+	@Transactional
+	public void checkNameIsRequired() throws Exception {
+		final int databaseSizeBeforeTest = programRepository.findAll().size();
+		// set the field null
+		program.setName(null);
 
-        restProgramMockMvc.perform(post("/api/programs")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(program)))
-            .andExpect(status().isBadRequest());
+		// Create the Program, which fails.
 
-        List<Program> programList = programRepository.findAll();
-        assertThat(programList).hasSize(databaseSizeBeforeTest);
-    }
+		restProgramMockMvc.perform(post("/api/programs")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(program)))
+		.andExpect(status().isBadRequest());
 
-    @Test
-    @Transactional
-    public void getAllPrograms() throws Exception {
-        // Initialize the database
-        programRepository.saveAndFlush(program);
+		final List<Program> programList = programRepository.findAll();
+		assertThat(programList).hasSize(databaseSizeBeforeTest);
+	}
 
-        // Get all the programList
-        restProgramMockMvc.perform(get("/api/programs?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(program.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].startDate").value(hasItem(sameInstant(DEFAULT_START_DATE))))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(sameInstant(DEFAULT_END_DATE))));
-    }
+	@Test
+	@Transactional
+	public void getAllPrograms() throws Exception {
+		// Initialize the database
+		programRepository.saveAndFlush(program);
 
-    @Test
-    @Transactional
-    public void getProgram() throws Exception {
-        // Initialize the database
-        programRepository.saveAndFlush(program);
+		// Get all the programList
+		restProgramMockMvc.perform(get("/api/programs?sort=id,desc"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		.andExpect(jsonPath("$.[*].id").value(hasItem(program.getId().intValue())))
+		.andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+		.andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+		.andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
+	}
 
-        // Get the program
-        restProgramMockMvc.perform(get("/api/programs/{id}", program.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(program.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.startDate").value(sameInstant(DEFAULT_START_DATE)))
-            .andExpect(jsonPath("$.endDate").value(sameInstant(DEFAULT_END_DATE)));
-    }
+	@Test
+	@Transactional
+	public void getProgram() throws Exception {
+		// Initialize the database
+		programRepository.saveAndFlush(program);
 
-    @Test
-    @Transactional
-    public void getNonExistingProgram() throws Exception {
-        // Get the program
-        restProgramMockMvc.perform(get("/api/programs/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
-    }
+		// Get the program
+		restProgramMockMvc.perform(get("/api/programs/{id}", program.getId()))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		.andExpect(jsonPath("$.id").value(program.getId().intValue()))
+		.andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+		.andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+		.andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()));
+	}
 
-    @Test
-    @Transactional
-    public void updateProgram() throws Exception {
-        // Initialize the database
-        programService.save(program);
+	@Test
+	@Transactional
+	public void getNonExistingProgram() throws Exception {
+		// Get the program
+		restProgramMockMvc.perform(get("/api/programs/{id}", Long.MAX_VALUE))
+		.andExpect(status().isNotFound());
+	}
 
-        int databaseSizeBeforeUpdate = programRepository.findAll().size();
+	@Test
+	@Transactional
+	public void updateProgram() throws Exception {
+		// Initialize the database
+		programService.save(program);
 
-        // Update the program
-        Program updatedProgram = programRepository.findOne(program.getId());
-        updatedProgram
-            .name(UPDATED_NAME)
-            .description(UPDATED_DESCRIPTION)
-            .startDate(UPDATED_START_DATE)
-            .endDate(UPDATED_END_DATE);
+		final int databaseSizeBeforeUpdate = programRepository.findAll().size();
 
-        restProgramMockMvc.perform(put("/api/programs")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedProgram)))
-            .andExpect(status().isOk());
+		// Update the program
+		final Program updatedProgram = programRepository.findOne(program.getId());
+		updatedProgram
+		.name(UPDATED_NAME)
+		.description(UPDATED_DESCRIPTION)
+		.active(UPDATED_ACTIVE);
 
-        // Validate the Program in the database
-        List<Program> programList = programRepository.findAll();
-        assertThat(programList).hasSize(databaseSizeBeforeUpdate);
-        Program testProgram = programList.get(programList.size() - 1);
-        assertThat(testProgram.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testProgram.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testProgram.getStartDate()).isEqualTo(UPDATED_START_DATE);
-        assertThat(testProgram.getEndDate()).isEqualTo(UPDATED_END_DATE);
+		restProgramMockMvc.perform(put("/api/programs")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(updatedProgram)))
+		.andExpect(status().isOk());
 
-        // Validate the Program in Elasticsearch
-        Program programEs = programSearchRepository.findOne(testProgram.getId());
-        assertThat(programEs).isEqualToComparingFieldByField(testProgram);
-    }
+		// Validate the Program in the database
+		final List<Program> programList = programRepository.findAll();
+		assertThat(programList).hasSize(databaseSizeBeforeUpdate);
+		final Program testProgram = programList.get(programList.size() - 1);
+		assertThat(testProgram.getName()).isEqualTo(UPDATED_NAME);
+		assertThat(testProgram.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+		assertThat(testProgram.isActive()).isEqualTo(UPDATED_ACTIVE);
 
-    @Test
-    @Transactional
-    public void updateNonExistingProgram() throws Exception {
-        int databaseSizeBeforeUpdate = programRepository.findAll().size();
+		// Validate the Program in Elasticsearch
+		final Program programEs = programSearchRepository.findOne(testProgram.getId());
+		assertThat(programEs).isEqualToComparingFieldByField(testProgram);
+	}
 
-        // Create the Program
+	@Test
+	@Transactional
+	public void updateNonExistingProgram() throws Exception {
+		final int databaseSizeBeforeUpdate = programRepository.findAll().size();
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
-        restProgramMockMvc.perform(put("/api/programs")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(program)))
-            .andExpect(status().isCreated());
+		// Create the Program
 
-        // Validate the Program in the database
-        List<Program> programList = programRepository.findAll();
-        assertThat(programList).hasSize(databaseSizeBeforeUpdate + 1);
-    }
+		// If the entity doesn't have an ID, it will be created instead of just being updated
+		restProgramMockMvc.perform(put("/api/programs")
+				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.content(TestUtil.convertObjectToJsonBytes(program)))
+		.andExpect(status().isCreated());
 
-    @Test
-    @Transactional
-    public void deleteProgram() throws Exception {
-        // Initialize the database
-        programService.save(program);
+		// Validate the Program in the database
+		final List<Program> programList = programRepository.findAll();
+		assertThat(programList).hasSize(databaseSizeBeforeUpdate + 1);
+	}
 
-        int databaseSizeBeforeDelete = programRepository.findAll().size();
+	@Test
+	@Transactional
+	public void deleteProgram() throws Exception {
+		// Initialize the database
+		programService.save(program);
 
-        // Get the program
-        restProgramMockMvc.perform(delete("/api/programs/{id}", program.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+		final int databaseSizeBeforeDelete = programRepository.findAll().size();
 
-        // Validate Elasticsearch is empty
-        boolean programExistsInEs = programSearchRepository.exists(program.getId());
-        assertThat(programExistsInEs).isFalse();
+		// Get the program
+		restProgramMockMvc.perform(delete("/api/programs/{id}", program.getId())
+				.accept(TestUtil.APPLICATION_JSON_UTF8))
+		.andExpect(status().isOk());
 
-        // Validate the database is empty
-        List<Program> programList = programRepository.findAll();
-        assertThat(programList).hasSize(databaseSizeBeforeDelete - 1);
-    }
+		// Validate Elasticsearch is empty
+		final boolean programExistsInEs = programSearchRepository.exists(program.getId());
+		assertThat(programExistsInEs).isFalse();
 
-    @Test
-    @Transactional
-    public void searchProgram() throws Exception {
-        // Initialize the database
-        programService.save(program);
+		// Validate the database is empty
+		final List<Program> programList = programRepository.findAll();
+		assertThat(programList).hasSize(databaseSizeBeforeDelete - 1);
+	}
 
-        // Search the program
-        restProgramMockMvc.perform(get("/api/_search/programs?query=id:" + program.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(program.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].startDate").value(hasItem(sameInstant(DEFAULT_START_DATE))))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(sameInstant(DEFAULT_END_DATE))));
-    }
+	@Test
+	@Transactional
+	public void searchProgram() throws Exception {
+		// Initialize the database
+		programService.save(program);
 
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Program.class);
-    }
+		// Search the program
+		restProgramMockMvc.perform(get("/api/_search/programs?query=id:" + program.getId()))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		.andExpect(jsonPath("$.[*].id").value(hasItem(program.getId().intValue())))
+		.andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+		.andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+		.andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
+	}
+
+	@Test
+	@Transactional
+	public void equalsVerifier() throws Exception {
+		TestUtil.equalsVerifier(Program.class);
+	}
 }

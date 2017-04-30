@@ -9,16 +9,16 @@
             },
             "created": "A new Organization is created with identifier {{ param }}",
             "updated": "A Organization is updated with identifier {{ param }}",
-            "deleted": "A Organization is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Organization {{ id }}?"
+            "deactivated": "A Organization is deactivated with identifier {{ param }}",
+            "deactivate": {
+                "question": "Are you sure you want to deactivate Organization {{ id }}?"
             },
             "detail": {
                 "title": "Organization"
             },
             "name": "Name",
             "description": "Description",
-            "programs": "Programs",
+            "courses": "Courses",
             "users": "Users"
         }
     }
