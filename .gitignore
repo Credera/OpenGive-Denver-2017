@@ -125,6 +125,7 @@ Desktop.ini
 *.*~
 *~
 .merge_file*
+yarn.lock
 
 ######################
 # Gradle Wrapper
