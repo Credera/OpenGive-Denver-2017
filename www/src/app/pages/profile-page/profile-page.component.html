@@ -23,6 +23,44 @@
           <input mdInput [disabled]="!editing" name="lastName" [(ngModel)]="profile.lastName" placeholder="Last Name"/>
         </md-input-container>
       </div>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <md-input-container fxFlex="47%">
+          <input mdInput [disabled]="!editing" name="login" [(ngModel)]="profile.login" placeholder="Username"/>
+        </md-input-container>
+        <md-input-container fxFlex="47%">
+          <input mdInput [disabled]="!editing" name="email" [(ngModel)]="profile.email" placeholder="Email"/>
+        </md-input-container>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <md-input-container fxFlex="47%">
+          <input mdInput [disabled]="true" name="roles" [(ngModel)]="roles" placeholder="Role"/>
+        </md-input-container>
+        <md-input-container fxFlex="47%" *ngIf="organization">
+          <input mdInput [disabled]="true" name="organization" [(ngModel)]="organization" placeholder="Organization"/>
+        </md-input-container>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <md-input-container fxFlex="47%">
+          <input mdInput [disabled]="!editing" name="phoneNumber" [(ngModel)]="profile.phoneNumber" placeholder="Phone"/>
+        </md-input-container>
+      </div>
+      <div fxLayout="row" *ngIf="profile.address">
+        <md-input-container fxFlex="35%">
+          <input mdInput [disabled]="!editing" name="streetAddress1" [(ngModel)]="profile.address.streetAddress1" placeholder="Address 1"/>
+        </md-input-container>
+        <md-input-container fxFlex="35%">
+          <input mdInput [disabled]="!editing" name="streetAddress2" [(ngModel)]="profile.address.streetAddress2" placeholder="Address 2"/>
+        </md-input-container>
+        <md-input-container fxFlex="35%">
+          <input mdInput [disabled]="!editing" name="city" [(ngModel)]="profile.address.city" placeholder="City"/>
+        </md-input-container>
+        <md-input-container fxFlex="35%">
+          <input mdInput [disabled]="!editing" name="state" [(ngModel)]="profile.address.state" placeholder="State"/>
+        </md-input-container>
+        <md-input-container fxFlex="35%">
+          <input mdInput [disabled]="!editing" name="postalCode" [(ngModel)]="profile.address.postalCode" placeholder="Postal Code"/>
+        </md-input-container>
+      </div>
       <md-input-container>
         <textarea mdInput [disabled]="!editing || !ageAllowed()" name="biography" [(ngModel)]="profile.biography" placeholder="Bio"></textarea>
       </md-input-container>
